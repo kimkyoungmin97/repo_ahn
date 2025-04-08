@@ -13,7 +13,7 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new CheckLoginSessionInterceptor())
 //		.order(1)
-		.addPathPatterns("/*Xdm*" , "/*/*Xdm*","/*xdm*")
+		.addPathPatterns("/*Xdm*" , "/*/*Xdm*","/*xdm*","/*Pda*")
 		.excludePathPatterns(
 //				
 				// 관리자 로그인하기전에 로그인 폼만 보여주고 나머지 XX
@@ -21,7 +21,11 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer{
 				"/*xdm*",
 			
 				"/SigninAdimn", // 관리자 로그인화면
-				"/SigninAdimn1" // 관리 로그인 동작
+				"/SigninAdimn1", // 관리 로그인 동작
+				//pda
+				"/SigninPda", //pda 로그인화면
+				"/SigninPdaProc" // pda 로그인아작스
+				
 				
 		);
 	

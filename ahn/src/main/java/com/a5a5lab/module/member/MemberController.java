@@ -74,6 +74,58 @@ public class MemberController {
 			
 	}
 	
+//-----------pda---------------
+	
+	//pda 로그인화면
+	@RequestMapping(value="/SigninPda")
+	public String SigninPda() {
+		
+		return"pda/SigninPda";
+	}
+	
+	//pda 로그인 아작스
+	@ResponseBody
+	@RequestMapping(value = "/SigninPdaProc")
+	public Map<String, Object> SigninPdaProc(MemberDto memberDto,HttpSession httpSession) throws Exception {
+			
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+			
+		MemberDto rtt = memberService.selectId(memberDto);
+			
+		if (rtt != null) {
+			returnMap.put("rt", "success");
+			//httpSession.setMaxInactiveInterval(60 * Constants.SESSION_MINUTE_XDM); // 60second * 30 = 30minute
+			httpSession.setAttribute("sessSeqPda", rtt.getMemSeq());
+			httpSession.setAttribute("sessIdPda", rtt.getMemId());
+			httpSession.setAttribute("sessNamePda", rtt.getMemName());
+
+		} else {
+			returnMap.put("rt", "fail");
+				
+				
+		}
+		
+		return returnMap;
+	}
+	
+	//pda 로그아웃 아작스
+		@ResponseBody
+		@RequestMapping(value = "/SignoutPdaProc")
+		public Map<String, Object> SignoutPdaProc(MemberDto memberDto,HttpSession httpSession) throws Exception {
+				
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+				
+					
+				httpSession.setAttribute("sessSeqPda", null);
+				httpSession.setAttribute("sessIdPda", null);
+				httpSession.setAttribute("sessNamePda", null);
+				returnMap.put("rt", "success");
+					
+					
+			return returnMap;
+				
+		}
+	
 	
 	
 }

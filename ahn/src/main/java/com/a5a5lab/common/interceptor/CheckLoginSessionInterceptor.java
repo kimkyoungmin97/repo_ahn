@@ -26,6 +26,21 @@ public class CheckLoginSessionInterceptor implements HandlerInterceptor{
 		} else {
 //			by pass
 		}
+		
+//		pda용
+		if(request.getRequestURI().contains("Pda")) {
+			
+			if (request.getSession().getAttribute("sessSeqPda") != null) {
+				
+				// by pass
+			} else {
+				
+				response.sendRedirect("/SigninPda");
+				return false;
+			}
+		} else {
+//			by pass
+		}
 	
 		
 		
