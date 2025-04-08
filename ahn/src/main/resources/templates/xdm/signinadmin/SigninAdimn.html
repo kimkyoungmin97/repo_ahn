@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Sign In | Bootstrap Based Admin Template - Material Design</title>
+    <!-- Favicon-->
+    <link rel="icon" href="/xdm/template/master/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="/xdm/template/master/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="/xdm/template/master/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="/xdm/template/master/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="/xdm/template/master/css/style.css" rel="stylesheet">
+</head>
+
+<body class="login-page">
+    <div class="login-box">
+        <div class="logo">
+            <a href="javascript:void(0);">Admin<b></b></a>
+            
+            <!-- <small>Admin BootStrap Based - Material Design</small> -->
+        </div>
+           
+        <div class="card">
+            <div class="body">
+                <form id="sign_in" method="POST">
+                    <div class="msg">세션을 시작하려면 로그인하세요.</div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="memId" name="memId" placeholder="ID" value="kingAhn" required autofocus>
+                             <span id="userIdError" style="color: red; font-size: 10px;"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" id="memPw" name="memPw" placeholder="비밀번호"  value="1357"  required>
+                            <span id="userPasswordError" style="color: red; font-size: 10px;"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8 p-t-5">
+                            <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
+                            <label for="rememberme">저장하기</label>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-block bg-pink waves-effect" type="button" id="buttonSignIn" >로그인</button>
+                        </div>
+                    </div>
+                    <div class="row m-t-15 m-b--20">
+                        <div class="col-xs-6">
+                            <a href="sign-up.html">회원 가입</a>
+                        </div>
+                        <div class="col-xs-6 align-right">
+                            <a href="forgot-password.html">비밀번호 찾기</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery Core Js -->
+    <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
+
+    <!-- Validation Plugin Js -->
+    <!-- <script src="/xdm/template/master/plugins/jquery-validation/jquery.validate.js"></script> -->
+
+    <!-- Custom Js -->
+    <script src="/xdm/template/master/js/admin.js"></script>
+    <script src="/xdm/template/master/js/pages/examples/sign-in.js"></script>
+    
+    <!-- jquery  -->
+    <script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
+    
+    
+    
+    <script type="text/javascript">
+    /* // 로그인 했을때 발리데이션
+    document.getElementById("signin").onclick = function(){
+    	
+    	let id = document.getElementById("id"); //id
+    	let idError = document.getElementById("idError"); //아이디 잘못 입력 했을경우
+    	
+    	let password = document.getElementById("password"); //비밀번호
+    	let passwordError = document.getElementById("passwordError"); //비밀번호 잘못입력 했을 경우
+    	
+    	let isValid = true;
+    	
+    	//아이디 입력 안했을 경우
+    	if (id.value == ""){
+    		idError.innerText = "아이디를 입력해주세요";
+    		id.focus();
+    		isValid = false;
+    	} else {
+    		idError.innerText = "";
+    	}
+    	
+    	//비밀번호 입력 안했을 경우
+    	if (password.value == ""){
+    		passwordError.innerText = "비밀번호를 입력해주세요";
+    		password.focus();
+    		isValid = false;
+    	} else {
+    		password.innerText = "";
+    	}
+    	
+    	
+    	
+    	
+    	//데이터값이 맞을 경우 실행
+    	
+    	
+    } */
+   	
+    </script>
+    
+    <script type="text/javascript">
+    //벨리데이션 
+    function validation(){
+    	let userId = document.getElementById("memId"); //id
+    	let userIdError = document.getElementById("userIdError"); //아이디 잘못 입력 했을경우
+    	
+    	let userPassword = document.getElementById("memPw"); //비밀번호
+    	let userPasswordError = document.getElementById("userPasswordError"); //비밀번호 잘못입력 했을 경우
+    	
+    	let isValid = true;
+    	
+    	//아이디 입력 안했을 경우
+    	if (userId.value == ""){
+    		userIdError.innerText = "아이디를 입력해주세요";
+    		userId.focus();
+    		isValid = false;
+    	} else {
+    		userIdError.innerText = "";
+    	}
+    	
+    	//비밀번호 입력 안했을 경우
+    	if (userPassword.value == ""){
+    		userPasswordError.innerText = "비밀번호를 입력해주세요";
+    		userPassword.focus();
+    		isValid = false;
+    	} else {
+    		userPasswordError.innerText = "";
+    	}
+    	
+    	return isValid;
+    	
+    }
+    
+    
+    
+    </script>
+    <script type="text/javascript">
+    //버튼 로그인 버튼 눌렀을때
+    $("#buttonSignIn").on( "click", function( event ) {
+    	if (validation()){
+    		loginLogic(); //벨리데이션 통과시 로그인 실행
+    	}
+	});
+    
+    </script>
+    
+    <script type="text/javascript">
+
+		function loginLogic (){
+				
+				if(validation() == false) return false;
+				$.ajax({
+					async: true 
+					,cache: false
+					,type: "post"
+					/* ,dataType:"json" */
+					,url: "/SigninAdimn1"
+					/* ,data : $("#formLogin").serialize() */
+					,data : { "memId" : $("#memId").val(), "memPw" : $("#memPw").val()}
+					,success: function(response) {
+						
+						 if (response.rt == "success") {
+				            	
+				                window.location.href = "/codeGroup/codeGroupXdmList"; // 성공시 코드그룹 가기
+					
+						 } else if (response.rt != "success"){
+							 
+							 	alert("로그인 실패: 아이디 또는 비밀번호가 틀립니다"); 
+						 }
+				               
+						
+					},
+					error: function() {
+			            alert("서버 이상함 다시 시도해주세요");
+			        }
+					
+				});
+			}
+    
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</body>
+
+</html>
