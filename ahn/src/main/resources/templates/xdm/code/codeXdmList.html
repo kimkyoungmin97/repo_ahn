@@ -6,13 +6,12 @@
 	<form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-		<input type="hidden" name="cdgSeq">
-		
+		<input type="hidden" name="cdSeq">
     <section class="content">
         <div class="container-fluid">
             
             <div class="block-header">
-                <h2>Code Group</h2>
+                <h2>Code</h2>
             </div>
 
             <!-- Input -->
@@ -25,25 +24,25 @@
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="row clearfix">
-                                         <div class="col-sm-2">
-                                            <select class="form-control show-tick " id="shDelNy" name="shDelNy">
+                                        <div class="col-sm-2">
+                                            <select class="form-control show-tick " id="shDelNy" name="shDelNy" >
                                                 <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
-                                                <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+                                                <option value="1"  th:selected="${vo.shDelNy == 1}">Y</option>
                                                 <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
                                                
                                             </select>
                                             
-                                        </div> 
+                                        </div>
                                         <!-- <div class="col-sm-2">
                                             <select class="form-control show-tick ">
                                                 <option value="">사용여부</option>
-                                                <option value="1">Y</option>
-                                                <option value="0">N</option>
+                                                <option value="0">Y</option>
+                                                <option value="1">N</option>
                                                
                                             </select>
                                             
-                                        </div>  -->
-                                         <div class="col-sm-2">
+                                        </div> -->
+                                          <div class="col-sm-2">
                                             <select class="form-control show-tick " id="shOptionDate" name="shOptionDate">
                                                 <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
                                                 <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
@@ -51,7 +50,7 @@
                                             </select>
                                             
                                         </div>
-                                         <div class="col-sm-2">
+                                        <div class="col-sm-2">
 										    <div class="form-group">
 										        <div class="form-line">
 										            <input type="text" class="form-control" 
@@ -68,34 +67,37 @@
 										                   id="shDateEnd" name="shDateEnd" placeholder="종료일" autocomplete="off"/>
 										        </div>
 										    </div>
-										</div> 
- 
+										</div>
                                         
-													
+
                                     </div>
+                                    
                                     <div class="row clearfix">
+                                    
                                         <div class="col-sm-2">
                                             <select class="form-control show-tick " id="shOption" name="shOption">
-                                                <option value="" th:selected="${vo.shOption == null}">검색구분</option>
-                                                <option value="1"  th:selected="${vo.shOption == 1}">코드그룹 코드</option>
+                                                <option value=""  th:selected="${vo.shOption == null}">검색구분</option>
+                                                <option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
                                                 <option value="2"  th:selected="${vo.shOption == 2}">코드그룹 이름</option>
-                                                <option value="3" th:selected="${vo.shOption == 3}">코드그룹 이름 (영문)</option>
+                                                <option value="3" th:selected="${vo.shOption == 3}">코드</option>
+                                               <!--  <option value="4">대체 코드</option> -->
+                                                <option value="4" th:selected="${vo.shOption == 4}">코드 이름</option>
+                                                <!-- <option value="6" th:selected="${vo.shOption == 6}">코드 이름 (영문)</option> -->
                                             </select>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어" />
-                                                    
+                                                	
                                                 </div>
                                             </div>
                                         </div>
-                                    
                                         <div class="col-sm-2">
-                                            <button type="button" class="btn btn-default waves-effect" id="btnSearch">
-                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                            <button type="button" class="btn btn-default waves-effect"  id="btnSearch">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                                                  </svg> 
+                                                  </svg>
                                             </button>
                                             <button type="button" class="btn btn-default waves-effect" id="btnReset">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
@@ -113,25 +115,23 @@
                     </div>
                 </div>
             </div>
-         
-				
+            
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                
                     <div class="card">
-                    
                         <div class="body">
-                            <div class="table-responsive">	
-                            			<div class="col-sm-2" >
+                            <div class="table-responsive">
+                            <div class="col-sm-2">
                                         	<strong>Total:<span th:text="${vo.totalRows}"></span></strong>
                                         </div>					<!-- js-basic-example 들어가면 페이징 가능-->
-                            			<div class="col-sm-2" style="float: right;">
+                            			<div class="col-sm-2"  style="float: right;">
                                             <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum">
-												
 												<option value="5" th:selected="${vo.rowNumToShow eq 5}">5</option>
 												<option value="10" th:selected="${vo.rowNumToShow eq 10}">10</option>
 												<option value="30" th:selected="${vo.rowNumToShow eq 30}">30</option>
-												    
+												<option value="50" th:selected="${vo.rowNumToShow eq 50}">50</option>
+												<option value="80" th:selected="${vo.rowNumToShow eq 80}">80</option>
+												<option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>       
 											</select>
                                         </div>
                                 <table class="table table-bordered table-striped table-hover  dataTable">
@@ -142,49 +142,48 @@
                                                 <label class="form-check-label" for="entire"></label>
                                             </th>
                                             <th>#</th>
-                                            
+                                           
                                             <th>코드그룹 코드</th>
                                             <th>코드그룹 이름</th>
-                                        
-                                            <th>갯수</th>
+                                            <th>코드</th>
+                                           
+                                            <th>코드 이름</th>
                                             <th>등록일</th>
                                             <th>수정일</th>
-                                          
-                                          
+                                           
+                                           
                                         </tr>
                                     </thead>
-            				
+            
                                     <tbody>
-                                    	<tr th:if="${#lists.isEmpty(list)}" class="hover-artions-trigger btn-reveal-trigger position-static">    	
+                                    <tr th:if="${#lists.isEmpty(list)}" class="hover-artions-trigger btn-reveal-trigger position-static">    	
                                     		<td colspan="10">
                                     			<p class="fs-0" style="padding-top: 12px">데이터가 없습니다</p>
                                     		</td>
                                     	</tr>
                                         <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
-                                            <td>
-                                            	
-                                                <input class="form-check-input row-checkbox" th:id="${list.cdgSeq}" type="checkbox">
-                                                <label class="form-check-label" th:for="${list.cdgSeq}"></label>
-                                            </td>
+                                            <th>
+                                                <input class="form-check-input row-checkbox" id="1" type="checkbox">
+                                                <label class="form-check-label" for="1"></label>
+                                            </th>
                                             <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
                                             
-                                            
                                             <td th:text="${list.cdgSeq}"></td>
+                                            <td th:text="${list.ifcgName}"></td>
+                                            <td th:text="${list.cdSeq}"></td>
                                             
-                                            <td><a href="javascript:void(0);" th:text="${list.ifcgName}" th:attr="onclick=|goForm('${list.cdgSeq}')|"></a></td>
-                                        
-                                            <td th:text="${list.xifcdSeqCount}"></td>
-                                            
+                                            <!-- <td th:text="${list.ifcdName}"></td> -->
+                                            <td><a href="javascript:void(0);" th:text="${list.ifcdName}" th:attr="onclick=|goForm('${list.cdSeq}')|"></a></td>
                                             <td th:text="${list.regDateTime}"></td>
                                             <td th:text="${list.modDateTime}"></td>
-                                    
-                                            
+                                           
                                         </tr>
-                                      
+                                        
+                                        
                                     </tbody>
                                 </table>
-                               
-                                <div style="text-align: center;">
+                                
+                                 <div style="text-align: center;">
 								  <ul class="pagination" >
 								  	  
 									
@@ -205,31 +204,36 @@
 								  </ul>
 								    
 								</div>
-							
-                                <a role="button" href="" class="btn btn-danger" style=" margin-right:  5px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                              
+                                <a role="button" class="btn btn-danger waves-effect" style=" margin-right:  5px;" href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                                  </svg>
+                                    </svg>
                                 </a>
-                                <!-- 업데이트 삭제 버튼 -->
-                                <button type="button" class="btn btn-danger" id="uelete">
+                                <a role="button" class="btn btn-danger" href="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                                       </svg>
-                                    </button>
-                                    
-                               
-                                <button  id="btnForm" class="btn btn-primary" type="button" style="float: right; margin-right:  5px;" >
+                                    </a>
+                                    <!-- 리스트 추가 버트 -->
+                                <button class="btn btn-primary" type="button" style="float: right; margin-right:  5px;" id="btnForm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                                       </svg>
-                                    </button >
+                                    </button>
                                 <a class="btn btn-success" href="" role="button" style="float: right; margin-right:  5px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
                                         <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
                                         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
                                       </svg>
-                                    </a>
+                                    </a>                                
+                                <a class="btn btn-primary" href="" role="button" style="float: right; margin-right:  5px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-underline" viewBox="0 0 16 16">
+                                        <path d="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57s-2.687-1.08-2.687-2.57zM12.5 15h-9v-1h9z"/>
+                                      </svg>
+                                    </a>   
+                                
                             </div>
                         </div>
                     </div>
@@ -237,60 +241,59 @@
             </div>   
         </div>
     </section>
-    
-    
-    
-    
-    
+</body>
+</form>
     <section class="content">
         <div class="container-fluid">
             
             
         </div>
     </section>
-    
+       
         <!-- Jquery Core Js -->
-    <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
 
-    <!-- Bootstrap Core Js -->
-    <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
-
-    <!-- Select Plugin Js -->
-    <script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
-
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="/xdm/template/master/plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
-
-    <!-- Custom Js -->
-    <script src="/xdm/template/master/js/admin.js"></script>
-    <script src="/xdm/template/master/js/pages/tables/jquery-datatable.js"></script>
-
-    <!-- Demo Js -->
-    <script src="/xdm/template/master/js/demo.js"></script>
-	
-	<!-- 달력 플러그인 추가 -->
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-
-
-	
-	
+        <!-- Bootstrap Core Js -->
+        <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
+    
+        <!-- Select Plugin Js -->
+        <script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    
+        <!-- Slimscroll Plugin Js -->
+        <script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    
+        <!-- Waves Effect Plugin Js -->
+        <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
+    
+        <!-- Jquery DataTable Plugin Js -->
+        <script src="/xdm/template/master/plugins/jquery-datatable/jquery.dataTables.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    
+        <!-- Custom Js -->
+        <script src="/xdm/template/master/js/admin.js"></script>
+        <script src="/xdm/template/master/js/pages/tables/jquery-datatable.js"></script>
+    
+        <!-- Demo Js -->
+        <script src="/xdm/template/master/js/demo.js"></script>
+        
+        
+        
+        <!-- datetimepicker 플러그인 추가 -->
+		<script src="/xdm/jquery/datetimepicker-master/build"></script>
+        
+        <!-- 달력 플러그인 추가 -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+   
+   
     <!--체크박스 전체 체크 단독 체크-->
-    <script type="text/javascript">
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             const entireCheckbox = document.getElementById("entire");
             const rowCheckboxes = document.querySelectorAll(".row-checkbox");
@@ -309,61 +312,54 @@
                 });
             });
         });
-              
     </script>
-   
     
-    <script type="text/javascript">
+       <script type="text/javascript">
     	// 페이지네이션 자바 스크립
 	    let form = document.querySelector("form[name=formList]");
-		 goList = function (thisPage) {
-		     document.querySelector("input[name=thisPage]").value = thisPage;
-		     form.action = "/codeGroup/codeGroupXdmList";
-		     form.submit();
+	 	goList = function (thisPage) {
+	     document.querySelector("input[name=thisPage]").value = thisPage;
+	     form.action = "/code/codeXdmList";
+	     form.submit();
 	 }  
- 
+
+    
     </script>
-    
-     <script type="text/javascript">
-	 /* 검색하기 */
-	 document.getElementById("btnSearch").onclick = function () {
-		
-		form.action = "/codeGroup/codeGroupXdmList";
- 	    form.submit(); 
-         
-	  };
-	  
-	  
-	  document.getElementById("btnReset").onclick = function () {
-		  window.location.href = "/codeGroup/codeGroupXdmList";
-		};
-	  
-	    
-	    /* 몇개의 데이터를 보여주라 */
-	    document.getElementById("changeRowNum").onchange = function () {
-	        document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-	        form.action = "/codeGroup/codeGroupXdmList";
-	        form.submit();
-	    }
-    
-	    
-	    
-	    /* 폼화면 수정폼도 같이 사용하기 */
-	    let seq = document.querySelector("input[name=cdgSeq]");	
-	  
-	    document.getElementById("btnForm").onclick = function () {
-	        goForm(0);
-	    }
+         <script type="text/javascript">
+         document.getElementById("btnReset").onclick = function () {
+   		  window.location.href = "/code/codeXdmList";
+   		};
+   		/* 검색하기 */
+   		document.getElementById("btnSearch").onclick = function () {
+   		    let shValue = document.getElementById("shValue"); // 검색어 
 
+   		    // 데이터 값이 있을 경우 폼 제출
+   		    form.action = "/code/codeXdmList";
+   		    form.submit();
+   		};
 
-	    goForm = function (keyValue) {
-	        seq.value = keyValue;
-	        form.action = "/codeGroup/codeGroupXdmForm";
-	        form.submit();
-	    }
+   		document.getElementById("changeRowNum").onchange = function () {
+   		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
+   		    form.action = "/code/codeXdmList";
+   		    form.submit();
+   		}
+
+   		let seq = document.querySelector("input[name=cdSeq]");  
+
+   		document.getElementById("btnForm").onclick = function () {
+   		    goForm(0);
+   		}
+
+   		goForm = function (keyValue) {
+   		    seq.value = keyValue;
+   		    form.action = "/code/CodeXdmForm";
+   		    form.submit();
+   		}
+	    
+    
     </script> 
     
-    <script type="text/javascript">
+     <script type="text/javascript">
     //달력 
     $.datetimepicker.setLocale('ko'); //번역기
     jQuery(function(){
@@ -390,5 +386,3 @@
     </script>
 </body>
 </html>
-
- 

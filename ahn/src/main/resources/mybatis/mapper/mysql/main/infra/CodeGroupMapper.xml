@@ -17,10 +17,10 @@
 			
 			
 			<!-- 날짜 검색 -->			
-		<!-- <choose>								
+		 <choose>								
 			<when test="shOptionDate == 1">AND regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 			<when test="shOptionDate == 2">AND modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-		</choose> --> 
+		</choose> 
  
 		
 		 <choose>
@@ -58,6 +58,8 @@
 			SELECT
 				cdgSeq,
 			    ifcgName,
+	        	regDateTime,
+	        	modDateTime,
 			    
 			 
 				(select count(aa.cdSeq) from code aa where 1=1 and aa.ifcdDelNy = 0 and aa.codeGroup_cdgSeq = cdgSeq) as xifcdSeqCount
@@ -67,7 +69,7 @@
 			
 				AND ifchDelNy = 0  
 			ORDER BY cdgSeq DESC
-			<!-- limit #{rowNumToShow} offset #{startRnumForMysql} -->
+			 limit #{rowNumToShow} offset #{startRnumForMysql} 
 	</select>
 	
 	
@@ -76,12 +78,16 @@
 		
 		INSERT INTO codegroup(
 			ifcgName,
-			ifchDelNy
+			ifchDelNy,
+	        regDateTime,
+	        modDateTime
 			
 			
 		) value (
 			#{ifcgName},
 			0,
+	        NOW(),
+	        NOW()
 		
 		)
 		 <!-- <include refid="selectCommon"></include>  -->
