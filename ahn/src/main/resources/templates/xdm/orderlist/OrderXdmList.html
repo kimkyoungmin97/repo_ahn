@@ -137,7 +137,6 @@
                                                 <label class="form-check-label" for="entire"></label>
                                             </th>
                                             <th>NO</th>
-                                           
                                             <th>주문번호</th>
                                             <th>주문자ID</th>
                                             <th>이름</th>
@@ -161,17 +160,11 @@
                                                 <input class="form-check-input row-checkbox" id="1" type="checkbox">
                                                 <label class="form-check-label" for="1"></label>
                                             </th>
-                                            
                                              <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                            
-                                            <td th:text="${list.orederSeq}"></td>
-                                            					
-                                           
+                                            <td th:text="${list.orderSeq}"></td>
                                             <td  th:text="${list.memId}"></td>
                                             <td th:text="${list.memName}"></td>
                                             <td th:text="${list.memAddress}"></td>
-                                            
-                                            <td th:text="${#numbers.formatInteger(list.shPrice * list.shOrderCount, 3, 'COMMA')} + '원'"></td>
                                             <td th:text="${list.regDateTime}"></td>
                                             <td  th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}"></td>
                                             <td th:text="${@codeService.selectOneCachedCode(list.paymentStatus)}"></td>
