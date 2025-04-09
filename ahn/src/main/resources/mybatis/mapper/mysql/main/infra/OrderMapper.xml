@@ -27,51 +27,84 @@
 	
 	<!-- 주문내역 리스트 -->
 	<select id="selectList" resultMap="resultMapObj">
-		SELECT
-		    a.orderSeq,                                 <!-- 주문 번호 -->
-		    od.shOrderCount,                            <!-- 주문 수량 (order_detail) -->
-		    a.orderDelNy,                               <!-- 삭제 여부 -->
-		    a.regDateTime,                              <!-- 주문일 -->
-		    a.modDateTime,                              <!-- 수정일 -->
+<!-- 		SELECT -->
+<!-- 		    a.orderSeq,                                 주문 번호 -->
+<!-- 		    od.shOrderCount,                            주문 수량 (order_detail) -->
+<!-- 		    a.orderDelNy,                               삭제 여부 -->
+<!-- 		    a.regDateTime,                              주문일 -->
+<!-- 		    a.modDateTime,                              수정일 -->
 	
-		    <!-- 코드 조인 (배송상태, 결제상태, 주문유형) -->
+<!-- 		    코드 조인 (배송상태, 결제상태, 주문유형) -->
+<!-- 		    a.deliveryStatus, -->
+<!-- 		    cd1.ifcdName AS deliveryStatusName,         배송 상태 이름 -->
+	
+<!-- 		    a.paymentStatus, -->
+<!-- 		    cd2.ifcdName AS paymentStatusName,          결제 상태 이름 -->
+	
+<!-- 		    a.orderTypeCd, -->
+<!-- 		    cd3.ifcdName AS orderTypeName,              주문유형 이름 -->
+	
+<!-- 		    회원 정보 -->
+<!-- 		    b.memSeq, -->
+<!-- 		    b.memName,                                   주문자 이름 -->
+<!-- 		    b.memId,                                     주문자 아이디 -->
+<!-- 		    b.memAddress,                                주문자 주소 -->
+	
+<!-- 		    신발 정보 -->
+<!-- 		    c.shSeq, -->
+<!-- 		    c.shName,                                    신발 이름 -->
+<!-- 		    c.shPrice,                                   신발 가격 -->
+<!-- 		    (c.shPrice * od.shOrderCount) AS totalPrice,총액 계산 -->
+	
+<!-- 		    c.shSizeCd, -->
+<!-- 		    cd4.ifcdName AS shSizeName,                 신발 사이즈 이름 -->
+	
+<!-- 		    c.shBrandCd, -->
+<!-- 		    cd5.ifcdName AS shBrandName,                신발 브랜드 이름 -->
+	
+<!-- 		    c.shTypeCd, -->
+<!-- 		    cd6.ifcdName AS shTypeName                  신발 타입 이름 -->
+	
+<!-- 		<include refid="selectCommon" /> -->
+		select
+			a.orderSeq,
+		    c.memName,
+		    c.memId,
+		    c.memAddress,
+			a.regDateTime,
 		    a.deliveryStatus,
-		    cd1.ifcdName AS deliveryStatusName,         <!-- 배송 상태 이름 -->
-	
-		    a.paymentStatus,
-		    cd2.ifcdName AS paymentStatusName,          <!-- 결제 상태 이름 -->
-	
-		    a.orderTypeCd,
-		    cd3.ifcdName AS orderTypeName,              <!-- 주문유형 이름 -->
-	
-		    <!-- 회원 정보 -->
-		    b.memSeq,
-		    b.memName,                                   <!-- 주문자 이름 -->
-		    b.memId,                                     <!-- 주문자 아이디 -->
-		    b.memAddress,                                <!-- 주문자 주소 -->
-	
-		    <!-- 신발 정보 -->
-		    c.shSeq,
-		    c.shName,                                    <!-- 신발 이름 -->
-		    c.shPrice,                                   <!-- 신발 가격 -->
-		    (c.shPrice * od.shOrderCount) AS totalPrice,<!-- 총액 계산 -->
-	
-		    c.shSizeCd,
-		    cd4.ifcdName AS shSizeName,                 <!-- 신발 사이즈 이름 -->
-	
-		    c.shBrandCd,
-		    cd5.ifcdName AS shBrandName,                <!-- 신발 브랜드 이름 -->
-	
-		    c.shTypeCd,
-		    cd6.ifcdName AS shTypeName                  <!-- 신발 타입 이름 -->
-	
-		<include refid="selectCommon" />
+		    a.paymentStatus
+		from
+			`order` AS a
+		left join member AS c ON a.member_memSeq= c.memSeq
+		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 
 		<!-- 카운트 -->
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)
 		<include refid="selectCommon"></include>
+	</select>
+	
+	
+	
+	<!-- 창고재고관리 -->
+	<select id="storageList" resultMap="resultMapObj">
+		select
+			shSeq,
+		    shName,
+		    shSizeCd,
+		    shBrandCd,
+		    shTypeCd,
+		    salesStatus,
+		    regDateTime,
+		    modDateTime,
+		    shDelNy,
+		    shCount,
+		    shPrice
+		FROM
+			shoes
+			LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 	
 	

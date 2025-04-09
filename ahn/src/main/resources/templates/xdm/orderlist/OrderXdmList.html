@@ -141,9 +141,7 @@
                                             <th>주문번호</th>
                                             <th>주문자ID</th>
                                             <th>이름</th>
-                                            <th>신발이름</th>
                                             <th>구매금액</th>
-                                            <th>구매갯수</th>
                                             <th>구매날자(등록일)</th>
                                             <th>배송상태</th>
                                             <th>결제상태</th>
@@ -171,11 +169,9 @@
                                            
                                             <td  th:text="${list.memId}"></td>
                                             <td th:text="${list.memName}"></td>
+                                            <td th:text="${list.memAddress}"></td>
                                             
-                                            <td th:text="${list.shName}"></td>
                                             <td th:text="${#numbers.formatInteger(list.shPrice * list.shOrderCount, 3, 'COMMA')} + '원'"></td>
-
-                                            <td th:text="${list.shOrderCount}"></td>
                                             <td th:text="${list.regDateTime}"></td>
                                             <td  th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}"></td>
                                             <td th:text="${@codeService.selectOneCachedCode(list.paymentStatus)}"></td>
