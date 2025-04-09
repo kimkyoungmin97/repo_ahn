@@ -141,8 +141,9 @@
                                             <th>주문번호</th>
                                             <th>주문자ID</th>
                                             <th>이름</th>
-                                           
+                                           <th>신발이름</th>
                                             <th>구매금액</th>
+                                            <th>구매갯수</th>
                                             <th>구매날자(등록일)</th>
                                             <th>배송상태</th>
                                             <th>결제상태</th>
@@ -153,26 +154,28 @@
             
                                     <tbody>
                                     <tr class="hover-artions-trigger btn-reveal-trigger position-static">    	
-                                    		<td colspan="10">
+                                    		<!-- <td colspan="10">
                                     			<p class="fs-0" style="padding-top: 12px">데이터가 없습니다</p>
-                                    		</td>
+                                    		</td> -->
                                     	</tr>
-                                        <tr>
+                                        <tr th:each="list : ${list}">
                                             <th>
                                                 <input class="form-check-input row-checkbox" id="1" type="checkbox">
                                                 <label class="form-check-label" for="1"></label>
                                             </th>
-                                            <td></td>
+                                            <td th:text="${list.orederSeq}"></td>
                                             
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td ></td>
+                                            <td  th:text="${list.memId}"></td>
+                                            <td th:text="${list.memName}"></td>
                                             
-                                            
-                                            <td></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
+                                            <td th:text="${list.shName}"></td>
+                                            <td th:text="${#numbers.formatInteger(list.shPrice * list.shOrderCount, 3, 'COMMA')} + '원'"></td>
+
+                                            <td th:text="${list.shOrderCount}"></td>
+                                            <td th:text="${list.regDateTime}"></td>
+                                            <td  th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}"></td>
+                                            <td th:text="${@codeService.selectOneCachedCode(list.paymentStatus)}"></td>
                                            
                                         </tr>
                                         

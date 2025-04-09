@@ -5,7 +5,24 @@
 
 	<resultMap id="resultMapObj" type="com.a5a5lab.module.order.OrderDto"></resultMap>
 		
+	
+	
+	<sql id="selectCommon">
+		FROM `order` a
+		LEFT JOIN member b ON a.momber_memSeq = b.memSeq
+		LEFT JOIN shoes c ON a.shoes_shSeq = c.shSeq
 		
+		 <!-- 코드 그룹 조인 -->
+		LEFT JOIN code cd1 ON a.deliveryStatus = cd1.cdSeq AND cd1.codeGroup_cdgSeq = 6     <!-- 배송 상태 -->
+		LEFT JOIN code cd2 ON a.paymentStatus = cd2.cdSeq AND cd2.codeGroup_cdgSeq = 4      <!-- 결제 상태 -->
+		LEFT JOIN code cd3 ON a.orderTypeCd = cd3.cdSeq AND cd3.codeGroup_cdgSeq = 7        <!-- 주문 유형 -->
+		LEFT JOIN code cd4 ON c.shSizeCd = cd4.cdSeq AND cd4.codeGroup_cdgSeq = 3           <!-- 신발 사이즈 -->
+		LEFT JOIN code cd5 ON c.shBrandCd = cd5.cdSeq AND cd5.codeGroup_cdgSeq = 1          <!-- 신발 브랜드 -->
+		LEFT JOIN code cd6 ON c.shTypeCd = cd6.cdSeq AND cd6.codeGroup_cdgSeq = 2           <!-- 신발 타입 -->
+		
+				
+		limit #{rowNumToShow} offset #{startRnumForMysql}
+	</sql>
 		
 		
 		
@@ -48,24 +65,14 @@
 		    c.shTypeCd,
 		    cd6.ifcdName AS shTypeName               <!-- 신발 타입 이름 -->
 		
-		FROM `order` a
-		LEFT JOIN member b ON a.momber_memSeq = b.memSeq
-		LEFT JOIN shoes c ON a.shoes_shSeq = c.shSeq
-		
-		 <!-- 코드 그룹 조인 -->
-		LEFT JOIN code cd1 ON a.deliveryStatus = cd1.cdSeq AND cd1.codeGroup_cdgSeq = 6     <!-- 배송 상태 -->
-		LEFT JOIN code cd2 ON a.paymentStatus = cd2.cdSeq AND cd2.codeGroup_cdgSeq = 4      <!-- 결제 상태 -->
-		LEFT JOIN code cd3 ON a.orderTypeCd = cd3.cdSeq AND cd3.codeGroup_cdgSeq = 7        <!-- 주문 유형 -->
-		LEFT JOIN code cd4 ON c.shSizeCd = cd4.cdSeq AND cd4.codeGroup_cdgSeq = 3           <!-- 신발 사이즈 -->
-		LEFT JOIN code cd5 ON c.shBrandCd = cd5.cdSeq AND cd5.codeGroup_cdgSeq = 1          <!-- 신발 브랜드 -->
-		LEFT JOIN code cd6 ON c.shTypeCd = cd6.cdSeq AND cd6.codeGroup_cdgSeq = 2           <!-- 신발 타입 -->
-		
-				
-		limit #{rowNumToShow} offset #{startRnumForMysql}
+			<include refid="selectCommon"></include>
 	
 	</select>
 		
-		
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommon"></include>
+	</select>
 		
 		
 		

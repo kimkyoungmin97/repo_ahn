@@ -31,6 +31,7 @@ public class OrderDto {
 	private Integer shTypeCd; //신발 타입코드 (운동화 슬리퍼 등등)
 	private Integer salesStatus; //판매상태 (판매중 , 판매중지)
 	private Integer shCount; // 신발의 갯수
+	private Integer shPrice; //신발 가격
 //	-----
 	// 코드 에있는  코드 이름  코드 Seq 땡겨오기
 	private Integer  codeGroup_cdgSeq; // 코드 그룹 Seq
@@ -193,6 +194,12 @@ public class OrderDto {
 	}
 	public void setIfcdName(String ifcdName) {
 		this.ifcdName = ifcdName;
+	}
+	public Integer getShPrice() {
+		return shPrice;
+	}
+	public void setShPrice(Integer shPrice) {
+		this.shPrice = shPrice;
 	}
 	
 	
