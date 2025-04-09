@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import javax.xml.crypto.Data;
 
-public class OderVo {
+public class OrderVo {
 	
 //	paging
 	private int thisPage = 1;									// 현재 페이지

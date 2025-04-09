@@ -1,11 +1,18 @@
 package com.a5a5lab.module.order;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OderService {
+public class OrderService {
 	
 	@Autowired
-	OderDao oderDao;
+	OrderDao orderDao;
+	
+	//주문목록 리스트 뿌리기
+	public List<OrderDto> selectList(OrderVo vo){
+		return orderDao.selectList(vo);
+	}
 }

@@ -2,21 +2,22 @@ package com.a5a5lab.module.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.a5a5lab.module.codegroup.CodeGroupDto;
 
 @Controller
-public class OderController {
+public class OrderController {
 	
 	@Autowired
-	OderService oderService;
+	OrderService oderService;
 	
 	// 주문내역 목록 리스트 보여주기
 	@RequestMapping(value ="/OrderXdmList")
-	public String OrderXdmList() {
+	public String OrderXdmList(Model model,OrderVo vo) {
 		
-		
+		model.addAttribute("list", oderService.selectList(vo));
 		return "xdm/orderlist/OrderXdmList";
 	}
 	

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a5a5lab.module.order.OrderDao">
+
+	<resultMap id="resultMapObj" type="com.a5a5lab.module.order.OrderDto"></resultMap>
+		
+		
+		
+		
+		
+	<!-- 주문내역 목로에 데이터 뿌리기 -->
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT
+		    a.orederSeq,                             <!-- 주문 번호 -->
+		    a.shOrderCount,                          <!-- 주문 수량 -->
+		    a.orderDelNy,                            <!-- 삭제 여부 -->
+		    a.regDateTime,                           <!-- 주문일 -->
+		    a.modDateTime,                           <!-- 수정일 -->
+		
+		    <!--  코드 조인 (배송상태, 결제상태, 주문유형) -->
+		    a.deliveryStatus,
+		    cd1.ifcdName AS deliveryStatusName,      <!-- 배송 상태 이름 -->
+		
+		    a.paymentStatus,
+		    cd2.ifcdName AS paymentStatusName,       <!-- 결제 상태 이름 -->
+		
+		    a.orderTypeCd,
+		    cd3.ifcdName AS orderTypeName,           <!-- 주문유형 이름 -->
+		
+		     <!-- 회원 정보 -->
+		    b.memSeq,
+		    b.memName,                               <!-- 주문자 이름 -->
+		    b.memId,                                 <!-- 주문자 아이디 -->
+		    b.memAddress,                            <!-- 주문자 주소 -->
+		
+		     <!-- 신발 정보 -->
+		    c.shSeq,
+		    c.shName,                                <!-- 신발 이름 -->
+		    c.shPrice,                               <!-- 신발 가격 -->
+		
+		    c.shSizeCd,
+		    cd4.ifcdName AS shSizeName,              <!-- 신발 사이즈 이름 -->
+		
+		    c.shBrandCd,
+		    cd5.ifcdName AS shBrandName,             <!-- 신발 브랜드 이름 -->
+		
+		    c.shTypeCd,
+		    cd6.ifcdName AS shTypeName               <!-- 신발 타입 이름 -->
+		
+		FROM `order` a
+		LEFT JOIN member b ON a.momber_memSeq = b.memSeq
+		LEFT JOIN shoes c ON a.shoes_shSeq = c.shSeq
+		
+		 <!-- 코드 그룹 조인 -->
+		LEFT JOIN code cd1 ON a.deliveryStatus = cd1.cdSeq AND cd1.codeGroup_cdgSeq = 6     <!-- 배송 상태 -->
+		LEFT JOIN code cd2 ON a.paymentStatus = cd2.cdSeq AND cd2.codeGroup_cdgSeq = 4      <!-- 결제 상태 -->
+		LEFT JOIN code cd3 ON a.orderTypeCd = cd3.cdSeq AND cd3.codeGroup_cdgSeq = 7        <!-- 주문 유형 -->
+		LEFT JOIN code cd4 ON c.shSizeCd = cd4.cdSeq AND cd4.codeGroup_cdgSeq = 3           <!-- 신발 사이즈 -->
+		LEFT JOIN code cd5 ON c.shBrandCd = cd5.cdSeq AND cd5.codeGroup_cdgSeq = 1          <!-- 신발 브랜드 -->
+		LEFT JOIN code cd6 ON c.shTypeCd = cd6.cdSeq AND cd6.codeGroup_cdgSeq = 2           <!-- 신발 타입 -->
+		
+				
+		limit #{rowNumToShow} offset #{startRnumForMysql}
+	
+	</select>
+		
+		
+		
+		
+		
+		
+	
+	
+</mapper>
