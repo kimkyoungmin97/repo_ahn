@@ -17,13 +17,11 @@ public class OrderController {
 	@RequestMapping(value ="/OrderXdmList")
 	public String OrderXdmList(Model model,OrderVo vo) {
 		
+		vo.setParamsPaging(oderService.selectOneCount(vo));
 		model.addAttribute("list", oderService.selectList(vo));
+		model.addAttribute("vo", vo);
 		return "xdm/orderlist/OrderXdmList";
 	}
-	
-	
-	
-	
 	// 주문내역 상세 보여주기 (임시)
 	@RequestMapping(value ="/OrderXdmView")
 	public String OrderXdmView() {
@@ -31,5 +29,21 @@ public class OrderController {
 			
 		return "xdm/orderlist/OrderXdmView";
 	}
+	
+	
+	
+	
+	
+	//창고재고 조회
+	@RequestMapping(value ="/StorageXdmList")
+	public String StorageXdmList(Model model,OrderVo vo) {
+		vo.setParamsPaging(oderService.selectOneCount(vo));
+		model.addAttribute("vo", vo);
+			
+		return "xdm/storage/StorageXdmList";
+	}
+	
+	
+	
 	
 }

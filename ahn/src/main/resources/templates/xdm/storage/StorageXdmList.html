@@ -5,13 +5,13 @@
 
 	<form name="formList" id="formList" method="post" autocomplete="off">
 		<!-- <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/> -->
-		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+		 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/> 
 		<!-- <input type="hidden" name="cdSeq">  -->
     <section class="content">
         <div class="container-fluid">
             
             <div class="block-header">
-                <h2>주문내역 목록</h2>
+                <h2>창고재고 조회</h2>
             </div>
 
             <!-- Input -->
@@ -138,15 +138,13 @@
                                             </th>
                                             <th>NO</th>
                                            
-                                            <th>주문번호</th>
-                                            <th>주문자ID</th>
-                                            <th>이름</th>
+                                            
                                             <th>신발이름</th>
-                                            <th>구매금액</th>
-                                            <th>구매갯수</th>
-                                            <th>구매날자(등록일)</th>
-                                            <th>배송상태</th>
-                                            <th>결제상태</th>
+                                            <th>수량</th>
+                                            
+                                            <th>입고날짜</th>
+                                            <th>브랜드</th>
+                                            
                                            
                                            
                                         </tr>
@@ -165,20 +163,14 @@
                                             </th>
                                             
                                              <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                            
-                                            <td th:text="${list.orederSeq}"></td>
+                                             <td ></td>
+                                             <td ></td>
                                             					
                                            
-                                            <td  th:text="${list.memId}"></td>
-                                            <td th:text="${list.memName}"></td>
+                                             <td ></td>
+                                             <td ></td>
                                             
-                                            <td th:text="${list.shName}"></td>
-                                            <td th:text="${#numbers.formatInteger(list.shPrice * list.shOrderCount, 3, 'COMMA')} + '원'"></td>
-
-                                            <td th:text="${list.shOrderCount}"></td>
-                                            <td th:text="${list.regDateTime}"></td>
-                                            <td  th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}"></td>
-                                            <td th:text="${@codeService.selectOneCachedCode(list.paymentStatus)}"></td>
+                                          
                                            
                                         </tr>
                                         

@@ -10,12 +10,11 @@ public class OrderDto {
 	private Integer deliveryStatus; // 배송상태
 	private Integer paymentStatus; //결제 상태
 	private Integer orderTypeCd; //오더타입 (배송, 창고, 공장)
-	private Integer shOrderCount; //주문 갯수
 	private Integer orderDelNy; //업데이트 삭제
 	private Date regDateTime; //등록일(주문일, 입고일, 발주일)
 	private Date modDateTime; //수정일
 	private String momber_memSeq; //멤버 Seq 키
-	private String shoes_shSeq; //신발 Seq 키
+	
 	// member 테이블 컬럼
 	private String memSeq; //멤버 Seq
 	private String memName; //멤버 이름
@@ -38,6 +37,12 @@ public class OrderDto {
 	private String cdSeq; //코드 Seq
 	private String ifcdName;//코드 이름
 //	-----
+	// 주문 세부 사항
+	private String orderDetailSeq; //주문 세부사항 Seq
+	private Integer order_orderSeq; // 오더 Seq 키
+	private String shoes_shSeq; //신발 Seq 키
+	private Integer shOrderCount; // 신발 주문 갯수
+//	----
 	
 	public String getOrederSeq() {
 		return orederSeq;
@@ -200,6 +205,18 @@ public class OrderDto {
 	}
 	public void setShPrice(Integer shPrice) {
 		this.shPrice = shPrice;
+	}
+	public String getOrderDetailSeq() {
+		return orderDetailSeq;
+	}
+	public void setOrderDetailSeq(String orderDetailSeq) {
+		this.orderDetailSeq = orderDetailSeq;
+	}
+	public Integer getOrder_orderSeq() {
+		return order_orderSeq;
+	}
+	public void setOrder_orderSeq(Integer order_orderSeq) {
+		this.order_orderSeq = order_orderSeq;
 	}
 	
 	

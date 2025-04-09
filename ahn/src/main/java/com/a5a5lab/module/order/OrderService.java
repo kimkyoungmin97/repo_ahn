@@ -15,4 +15,9 @@ public class OrderService {
 	public List<OrderDto> selectList(OrderVo vo){
 		return orderDao.selectList(vo);
 	}
+	
+	//페이진이션
+	public int selectOneCount(OrderVo vo) {
+		return orderDao.selectOneCount(vo);
+	}
 }
