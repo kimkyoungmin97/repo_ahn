@@ -77,6 +77,7 @@
 		from
 			`order` AS a
 		left join member AS c ON a.member_memSeq= c.memSeq
+		WHERE 1=1
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 
@@ -104,7 +105,9 @@
 		    shPrice
 		FROM
 			shoes
-			LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+		WHERE 1=1
+		ORDER BY shSeq DESC
+		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} 
 	</select>
 	
 	

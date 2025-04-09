@@ -20,4 +20,11 @@ public class OrderService {
 	public int selectOneCount(OrderVo vo) {
 		return orderDao.selectOneCount(vo);
 	}
+	
+	//창고목록 리스트 뿌리기
+	public List <OrderDto> storageList(OrderVo vo){
+		return orderDao.storageList(vo);
+	}
+	
+	
 }

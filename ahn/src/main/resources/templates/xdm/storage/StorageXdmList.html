@@ -4,9 +4,10 @@
 <div th:replace="~{xdm/include/head :: head}"></div>
 
 	<form name="formList" id="formList" method="post" autocomplete="off">
-		<!-- <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/> -->
+		 <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/> 
+		 
 		 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/> 
-		<!-- <input type="hidden" name="cdSeq">  -->
+		<!--  <input type="hidden" name="shSeq">   -->
     <section class="content">
         <div class="container-fluid">
             
@@ -25,10 +26,10 @@
                                 <div class="col-sm-12">
                                     <div class="row clearfix">
                                         <div class="col-sm-2">
-                                            <select class="form-control show-tick " id="shDelNy" name="shDelNy" >
-                                                <option >삭제여부</option>
-                                                <option>Y</option>
-                                                <option >N</option>
+                                            <select class="form-control show-tick "  >
+                                                <option  value="">삭제여부</option>
+                                                <option  value="1">Y</option>
+                                                <option   value="2">N</option>
                                                
                                             </select>
                                             
@@ -43,9 +44,9 @@
                                             
                                         </div> -->
                                           <div class="col-sm-2">
-                                            <select class="form-control show-tick " id="shOptionDate" name="shOptionDate">
-                                                <option>날짜</option>
-                                                <option>주문일</option>
+                                            <select class="form-control show-tick " >
+                                                <option value="">날짜</option>
+                                                <option value="1">주문일</option>
                                                     
                                             </select>
                                             
@@ -73,17 +74,18 @@
                                     <div class="row clearfix">
                                     
                                         <div class="col-sm-2">
-                                            <select class="form-control show-tick " id="shOption" name="shOption">
-                                                <option >검색구분</option>
-                                                <option >주문자ID</option>
-                                                <option >주문자 이름</option>
+                                            <select class="form-control show-tick " >
+                                                <option value="">검색구분</option>
+                                                <option value="1">브랜드</option>
+                                                <option value="2">신발이름</option>
+                                                <option value="3">타입</option>
                                                 
                                             </select>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="shValue" name="shValue" placeholder="검색어" />
+                                                    <input type="text" class="form-control"  placeholder="검색어" />
                                                 	
                                                 </div>
                                             </div>
@@ -137,13 +139,14 @@
                                                 <label class="form-check-label" for="entire"></label>
                                             </th>
                                             <th>NO</th>
-                                           
-                                            
+                                            <th>브랜드</th>
                                             <th>신발이름</th>
+                                            <th>타입</th>
+                                            <th>사이즈</th>
                                             <th>수량</th>
                                             
                                             <th>입고날짜</th>
-                                            <th>브랜드</th>
+                                            
                                             
                                            
                                            
@@ -162,13 +165,16 @@
                                                 <label class="form-check-label" for="1"></label>
                                             </th>
                                             
-                                             <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                             <td ></td>
-                                             <td ></td>
+                                             <td th:text="${list.shSeq}"></td>
+                                              <td th:text="${@codeService.selectOneCachedCode(list.shBrandCd)}"></td>
+                                             <td th:text="${list.shName}"></td>
+                                             <td th:text="${@codeService.selectOneCachedCode(list.shTypeCd)}"></td>
+                                             <td th:text="${@codeService.selectOneCachedCode(list.shSizeCd)}"></td>
+                                             <td th:text="${list.shCount}"></td>
                                             					
                                            
-                                             <td ></td>
-                                             <td ></td>
+                                             <td th:text="${list.regDateTime}"></td>
+                                            
                                             
                                           
                                            
@@ -178,7 +184,7 @@
                                     </tbody>
                                 </table>
                                 <!-- 페이지 네이션 -->
-                                 <!-- <div style="text-align: center;">
+                                 <div style="text-align: center;">
 								  <ul class="pagination" >
 								  	  
 									
@@ -198,7 +204,7 @@
 								  
 								  </ul>
 								    
-								</div> -->
+								</div> 
                               
                                 <!-- <a role="button" class="btn btn-danger waves-effect" style=" margin-right:  5px;" href="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -309,17 +315,17 @@
         });
     </script>
     
-<!--        <script type="text/javascript">
+       <script type="text/javascript">
     	// 페이지네이션 자바 스크립
 	    let form = document.querySelector("form[name=formList]");
-	 	goList = function (thisPage) {
-	     document.querySelector("input[name=thisPage]").value = thisPage;
-	     form.action = "/code/codeXdmList";
-	     form.submit();
-	 }  
+	    goList = function(thisPage) {
+	    	  document.querySelector("input[name=thisPage]").value = thisPage;
+	    	  form.action = "/StorageXdmList";
+	    	  form.submit();
+	    	}
 
     
-    </script> -->
+    </script> 
 <!--          <script type="text/javascript">
          document.getElementById("btnReset").onclick = function () {
    		  window.location.href = "/code/codeXdmList";
