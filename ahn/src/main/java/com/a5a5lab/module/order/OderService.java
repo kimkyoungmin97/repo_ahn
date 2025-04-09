@@ -1,4 +1,4 @@
-package com.a5a5lab.module.oder;
+package com.a5a5lab.module.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
