@@ -24,14 +24,13 @@ public class OrderController {
 	}
 	// 주문내역 상세 보여주기 (임시)
 	@RequestMapping(value ="/OrderXdmView")
-	public String OrderXdmView(Model model,OrderDto orderDto) {
+	public String OrderXdmView(Model model,OrderDto orderDto, OrderVo vo) {
 		//주문번호로 주문내용가져오기
 		model.addAttribute("item", orderService.selectOne(orderDto));
-		
 		//주문번호에 맞는 상품상세목록 가져오기
 		List<OrderDto> list = orderService.orderDetailList(orderDto);
 	    model.addAttribute("list", list);
-	    
+//	    model.addAttribute("vo",orderService.selectOneOrderDetailCount(vo));
 	    //상품상세목록 총 합계금액 구하기
 	    int totalSumPrice = list.stream()
 	        .mapToInt(OrderDto::getSumPrice)
