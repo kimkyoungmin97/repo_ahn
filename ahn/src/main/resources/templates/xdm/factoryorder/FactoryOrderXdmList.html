@@ -163,7 +163,7 @@
                         <div class="body">
                             <div class="table-responsive">
                             <div class="col-sm-2">
-                                        	<strong>Total:<span ></span></strong>
+                                        	<strong>Total:<span th:text="${vo.totalRows}"></span></strong>
                                         </div>					<!-- js-basic-example 들어가면 페이징 가능-->
                             			<div class="col-sm-2"  style="float: right;">
                                             <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum" >
@@ -185,7 +185,11 @@
                                             <th>NO</th>
                                             
                                           	<th>발주번호</th>
-                                            <th>발주상태</th>
+                                           
+                                            <th>신발이름</th>
+                                            <th>신발브랜드</th>
+                                            <th>신발사이즈</th>
+                                            <th>타입</th>
                                             <th>총수량</th>
                                              <th>총가격</th>
                                              
@@ -210,16 +214,19 @@
                                                 <input class="form-check-input row-checkbox" id="1" type="checkbox">
                                                 <label class="form-check-label" for="1"></label>
                                             </th>
-                                            <td></td>
+                                           <td th:text="${(vo.thisPage - 1) * vo.rowNumToShow + listStat.index + 1}"></td>
+
                                             
                                            <td></td>
-                                           <td></td>
-                                           <td></td>
-                                           <td></td>
+                                           <td th:text="${list.shName}"></td>
+                                           <td th:text="${@codeService.selectOneCachedCode(list.shBrandCd)}"></td>
+                                           <td th:text="${@codeService.selectOneCachedCode(list.shSizeCd)}"></td>
+                                           <td th:text="${@codeService.selectOneCachedCode(list.shTypeCd)}"></td>
+                                           <td th:text="${list.shOrderCount}"></td>
                                            
-                                           <td></td>
-                                           <td></td>
-                                            
+                                           <td th:text="${list.shOrderCount * list.shPrice}"></td>
+                                           <td th:text="${list.regDateTime}"></td>
+                                           <td th:text="${list.memName}"></td>
                                            
                                            
                                             

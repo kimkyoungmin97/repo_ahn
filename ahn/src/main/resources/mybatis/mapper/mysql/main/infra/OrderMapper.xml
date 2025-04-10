@@ -43,7 +43,7 @@
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 
-		<!-- 카운트 -->
+		<!-- 주문 카운트 -->
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)
 		<include refid="selectCommon"></include>
@@ -110,8 +110,36 @@
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} 
 	</select>
 	
+	<!-- 발주 내역 리스트 -->
+	<select id="FactoryOrderList" resultMap="resultMapObj">
+		 SELECT 
+			s.shSeq,
+			s.shName,
+			s.shSizeCd,
+			s.shBrandCd,
+			s.shTypeCd,
+			cb.ifcdName AS brandName,
+			cs.ifcdName AS sizeName,
+			ct.ifcdName AS typeName,
+			cot.ifcdName AS orderTypeName,
+			od.shOrderCount,
+			s.shPrice,
+			o.regDateTime,
+			m.memName
+		FROM `order` o
+		JOIN order_detail od ON o.orderSeq = od.order_orderSeq
+		JOIN shoes s ON od.shoes_shSeq = s.shSeq
+		JOIN member m ON o.member_memSeq = m.memSeq
+		LEFT JOIN code cb ON s.shBrandCd = cb.cdSeq
+		LEFT JOIN code cs ON s.shSizeCd = cs.cdSeq
+		LEFT JOIN code ct ON s.shTypeCd = ct.cdSeq
+		LEFT JOIN code cot ON o.orderTypeCd = cot.cdSeq
+		WHERE o.orderDelNy = 0
+		  AND o.orderTypeCd = 21
+		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} 
 	
 	
+	</select>
 		
 		
 		
