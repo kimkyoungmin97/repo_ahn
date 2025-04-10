@@ -47,16 +47,13 @@ public class OrderController {
 	
 	//창고재고 조회
 	@RequestMapping(value ="/StorageXdmList")
-<<<<<<< HEAD
-	public String StorageXdmList(Model model,OrderVo vo) {
-		vo.setParamsPaging(orderService.selectOneCount(vo));
-=======
+
 	public String StorageXdmList(Model model,OrderVo vo, OrderDto orderDto) {
 		
 		
 		vo.setParamsPaging(orderService.selectOneCount(vo));
 		model.addAttribute("list", orderService.storageList(vo));
->>>>>>> branch 'main' of https://github.com/kimkyoungmin97/repo_ahn.git
+
 		model.addAttribute("vo", vo);
 			
 		return "xdm/storage/StorageXdmList";

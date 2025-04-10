@@ -40,11 +40,11 @@ public class OrderVo {
 //	----
 	private Date shQptionDate;
 //	----
-<<<<<<< HEAD
 
-=======
+
+
 	
->>>>>>> branch 'main' of https://github.com/kimkyoungmin97/repo_ahn.git
+
 	public int getThisPage() {
 		return thisPage;
 	}
