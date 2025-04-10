@@ -78,10 +78,24 @@ public class OrderController {
 	
 	
 	@RequestMapping(value = "/ReceivingXdmList")
-	public String receivingXdmList() {
+	public String ReceivingXdmList(Model model) {
 		
-		return "/xdm/receiving/ReceivingXdmList";
+		return "xdm/receiving/ReceivingXdmList";
 	}
+	// 입출고내역 보여주기
+		@RequestMapping(value ="/ReceivingXdmView")
+		public String ReceivingXdmView(Model model,OrderDto orderDto) {
+			//주문번호로 주문내용가져오기
+			model.addAttribute("item", orderService.selectOne(orderDto));
+			
+			//주문번호에 맞는 상품상세목록 가져오기
+			List<OrderDto> list = orderService.orderDetailList(orderDto);
+		    model.addAttribute("list", list);
+		    
+		     
+			
+			return "xdm/orderlist/OrderXdmView";
+		}
 	
 	
 	
