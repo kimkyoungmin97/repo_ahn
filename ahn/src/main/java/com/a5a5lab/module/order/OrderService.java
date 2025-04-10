@@ -16,6 +16,12 @@ public class OrderService {
 		return orderDao.selectList(vo);
 	}
 	
+	// 발주 목록ㄹ스트 뿌리기
+	public List<OrderDto> FactoryOrderList(OrderVo vo){
+		return orderDao.FactoryOrderList(vo);
+	}
+	
+	
 	//페이진이션
 	public int selectOneCount(OrderVo vo) {
 		return orderDao.selectOneCount(vo);

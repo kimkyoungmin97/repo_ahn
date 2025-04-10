@@ -13,6 +13,9 @@ public interface OrderDao {
 	//창고 목록 리스트 뿌리기
 	public List <OrderDto> storageList(OrderVo vo);
 	
+	//발주 목록 리스트 뿌리기
+	public List <OrderDto> FactoryOrderList(OrderVo vo);
+	
 	
 	//페이지네이션
 	public int selectOneCount(OrderVo vo);
