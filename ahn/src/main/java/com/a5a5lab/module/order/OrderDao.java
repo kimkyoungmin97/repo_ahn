@@ -33,4 +33,7 @@ public interface OrderDao {
 	public OrderDto totalSumPrice(OrderDto orderDto);
 		
 	
+	// 주문내역 목록 업데이트 삭제
+	public int uelete(OrderDto orderDto);
+	
 }

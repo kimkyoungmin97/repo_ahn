@@ -15,6 +15,7 @@
 		select
 		a.orderSeq,
 		a.orderTypeCd,
+		a.orderDelNy,
 		c.memName,
 		c.memId,
 		c.memAddress,
@@ -25,12 +26,37 @@
 		`order` AS a
 		left join member AS c ON a.member_memSeq= c.memSeq
 		WHERE 1=1
-		AND
-		orderTypeCd=20
+		<!-- 업데이트 삭제 여부 검색 -->
+		<if test="shDelNy != null and !shDelNy.equals('')">AND orderDelNy = #{shDelNy}</if> 
+		
+		<!-- 날짜 검색 기능 -->
+		<choose>
+			<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+		</choose>
+		
+		<!-- 검색 구분 검색 -->
+		<choose>
+        	<when test="shOption == 1">AND c.memId LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 2">AND c.memName LIKE CONCAT('%',#{shValue},'%')</when>
+            
+        </choose>
+		
+		AND orderTypeCd=20
+		AND orderDelNy = 0
+		 
+		
 		order By orderSeq DESC
 
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
+	<!-- 주문내역 목록 업데이트 삭제-->
+	<update id="uelete">
+		UPDATE `order` SET
+			orderDelNy = 1
+		WHERE
+			orderSeq = #{orderSeq};
+	</update>
 
 	<!-- 주문카운트 -->
 	<select id="selectOneCount" resultType="Integer">

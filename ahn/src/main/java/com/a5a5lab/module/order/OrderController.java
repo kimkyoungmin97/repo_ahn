@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.a5a5lab.common.util.UtilDateTiem;
+
 @Controller
 public class OrderController {
 	
@@ -17,11 +19,24 @@ public class OrderController {
 	@RequestMapping(value ="/OrderXdmList")
 	public String OrderXdmList(Model model,OrderVo vo) {
 		
+		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
+		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
+		
+		
 		vo.setParamsPaging(orderService.selectOneCount(vo));
 		model.addAttribute("list", orderService.selectList(vo));
 		model.addAttribute("vo", vo);
 		return "xdm/orderlist/OrderXdmList";
 	}
+	// 주문 목록 리스트 업데이트 삭제
+	@RequestMapping(value="/OrderXdmUele")
+	public String OrderXdmUele(OrderDto orderDto) {
+		orderService.uelete(orderDto);
+		return "redirect:/OrderXdmList";
+	}
+	
+	
+	
 	// 주문내역 상세 보여주기 (임시)
 	@RequestMapping(value ="/OrderXdmView")
 	public String OrderXdmView(Model model,OrderDto orderDto, OrderVo vo) {
@@ -63,13 +78,11 @@ public class OrderController {
 	//발주내역 상세List 페이지
 	@RequestMapping(value = "/FactoryOrderXdmList")
 	public String FactoryOrderXdmList(Model model,OrderVo vo) {
+		
+		
+		
 		vo.setParamsPaging(orderService.selectOneOrderingCount(vo));
 		model.addAttribute("list", orderService.FactoryOrderList(vo));
-		
-		
-		
-		
-		
 		model.addAttribute("vo", vo);
 		
 		return "xdm/factoryorder/FactoryOrderXdmList";
