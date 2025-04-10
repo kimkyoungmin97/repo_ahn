@@ -41,14 +41,14 @@
 		AND orderTypeCd = 20
 	</select>
 	<!-- 주문상세상품카운트 -->
-<!-- 	<select id="selectOneOrderDetailCount" resultType="Integer"> -->
-<!-- 		SELECT -->
-<!-- 		COUNT(*) -->
-<!-- 		FROM -->
-<!-- 		order_detail -->
-<!-- 		WHERE 1=1 -->
-<!-- 		AND order_orderSeq = #{order_orderSeq} -->
-<!-- 	</select> -->
+	<select id="selectOneOrderDetailCount" resultType="Integer">
+		SELECT
+		COUNT(*)
+		FROM
+		order_detail
+		WHERE 1=1
+		AND order_orderSeq = #{orderSeq}
+	</select>
 	<!-- 상품카운트 -->
 	<select id="selectOneProductCount" resultType="Integer">
 		SELECT COUNT(*)
@@ -88,9 +88,11 @@
 		b.orderDetailSeq,
 		a.shBrandCd,
 		a.shTypeCd,
+		a.shSeq,
 		a.shName,
 		a.shSizeCd,
 		b.shOrderCount,
+		a.shCount,
 		a.shPrice * b.shOrderCount AS sumPrice,
 		c.orderSeq
 		FROM

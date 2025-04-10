@@ -29,13 +29,15 @@ public class OrderController {
 		model.addAttribute("item", orderService.selectOne(orderDto));
 		//주문번호에 맞는 상품상세목록 가져오기
 		List<OrderDto> list = orderService.orderDetailList(orderDto);
+		vo.setParamsPaging(orderService.selectOneOrderDetailCount(vo));
 	    model.addAttribute("list", list);
-//	    model.addAttribute("vo",orderService.selectOneOrderDetailCount(vo));
+		model.addAttribute("vo", vo);
 	    //상품상세목록 총 합계금액 구하기
 	    int totalSumPrice = list.stream()
 	        .mapToInt(OrderDto::getSumPrice)
 	        .sum();
 	    model.addAttribute("totalSumPrice", totalSumPrice); 
+	    System.out.println(vo.getTotalRows());
 		
 		return "xdm/orderlist/OrderXdmView";
 	}

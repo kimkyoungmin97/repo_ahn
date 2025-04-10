@@ -73,19 +73,15 @@
                     <div class="card">
                         <div class="body">
                             <div class="table-responsive">
-                            <div class="col-sm-2">
-                                        	<strong>Total:<span ></span></strong>
-                                        </div>					<!-- js-basic-example 들어가면 페이징 가능-->
-                            			<!-- <div class="col-sm-2"  style="float: right;">
-                                            <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum">
-												<option value="5" >5</option>
-												<option value="10" >10</option>
-												<option value="30" >30</option>
-												<option value="50" >50</option>
-												<option value="80" >80</option>
-												<option value="100">100</option>       
-											</select>
-                                        </div> -->
+                            <div class="row">
+                            	<div class="col-sm-2">
+                                        <strong>Total:<span th:text="${vo.totalRows}"></span></strong>
+                                 </div>
+                                 <div class="col-sm-10" style="text-align: end;">
+                                 		<button class= "btn btn-success waves-effect" id="btnDelivery">배송요청</button>
+                                 </div>					
+                            </div>
+                            			
                                 <table class="table table-bordered table-striped table-hover  dataTable">
                                     <thead>
                                         <tr>
@@ -99,6 +95,7 @@
                                             <th>신발이름</th>
                                             <th>신발사이즈</th>
                                             <th>주문갯수</th>
+                                            <th>상품재고</th>
                                             <th>금액</th>                                           
                                         </tr>
                                     </thead>
@@ -113,12 +110,14 @@
                                                 <input class="form-check-input row-checkbox" id="1" type="checkbox">
                                                 <label class="form-check-label" for="1"></label>
                                             </td>
-                                             <td ></td>
+<!--                                              <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td> -->
+                                             <td th:text="${listStat.index + 1}"></td>
                                              <td th:text="${@codeService.selectOneCachedCode(list.shBrandCd)}"></td>
                                             <td  th:text="${@codeService.selectOneCachedCode(list.shTypeCd)}"></td>
                                             <td th:text="${list.shName}"></td>
                                             <td th:text="${@codeService.selectOneCachedCode(list.shSizeCd)}"></td>
                                             <td th:text="${list.shOrderCount}"></td>
+                                            <td th:text="${list.shCount}"></td>
                                             <td th:text="${list.sumPrice}+원"></td>
                                         </tr>
 <!--                                     <tr class="hover-artions-trigger btn-reveal-trigger position-static">    	 -->
@@ -129,34 +128,8 @@
                                     </tbody>
                                 </table>
                                 <div style="text-align: end;"><strong>합계 금액:<span th:text="${totalSumPrice} + 원"></span></strong></div>
-                                <!-- 페이지 네이션 -->
-                                 <!-- <div style="text-align: center;">
-								  <ul class="pagination" >
-								  	  
-									
-									<li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item">
-										<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
-											<i>이전</i>
-										</a>
-									</li>
-									<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item">
-										<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}">${i.index}</a>
-									</li>
-									<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" >
-										<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
-											<i>다음</i>
-										</a>
-									</li>
-								  
-								  </ul>
-								    
-								</div> -->
+                                
                               
-                                <!-- <a role="button" class="btn btn-danger waves-effect" style=" margin-right:  5px;" href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                                    </svg>
-                                </a> --><br>
                                 <a role="button" class="btn btn-light" style="float: left; "th:href="@{/OrderXdmList}"> 
                                 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
@@ -193,14 +166,25 @@
             </div>   
         </div>
     </section>
-</body>
+
 </form>
-    <section class="content">
-        <div class="container-fluid">
-            
-            
-        </div>
-    </section>
+<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modalConfirmTitle" class="modal-title">타이틀</h5>
+      </div>
+      <div class="modal-body">
+        <p id="modalConfirmBody">내용</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnModalUelete" class="btn btn-danger">확인</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
        
         <!-- Jquery Core Js -->
         <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
@@ -265,76 +249,14 @@
             });
         });
     </script>
+ <script type="text/javascript">
+ 	document.getElementById("btnDelivery").onclick=function(){
+ 		alert("배송요청 완료");
+//  		document.getElementById("modalConfirm").display='block';
+ 	}
+ 
+ </script>
     
-<!--        <script type="text/javascript">
-    	// 페이지네이션 자바 스크립
-	    let form = document.querySelector("form[name=formList]");
-	 	goList = function (thisPage) {
-	     document.querySelector("input[name=thisPage]").value = thisPage;
-	     form.action = "/code/codeXdmList";
-	     form.submit();
-	 }  
-
     
-    </script> -->
-<!--          <script type="text/javascript">
-         document.getElementById("btnReset").onclick = function () {
-   		  window.location.href = "/code/codeXdmList";
-   		};
-   		/* 검색하기 */
-   		document.getElementById("btnSearch").onclick = function () {
-   		    let shValue = document.getElementById("shValue"); // 검색어 
-
-   		    // 데이터 값이 있을 경우 폼 제출
-   		    form.action = "/code/codeXdmList";
-   		    form.submit();
-   		};
-
-   		document.getElementById("changeRowNum").onchange = function () {
-   		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-   		    form.action = "/code/codeXdmList";
-   		    form.submit();
-   		}
-
-   		let seq = document.querySelector("input[name=cdSeq]");  
-
-   		document.getElementById("btnForm").onclick = function () {
-   		    goForm(0);
-   		}
-
-   		goForm = function (keyValue) {
-   		    seq.value = keyValue;
-   		    form.action = "/code/CodeXdmForm";
-   		    form.submit();
-   		}
-	    
-    
-    </script>  -->
-    
-     <script type="text/javascript">
-    //달력 
-    $.datetimepicker.setLocale('ko'); //번역기
-    jQuery(function(){
-    	 jQuery('#shDateStart').datetimepicker({
-    	  format:'Y/m/d',
-    	  onShow:function( ct ){
-    	   this.setOptions({
-    	    maxDate:jQuery('#shDateEnd').val()?jQuery('#shDateEnd').val():false
-    	   })
-    	  },
-    	  timepicker:false
-    	 });
-    	 jQuery('#shDateEnd').datetimepicker({
-    	  format:'Y/m/d',
-    	  onShow:function( ct ){
-    	   this.setOptions({
-    	    minDate:jQuery('#shDateStart').val()?jQuery('#shDateStart').val():false
-    	   })
-    	  },
-    	  timepicker:false
-    	 });
-    	});
-    
-    </script>
 </body>
 </html>

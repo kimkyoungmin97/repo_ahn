@@ -24,6 +24,9 @@ public class OrderVo {
 	private String cdSeq;
 	private String codeGroup_cdgSeq;
 
+//  ----
+	private String orderSeq;
+
 //	search
 	private Integer shUseNy = 1; 									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private Integer shDelNy = 0; 								/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
@@ -44,6 +47,12 @@ public class OrderVo {
 
 	public int getThisPage() {
 		return thisPage;
+	}
+	public String getOrderSeq() {
+		return orderSeq;
+	}
+	public void setOrderSeq(String orderSeq) {
+		this.orderSeq = orderSeq;
 	}
 	public void setThisPage(int thisPage) {
 		this.thisPage = thisPage;
