@@ -17,10 +17,12 @@ public interface OrderDao {
 	public List <OrderDto> FactoryOrderList(OrderVo vo);
 	
 	
+	
 	//페이지네이션
 	public int selectOneCount(OrderVo vo);
 	public int selectOneProductCount(OrderVo vo);
 	public int selectOneOrderingCount(OrderVo vo);
+	public int selectOneOrderDetailCount(OrderVo vo);
 	
 	//주문 상세 페이지
 	//한개의 주문

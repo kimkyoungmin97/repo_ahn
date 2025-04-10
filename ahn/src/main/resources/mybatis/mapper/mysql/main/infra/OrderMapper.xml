@@ -3,162 +3,163 @@
 
 <mapper namespace="com.a5a5lab.module.order.OrderDao">
 
-	<resultMap id="resultMapObj" type="com.a5a5lab.module.order.OrderDto"></resultMap>
-		
-	
-	
-	<!-- 공통 FROM 및 JOIN -->
-	<sql id="selectCommon">
-		FROM `order` a
-		LEFT JOIN member b ON a.member_memSeq = b.memSeq
-		LEFT JOIN order_detail od ON a.orderSeq = od.order_orderSeq
-		LEFT JOIN shoes c ON od.shoes_shSeq = c.shSeq
-	
-		<!-- 코드 그룹 조인 -->
-		LEFT JOIN code cd1 ON a.deliveryStatus = cd1.cdSeq AND cd1.codeGroup_cdgSeq = 6     <!-- 배송 상태 -->
-		LEFT JOIN code cd2 ON a.paymentStatus = cd2.cdSeq AND cd2.codeGroup_cdgSeq = 4      <!-- 결제 상태 -->
-		LEFT JOIN code cd3 ON a.orderTypeCd = cd3.cdSeq AND cd3.codeGroup_cdgSeq = 7        <!-- 주문 유형 -->
-		LEFT JOIN code cd4 ON c.shSizeCd = cd4.cdSeq AND cd4.codeGroup_cdgSeq = 3           <!-- 신발 사이즈 -->
-		LEFT JOIN code cd5 ON c.shBrandCd = cd5.cdSeq AND cd5.codeGroup_cdgSeq = 1          <!-- 신발 브랜드 -->
-		LEFT JOIN code cd6 ON c.shTypeCd = cd6.cdSeq AND cd6.codeGroup_cdgSeq = 2           <!-- 신발 타입 -->
-		
-		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
-	</sql>
-	
+	<resultMap id="resultMapObj"
+		type="com.a5a5lab.module.order.OrderDto"></resultMap>
+
+
+
+
+
 	<!-- 주문내역 리스트 -->
 	<select id="selectList" resultMap="resultMapObj">
 		select
-			a.orderSeq,
-			a.orderTypeCd,
-		    c.memName,
-		    c.memId,
-		    c.memAddress,
-			a.regDateTime,
-		    a.deliveryStatus,
-		    a.paymentStatus
+		a.orderSeq,
+		a.orderTypeCd,
+		c.memName,
+		c.memId,
+		c.memAddress,
+		a.regDateTime,
+		a.deliveryStatus,
+		a.paymentStatus
 		from
-			`order` AS a
+		`order` AS a
 		left join member AS c ON a.member_memSeq= c.memSeq
 		WHERE 1=1
-		AND orderTypeCd=20
+		AND
+		orderTypeCd=20
 		order By orderSeq DESC
-		 
+
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 
-		<!-- 주문카운트 -->
+	<!-- 주문카운트 -->
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)
-		<include refid="selectCommon"></include>
+		FROM
+		`order`
+		WHERE 1=1
+		AND orderTypeCd = 20
 	</select>
-		<!-- 상품카운트 -->
+	<!-- 주문상세상품카운트 -->
+<!-- 	<select id="selectOneOrderDetailCount" resultType="Integer"> -->
+<!-- 		SELECT -->
+<!-- 		COUNT(*) -->
+<!-- 		FROM -->
+<!-- 		order_detail -->
+<!-- 		WHERE 1=1 -->
+<!-- 		AND order_orderSeq = #{order_orderSeq} -->
+<!-- 	</select> -->
+	<!-- 상품카운트 -->
 	<select id="selectOneProductCount" resultType="Integer">
 		SELECT COUNT(*)
 		FROM
-			shoes
-		</select>
-			<!-- 발주 카운트 -->
-	 <select id="selectOneOrderingCount" resultType="Integer">
+		shoes
+	</select>
+	<!-- 발주 카운트 -->
+	<select id="selectOneOrderingCount" resultType="Integer">
 		SELECT COUNT(*)
 		FROM
-			`order`
+		`order`
 		WHERE 1=1
-			 AND orderTypeCd = 21
-		</select> 
-	
+		AND orderTypeCd = 21
+	</select>
+
 	<!-- 주문상세페이지 -->
 	<!--한개의 주문번호 불러오기 -->
 	<select id="selectOne" resultMap="resultMapObj">
-	select
-			a.orderSeq,
-		    c.memName,
-		    c.memId,
-		    c.memAddress,
-		    c.memTel,
-			a.regDateTime,
-		    a.deliveryStatus,
-		    a.paymentStatus
+		select
+		a.orderSeq,
+		c.memName,
+		c.memId,
+		c.memAddress,
+		c.memTel,
+		a.regDateTime,
+		a.deliveryStatus,
+		a.paymentStatus
 		from
-			`order` AS a
+		`order` AS a
 		left join member AS c ON a.member_memSeq= c.memSeq
-		WHERE 
-			a.orderSeq= #{orderSeq}
+		WHERE
+		a.orderSeq= #{orderSeq}
 	</select>
-	<!--불러온 주문번호의 상세목록-->
+	<!--불러온 주문번호의 상세목록 -->
 	<select id="orderDetailList" resultMap="resultMapObj">
-		   select
-		   	b.orderDetailSeq,
-			a.shBrandCd,
-	        a.shTypeCd,
-	        a.shName,
-	        a.shSizeCd,
-	        b.shOrderCount,
-	        a.shPrice * b.shOrderCount AS sumPrice,
-	        c.orderSeq
-	        
+		select
+		b.orderDetailSeq,
+		a.shBrandCd,
+		a.shTypeCd,
+		a.shName,
+		a.shSizeCd,
+		b.shOrderCount,
+		a.shPrice * b.shOrderCount AS sumPrice,
+		c.orderSeq
 		FROM
-			shoes AS a
+		shoes AS a
 		left join order_detail AS b ON a.shSeq = b.shoes_shSeq
-		left join `order` AS c ON c.orderSeq = b.order_orderSeq
-	    where
-			order_orderSeq = #{orderSeq}
+		left join
+		`order` AS c ON c.orderSeq = b.order_orderSeq
+		where
+		order_orderSeq = #{orderSeq}
 	</select>
-	
-	
-	
+
+
+
 	<!-- 창고재고관리 -->
 	<select id="storageList" resultMap="resultMapObj">
 		select
-			shSeq,
-		    shName,
-		    shSizeCd,
-		    shBrandCd,
-		    shTypeCd,
-		    salesStatus,
-		    regDateTime,
-		    modDateTime,
-		    shDelNy,
-		    shCount,
-		    shPrice
+		shSeq,
+		shName,
+		shSizeCd,
+		shBrandCd,
+		shTypeCd,
+		salesStatus,
+		regDateTime,
+		modDateTime,
+		shDelNy,
+		shCount,
+		shPrice
 		FROM
-			shoes
+		shoes
 		WHERE 1=1
 		ORDER BY shSeq DESC
-		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} 
+		LIMIT #{rowNumToShow} OFFSET
+		#{startRnumForMysql}
 	</select>
-	
+
 	<!-- 발주 내역 리스트 -->
 	<select id="FactoryOrderList" resultMap="resultMapObj">
-		 SELECT 
-			s.shSeq,
-			s.shName,
-			s.shSizeCd,
-			s.shBrandCd,
-			s.shTypeCd,
-			cb.ifcdName AS brandName,
-			cs.ifcdName AS sizeName,
-			ct.ifcdName AS typeName,
-			cot.ifcdName AS orderTypeName,
-			od.shOrderCount,
-			s.shPrice,
-			o.regDateTime,
-			m.memName
+		SELECT
+		s.shSeq,
+		s.shName,
+		s.shSizeCd,
+		s.shBrandCd,
+		s.shTypeCd,
+		cb.ifcdName AS brandName,
+		cs.ifcdName AS sizeName,
+		ct.ifcdName AS typeName,
+		cot.ifcdName AS orderTypeName,
+		od.shOrderCount,
+		s.shPrice,
+		o.regDateTime,
+		m.memName
 		FROM `order` o
 		JOIN order_detail od ON o.orderSeq = od.order_orderSeq
 		JOIN shoes s ON od.shoes_shSeq = s.shSeq
-		JOIN member m ON o.member_memSeq = m.memSeq
+		JOIN member m ON
+		o.member_memSeq = m.memSeq
 		LEFT JOIN code cb ON s.shBrandCd = cb.cdSeq
 		LEFT JOIN code cs ON s.shSizeCd = cs.cdSeq
-		LEFT JOIN code ct ON s.shTypeCd = ct.cdSeq
+		LEFT JOIN code ct ON
+		s.shTypeCd = ct.cdSeq
 		LEFT JOIN code cot ON o.orderTypeCd = cot.cdSeq
 		WHERE o.orderDelNy = 0
-		  AND o.orderTypeCd = 21
-		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} 
+		AND o.orderTypeCd = 21
+		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
-		
-		
-		
-		
-	
-	
+
+
+
+
+
+
 </mapper>
