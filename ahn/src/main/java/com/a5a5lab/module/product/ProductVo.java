@@ -1,11 +1,11 @@
-package com.a5a5lab.module.order;
+package com.a5a5lab.module.product;
 
 import java.sql.Date;
 
 import javax.xml.crypto.Data;
 
-public class OrderVo {
-	
+public class ProductVo {
+
 //	paging
 	private int thisPage = 1;									// 현재 페이지
 	private int rowNumToShow = 5;								// 화면에 보여줄 데이터 줄 갯수
@@ -20,9 +20,7 @@ public class OrderVo {
 //	----
 	private String cdgSeq;
 	
-//	----
-	private String cdSeq;
-	private String codeGroup_cdgSeq;
+
 
 //	search
 	private Integer shUseNy = 1; 									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
@@ -40,11 +38,6 @@ public class OrderVo {
 //	----
 	private Date shQptionDate;
 //	----
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> branch 'main' of https://github.com/kimkyoungmin97/repo_ahn.git
 	public int getThisPage() {
 		return thisPage;
 	}
@@ -216,27 +209,17 @@ public class OrderVo {
 		
 		
 		
-		System.out.println("getThisPage():" + getThisPage());
-		System.out.println("getTotalRows():" + getTotalRows());
-		System.out.println("getRowNumToShow():" + getRowNumToShow());
-		System.out.println("getTotalPages():" + getTotalPages());
-		System.out.println("getStartPage():" + getStartPage());
-		System.out.println("getEndPage():" + getEndPage());		
+//		System.out.println("getThisPage():" + getThisPage());
+//		System.out.println("getTotalRows():" + getTotalRows());
+//		System.out.println("getRowNumToShow():" + getRowNumToShow());
+//		System.out.println("getTotalPages():" + getTotalPages());
+//		System.out.println("getStartPage():" + getStartPage());
+//		System.out.println("getEndPage():" + getEndPage());		
 //		System.out.println("getStartRnumForOracle():" + getStartRnumForOracle());
 //		System.out.println("getEndRnumForOracle():" + getEndRnumForOracle());
 //		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
 		
 	}
-	public String getCdSeq() {
-		return cdSeq;
-	}
-	public void setCdSeq(String cdSeq) {
-		this.cdSeq = cdSeq;
-	}
-	public String getCodeGroup_cdgSeq() {
-		return codeGroup_cdgSeq;
-	}
-	public void setCodeGroup_cdgSeq(String codeGroup_cdgSeq) {
-		this.codeGroup_cdgSeq = codeGroup_cdgSeq;
-	}
 }
+
+

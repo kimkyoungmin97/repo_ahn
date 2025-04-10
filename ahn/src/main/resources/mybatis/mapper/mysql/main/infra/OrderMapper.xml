@@ -39,7 +39,10 @@
 			`order` AS a
 		left join member AS c ON a.member_memSeq= c.memSeq
 		WHERE 1=1
+<<<<<<< HEAD
 		order By orderSeq DESC
+=======
+>>>>>>> branch 'main' of https://github.com/kimkyoungmin97/repo_ahn.git
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 
@@ -105,7 +108,9 @@
 		    shPrice
 		FROM
 			shoes
-			LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+		WHERE 1=1
+		ORDER BY shSeq DESC
+		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} 
 	</select>
 	
 	

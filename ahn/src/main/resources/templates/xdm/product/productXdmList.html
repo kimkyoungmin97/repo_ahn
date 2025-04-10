@@ -4,15 +4,14 @@
 <div th:replace="~{xdm/include/head :: head}"></div>
 
 	<form name="formList" id="formList" method="post" autocomplete="off">
-		 <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/> 
-		 
-		 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/> 
-		<!--  <input type="hidden" name="shSeq">   -->
+		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+< 		<input type="hidden" name="shSeq">
     <section class="content">
         <div class="container-fluid">
             
             <div class="block-header">
-                <h2>창고재고 조회</h2>
+                <h2>주문내역 목록</h2>
             </div>
 
             <!-- Input -->
@@ -26,10 +25,10 @@
                                 <div class="col-sm-12">
                                     <div class="row clearfix">
                                         <div class="col-sm-2">
-                                            <select class="form-control show-tick "  >
-                                                <option  value="">삭제여부</option>
-                                                <option  value="1">Y</option>
-                                                <option   value="2">N</option>
+                                            <select class="form-control show-tick ">
+                                                <option >삭제여부</option>
+                                                <option>Y</option>
+                                                <option >N</option>
                                                
                                             </select>
                                             
@@ -45,8 +44,8 @@
                                         </div> -->
                                           <div class="col-sm-2">
                                             <select class="form-control show-tick " >
-                                                <option value="">날짜</option>
-                                                <option value="1">주문일</option>
+                                                <option>날짜</option>
+                                                <option>주문일</option>
                                                     
                                             </select>
                                             
@@ -74,11 +73,10 @@
                                     <div class="row clearfix">
                                     
                                         <div class="col-sm-2">
-                                            <select class="form-control show-tick " >
-                                                <option value="">검색구분</option>
-                                                <option value="1">브랜드</option>
-                                                <option value="2">신발이름</option>
-                                                <option value="3">타입</option>
+                                            <select class="form-control show-tick ">
+                                                <option >검색구분</option>
+                                                <option >주문자ID</option>
+                                                <option >주문자 이름</option>
                                                 
                                             </select>
                                         </div>
@@ -122,7 +120,7 @@
                                         	<strong>Total:<span ></span></strong>
                                         </div>					<!-- js-basic-example 들어가면 페이징 가능-->
                             			<div class="col-sm-2"  style="float: right;">
-                                            <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum">
+                                            <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum" >
 												<option value="5" >5</option>
 												<option value="10" >10</option>
 												<option value="30" >30</option>
@@ -139,14 +137,17 @@
                                                 <label class="form-check-label" for="entire"></label>
                                             </th>
                                             <th>NO</th>
-                                            <th>브랜드</th>
-                                            <th>신발이름</th>
-                                            <th>타입</th>
-                                            <th>사이즈</th>
-                                            <th>수량</th>
                                             
-                                            <th>입고날짜</th>
-                                            
+                                          	<th>신발이름</th>
+                                            <th>신발사이즈</th>
+                                            <th>신발브랜드</th>
+                                             <th>가격</th>
+                                           	<th>신발타입</th>
+                                            <th>판매상태</th>
+                                            <th>등록일자</th>
+                                            <th>수정일자</th>
+                                            <th>주문수량</th>
+                                           
                                             
                                            
                                            
@@ -154,29 +155,34 @@
                                     </thead>
             
                                     <tbody>
-                                    <tr th:if="${#lists.isEmpty(list)}"  class="hover-artions-trigger btn-reveal-trigger position-static">    	
-                                    		 <td colspan="10">
+                                    <tr th:if="${#lists.isEmpty(list)}" class="hover-artions-trigger btn-reveal-trigger position-static">    	
+                                    		<td colspan="10">
                                     			<p class="fs-0" style="padding-top: 12px">데이터가 없습니다</p>
-                                    		</td> 
+                                    		</td>
                                     	</tr>
                                         <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
                                             <th>
                                                 <input class="form-check-input row-checkbox" id="1" type="checkbox">
                                                 <label class="form-check-label" for="1"></label>
                                             </th>
+                                            <td th:text="${list.shSeq}"></td>
                                             
-                                             <td th:text="${list.shSeq}"></td>
-                                              <td th:text="${@codeService.selectOneCachedCode(list.shBrandCd)}"></td>
-                                             <td th:text="${list.shName}"></td>
-                                             <td th:text="${@codeService.selectOneCachedCode(list.shTypeCd)}"></td>
-                                             <td th:text="${@codeService.selectOneCachedCode(list.shSizeCd)}"></td>
-                                             <td th:text="${list.shCount}"></td>
-                                            					
+                                            
+                                            <td th:text="${list.shName}"></td>
+                                            <td th:text="${@codeService.selectOneCachedCode(list.shSizeCd)}"></td>
+                                            
+                                            <td th:text="${@codeService.selectOneCachedCode(list.shBrandCd)}"></td>
+                                             <td th:text="${list.shPrice}"></td>
+                                            <td th:text="${@codeService.selectOneCachedCode(list.shTypeCd)}"></td>
+
+                                            <td th:text="${@codeService.selectOneCachedCode(list.salesStatus)}"></td>
+                                            <td th:text="${list.regDateTime}"></td>
+                                            <td th:text="${list.modDateTime}"></td>
+                                            
+                                            <td th:text="${list.shCount}"></td>
                                            
-                                             <td th:text="${list.regDateTime}"></td>
                                             
                                             
-                                          
                                            
                                         </tr>
                                         
@@ -194,7 +200,7 @@
 										</a>
 									</li>
 									<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item">
-										<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}">${i.index}</a>
+										<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"><!-- ${i.index} --></a>
 									</li>
 									<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" >
 										<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
@@ -204,13 +210,13 @@
 								  
 								  </ul>
 								    
-								</div> 
+								</div>
                               
-                                <!-- <a role="button" class="btn btn-danger waves-effect" style=" margin-right:  5px;" href="">
+                                <a role="button" class="btn btn-danger waves-effect" style=" margin-right:  5px;" href="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                                     </svg>
-                                </a> -->
+                                </a>
                                 <a role="button" class="btn btn-danger" href="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
@@ -315,17 +321,17 @@
         });
     </script>
     
-       <script type="text/javascript">
+	<script type="text/javascript">
     	// 페이지네이션 자바 스크립
 	    let form = document.querySelector("form[name=formList]");
-	    goList = function(thisPage) {
-	    	  document.querySelector("input[name=thisPage]").value = thisPage;
-	    	  form.action = "/StorageXdmList";
-	    	  form.submit();
-	    	}
+	 	goList = function (thisPage) {
+	     document.querySelector("input[name=thisPage]").value = thisPage;
+	     form.action = " /productXdmList";
+	     form.submit();
+	 }  
 
     
-    </script> 
+    </script>
 <!--          <script type="text/javascript">
          document.getElementById("btnReset").onclick = function () {
    		  window.location.href = "/code/codeXdmList";
@@ -361,28 +367,28 @@
     </script>  -->
     
      <script type="text/javascript">
-    //달력 
-    $.datetimepicker.setLocale('ko'); //번역기
-    jQuery(function(){
-    	 jQuery('#shDateStart').datetimepicker({
-    	  format:'Y/m/d',
-    	  onShow:function( ct ){
-    	   this.setOptions({
-    	    maxDate:jQuery('#shDateEnd').val()?jQuery('#shDateEnd').val():false
-    	   })
-    	  },
-    	  timepicker:false
-    	 });
-    	 jQuery('#shDateEnd').datetimepicker({
-    	  format:'Y/m/d',
-    	  onShow:function( ct ){
-    	   this.setOptions({
-    	    minDate:jQuery('#shDateStart').val()?jQuery('#shDateStart').val():false
-    	   })
-    	  },
-    	  timepicker:false
-    	 });
-    	});
+//     //달력 
+//     $.datetimepicker.setLocale('ko'); //번역기
+//     jQuery(function(){
+//     	 jQuery('#shDateStart').datetimepicker({
+//     	  format:'Y/m/d',
+//     	  onShow:function( ct ){
+//     	   this.setOptions({
+//     	    maxDate:jQuery('#shDateEnd').val()?jQuery('#shDateEnd').val():false
+//     	   })
+//     	  },
+//     	  timepicker:false
+//     	 });
+//     	 jQuery('#shDateEnd').datetimepicker({
+//     	  format:'Y/m/d',
+//     	  onShow:function( ct ){
+//     	   this.setOptions({
+//     	    minDate:jQuery('#shDateStart').val()?jQuery('#shDateStart').val():false
+//     	   })
+//     	  },
+//     	  timepicker:false
+//     	 });
+//     	});
     
     </script>
 </body>
