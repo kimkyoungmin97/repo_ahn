@@ -161,14 +161,13 @@
                                                 <label class="form-check-label" for="1"></label>
                                             </th>
                                              <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                            <td th:text="${list.orderSeq}"></td>
+                                             <td><a th:href="@{/OrderXdmView(orderSeq=${list.orderSeq})}" th:text="${list.orderSeq}"></a></td>
                                             <td  th:text="${list.memId}"></td>
                                             <td th:text="${list.memName}"></td>
                                             <td th:text="${list.memAddress}"></td>
                                             <td th:text="${list.regDateTime}"></td>
                                             <td  th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}"></td>
                                             <td th:text="${@codeService.selectOneCachedCode(list.paymentStatus)}"></td>
-                                           
                                         </tr>
                                         
                                         

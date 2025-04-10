@@ -27,45 +27,6 @@
 	
 	<!-- 주문내역 리스트 -->
 	<select id="selectList" resultMap="resultMapObj">
-<!-- 		SELECT -->
-<!-- 		    a.orderSeq,                                 주문 번호 -->
-<!-- 		    od.shOrderCount,                            주문 수량 (order_detail) -->
-<!-- 		    a.orderDelNy,                               삭제 여부 -->
-<!-- 		    a.regDateTime,                              주문일 -->
-<!-- 		    a.modDateTime,                              수정일 -->
-	
-<!-- 		    코드 조인 (배송상태, 결제상태, 주문유형) -->
-<!-- 		    a.deliveryStatus, -->
-<!-- 		    cd1.ifcdName AS deliveryStatusName,         배송 상태 이름 -->
-	
-<!-- 		    a.paymentStatus, -->
-<!-- 		    cd2.ifcdName AS paymentStatusName,          결제 상태 이름 -->
-	
-<!-- 		    a.orderTypeCd, -->
-<!-- 		    cd3.ifcdName AS orderTypeName,              주문유형 이름 -->
-	
-<!-- 		    회원 정보 -->
-<!-- 		    b.memSeq, -->
-<!-- 		    b.memName,                                   주문자 이름 -->
-<!-- 		    b.memId,                                     주문자 아이디 -->
-<!-- 		    b.memAddress,                                주문자 주소 -->
-	
-<!-- 		    신발 정보 -->
-<!-- 		    c.shSeq, -->
-<!-- 		    c.shName,                                    신발 이름 -->
-<!-- 		    c.shPrice,                                   신발 가격 -->
-<!-- 		    (c.shPrice * od.shOrderCount) AS totalPrice,총액 계산 -->
-	
-<!-- 		    c.shSizeCd, -->
-<!-- 		    cd4.ifcdName AS shSizeName,                 신발 사이즈 이름 -->
-	
-<!-- 		    c.shBrandCd, -->
-<!-- 		    cd5.ifcdName AS shBrandName,                신발 브랜드 이름 -->
-	
-<!-- 		    c.shTypeCd, -->
-<!-- 		    cd6.ifcdName AS shTypeName                  신발 타입 이름 -->
-	
-<!-- 		<include refid="selectCommon" /> -->
 		select
 			a.orderSeq,
 		    c.memName,
@@ -77,6 +38,8 @@
 		from
 			`order` AS a
 		left join member AS c ON a.member_memSeq= c.memSeq
+		WHERE 1=1
+		order By orderSeq DESC
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 
@@ -84,6 +47,44 @@
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)
 		<include refid="selectCommon"></include>
+	</select>
+	
+	<!-- 주문상세페이지 -->
+	<!--한개의 주문번호 불러오기 -->
+	<select id="selectOne" resultMap="resultMapObj">
+	select
+			a.orderSeq,
+		    c.memName,
+		    c.memId,
+		    c.memAddress,
+		    c.memTel,
+			a.regDateTime,
+		    a.deliveryStatus,
+		    a.paymentStatus
+		from
+			`order` AS a
+		left join member AS c ON a.member_memSeq= c.memSeq
+		WHERE 
+			a.orderSeq= #{orderSeq}
+	</select>
+	<!--불러온 주문번호의 상세목록-->
+	<select id="orderDetailList" resultMap="resultMapObj">
+		   select
+		   	b.orderDetailSeq,
+			a.shBrandCd,
+	        a.shTypeCd,
+	        a.shName,
+	        a.shSizeCd,
+	        b.shOrderCount,
+	        a.shPrice * b.shOrderCount AS sumPrice,
+	        c.orderSeq
+	        
+		FROM
+			shoes AS a
+		left join order_detail AS b ON a.shSeq = b.shoes_shSeq
+		left join `order` AS c ON c.orderSeq = b.order_orderSeq
+	    where
+			order_orderSeq = #{orderSeq}
 	</select>
 	
 	

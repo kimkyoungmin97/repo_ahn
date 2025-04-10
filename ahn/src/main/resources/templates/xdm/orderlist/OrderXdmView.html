@@ -4,9 +4,10 @@
 <div th:replace="~{xdm/include/head :: head}"></div>
 
 	<form name="formList" id="formList" method="post" autocomplete="off">
-		<!-- <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
-		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-		<input type="hidden" name="cdSeq"> -->
+<!-- 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/> -->
+<!-- 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/> -->
+		<input type="hidden" name="orderSeq">
+		<input type="hidden" name="order_orderSeq">
     <section class="content">
         <div class="container-fluid">
             
@@ -22,9 +23,9 @@
 			                
 			                <!-- 주문정보 헤더 -->
 			                <div style="margin-bottom: 20px;">
-			                    <strong style="font-size: 18px;">주문번호 [5000010]</strong><br>
+			                    <strong style="font-size: 18px;">주문번호 <span th:text="${item.orderSeq}"></span></strong><br>
 			                    <br>
-			                    주문자: 김이지 / 010-7192-1397
+			                    주문자:<span th:text="${item.memName}"></span> / <span th:text="${item.memTel}"></span>
 			                </div>
 			
 			                <!-- 상세 정보 -->
@@ -33,19 +34,22 @@
 			                        <tbody>
 			                            <tr>
 			                                <th class="col-sm-2">회원ID</th>
-			                                <td class="col-sm-4">admin</td>
-			                                <th class="col-sm-2">이메일</th>
-			                                <td class="col-sm-4">wlqkd18@naver.com</td>
+			                                <td class="col-sm-4" th:text="${item.memId}"></td>
+			                                <th class="col-sm-2">전화번호</th>
+			                                <td class="col-sm-4" th:text="${item.memTel}"></td>
 			                            </tr>
 			                            <tr>
 			                                <th>받는사람</th>
-			                                <td>김이지</td>
-			                                <th>전화번호</th>
-			                                <td>010-7192-1397</td>
+			                                <td th:text="${item.memName}"></td>
+			                                <th>결제상태</th>
+			                                <td th:text="${@codeService.selectOneCachedCode(item.paymentStatus)}"></td>
 			                            </tr>
 			                            <tr>
 			                                <th>배송지</th>
-			                                <td colspan="3">서울 강남구 가로수길 5</td>
+			                                <td  th:text="${item.memAddress}"></td>
+			                                <th>배송상태</th>
+			                                <td  th:text="${@codeService.selectOneCachedCode(item.deliveryStatus)}"></td>
+			                                
 			                            </tr>
 			                            <!-- <tr>
 			                                <th>출입방법</th>
@@ -90,48 +94,41 @@
                                                 <label class="form-check-label" for="entire"></label>
                                             </th>
                                             <th>NO</th>
-                                           
-                                            <th>주문번호</th>
-                                            <th>주문자ID</th>
-                                            <th>이름</th>
-                                           
-                                            <th>구매금액</th>
-                                            <th>구매날자(등록일)</th>
-                                            <th>배송상태</th>
-                                            <th>결제상태</th>
-                                           
-                                           
+                                            <th>브랜드</th>
+                                            <th>신발타입</th>
+                                            <th>신발이름</th>
+                                            <th>신발사이즈</th>
+                                            <th>주문갯수</th>
+                                            <th>금액</th>                                           
                                         </tr>
                                     </thead>
-            
                                     <tbody>
-                                    <tr class="hover-artions-trigger btn-reveal-trigger position-static">    	
-                                    		<td colspan="10">
+                                    <tr th:if="${#lists.isEmpty(list)}"  class="hover-artions-trigger btn-reveal-trigger position-static">    	
+                                    		 <td colspan="10">
                                     			<p class="fs-0" style="padding-top: 12px">데이터가 없습니다</p>
-                                    		</td>
+                                    		</td> 
                                     	</tr>
-                                        <tr>
-                                            <!-- <th>
+                                        <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
+                                            <td>
                                                 <input class="form-check-input row-checkbox" id="1" type="checkbox">
                                                 <label class="form-check-label" for="1"></label>
-                                            </th> -->
-                                            <td></td>
-                                            
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            
-                                            
-                                            <td></td>
-                                            <td ></td>
-                                            <td ></td>
-                                            <td ></td>
-                                           
+                                            </td>
+                                             <td ></td>
+                                             <td th:text="${@codeService.selectOneCachedCode(list.shBrandCd)}"></td>
+                                            <td  th:text="${@codeService.selectOneCachedCode(list.shTypeCd)}"></td>
+                                            <td th:text="${list.shName}"></td>
+                                            <td th:text="${@codeService.selectOneCachedCode(list.shSizeCd)}"></td>
+                                            <td th:text="${list.shOrderCount}"></td>
+                                            <td th:text="${list.sumPrice}+원"></td>
                                         </tr>
-                                        
-                                        
+<!--                                     <tr class="hover-artions-trigger btn-reveal-trigger position-static">    	 -->
+<!--                                     		<td colspan="10"> -->
+<!--                                     			<p class="fs-0" style="padding-top: 12px">데이터가 없습니다</p> -->
+<!--                                     		</td> -->
+<!--                                     	</tr> -->
                                     </tbody>
                                 </table>
+                                <div style="text-align: end;"><strong>합계 금액:<span th:text="${totalSumPrice} + 원"></span></strong></div>
                                 <!-- 페이지 네이션 -->
                                  <!-- <div style="text-align: center;">
 								  <ul class="pagination" >

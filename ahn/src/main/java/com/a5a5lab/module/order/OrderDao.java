@@ -12,4 +12,14 @@ public interface OrderDao {
 	
 	//페이지네이션
 	public int selectOneCount(OrderVo vo);
+	
+	//주문 상세 페이지
+	//한개의 주문
+	public OrderDto selectOne(OrderDto orderDto);
+	//주문에 따른 상품목록
+	public List<OrderDto> orderDetailList(OrderDto orderDto);
+	//주문금액 총 합계
+	public OrderDto totalSumPrice(OrderDto orderDto);
+		
+	
 }

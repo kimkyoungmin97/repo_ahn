@@ -22,6 +22,7 @@ public class OrderDto {
 	private String memPw; //비밀번호
 	private String memAddress; //주소
 	private String memDelNy; // 멤버업데이트 삭제
+	private String memTel; // 멤버 전화번호
 	// shoes 테이블 컬럼
 	private String shSeq; //신발 Seq
 	private String shName; //신발 이름
@@ -43,8 +44,22 @@ public class OrderDto {
 	private String shoes_shSeq; //신발 Seq 키
 	private Integer shOrderCount; // 신발 주문 갯수
 //	----
-	
+	//주문 금액 계산
+	private Integer sumPrice;
 
+	
+	public String getMemTel() {
+		return memTel;
+	}
+	public void setMemTel(String memTel) {
+		this.memTel = memTel;
+	}
+	public Integer getSumPrice() {
+		return sumPrice;
+	}
+	public void setSumPrice(Integer sumPrice) {
+		this.sumPrice = sumPrice;
+	}
 	public Integer getDeliveryStatus() {
 		return deliveryStatus;
 	}

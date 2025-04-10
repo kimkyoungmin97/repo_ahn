@@ -20,4 +20,17 @@ public class OrderService {
 	public int selectOneCount(OrderVo vo) {
 		return orderDao.selectOneCount(vo);
 	}
+	//주문 상세페이지
+	//한개의 주문
+	public OrderDto selectOne(OrderDto orderDto) {
+		return orderDao.selectOne(orderDto);
+	}
+	//주문에 따른 상품목록
+	public List<OrderDto> orderDetailList(OrderDto orderDto){
+		return orderDao.orderDetailList(orderDto);
+	}
+	////주문금액 총 합계
+	public OrderDto totalSumPrice(OrderDto orderDto) {
+		return orderDao.totalSumPrice(orderDto);
+	}
 }
