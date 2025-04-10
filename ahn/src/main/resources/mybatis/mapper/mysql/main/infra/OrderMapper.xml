@@ -29,6 +29,7 @@
 	<select id="selectList" resultMap="resultMapObj">
 		select
 			a.orderSeq,
+			a.orderTypeCd,
 		    c.memName,
 		    c.memId,
 		    c.memAddress,
@@ -39,6 +40,7 @@
 			`order` AS a
 		left join member AS c ON a.member_memSeq= c.memSeq
 		WHERE 1=1
+		AND orderTypeCd=20
 		order By orderSeq DESC
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
@@ -143,8 +145,6 @@
 		WHERE o.orderDelNy = 0
 		  AND o.orderTypeCd = 21
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} 
-	
-	
 	</select>
 		
 		
