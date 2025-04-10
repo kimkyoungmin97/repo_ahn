@@ -20,7 +20,6 @@ public class OrderService {
 	public int selectOneCount(OrderVo vo) {
 		return orderDao.selectOneCount(vo);
 	}
-<<<<<<< HEAD
 	//주문 상세페이지
 	//한개의 주문
 	public OrderDto selectOne(OrderDto orderDto) {
@@ -34,7 +33,6 @@ public class OrderService {
 	public OrderDto totalSumPrice(OrderDto orderDto) {
 		return orderDao.totalSumPrice(orderDto);
 	}
-=======
 	
 	//창고목록 리스트 뿌리기
 	public List <OrderDto> storageList(OrderVo vo){
@@ -42,5 +40,4 @@ public class OrderService {
 	}
 	
 	
->>>>>>> branch 'main' of https://github.com/kimkyoungmin97/repo_ahn.git
 }
