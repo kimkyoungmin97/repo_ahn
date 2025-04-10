@@ -141,12 +141,13 @@
                                           	<th>신발이름</th>
                                             <th>신발사이즈</th>
                                             <th>신발브랜드</th>
+                                             <th>가격</th>
                                            	<th>신발타입</th>
                                             <th>판매상태</th>
                                             <th>등록일자</th>
                                             <th>수정일자</th>
                                             <th>주문수량</th>
-                                            <th>가격</th>
+                                           
                                             
                                            
                                            
@@ -171,6 +172,7 @@
                                             <td th:text="${@codeService.selectOneCachedCode(list.shSizeCd)}"></td>
                                             
                                             <td th:text="${@codeService.selectOneCachedCode(list.shBrandCd)}"></td>
+                                             <td th:text="${list.shPrice}"></td>
                                             <td th:text="${@codeService.selectOneCachedCode(list.shTypeCd)}"></td>
 
                                             <td th:text="${@codeService.selectOneCachedCode(list.salesStatus)}"></td>
@@ -178,7 +180,7 @@
                                             <td th:text="${list.modDateTime}"></td>
                                             
                                             <td th:text="${list.shCount}"></td>
-                                            <td th:text="${list.shPrice}"></td>
+                                           
                                             
                                             
                                            
