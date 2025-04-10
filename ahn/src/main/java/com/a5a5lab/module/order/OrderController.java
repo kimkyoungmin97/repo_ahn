@@ -48,6 +48,8 @@ public class OrderController {
 	//창고재고 조회
 	@RequestMapping(value ="/StorageXdmList")
 
+
+
 	public String StorageXdmList(Model model,OrderVo vo, OrderDto orderDto) {
 		
 		
@@ -58,6 +60,22 @@ public class OrderController {
 			
 		return "xdm/storage/StorageXdmList";
 	}
+	
+	
+	//발주내역 상세List 페이지
+	@RequestMapping(value = "/FactoryOrderXdmList")
+	public String FactoryOrderXdmList(Model model,OrderVo vo) {
+		vo.setParamsPaging(orderService.selectOneCount(vo));
+		
+		
+		
+		
+		
+		model.addAttribute("vo", vo);
+		
+		return "xdm/factoryorder/FactoryOrderXdmList";
+	}
+	
 	
 	
 	
