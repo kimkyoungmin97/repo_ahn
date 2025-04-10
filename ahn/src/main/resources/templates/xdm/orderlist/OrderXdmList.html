@@ -4,9 +4,9 @@
 <div th:replace="~{xdm/include/head :: head}"></div>
 
 	<form name="formList" id="formList" method="post" autocomplete="off">
-		<!-- <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/> -->
+		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/> 
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-		<!-- <input type="hidden" name="cdSeq">  -->
+		<input type="hidden" name="orderSeq"> 
     <section class="content">
         <div class="container-fluid">
             
@@ -24,28 +24,20 @@
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="row clearfix">
-                                        <div class="col-sm-2">
-                                            <select class="form-control show-tick " id="shDelNy" name="shDelNy" >
-                                                <option >삭제여부</option>
-                                                <option>Y</option>
-                                                <option >N</option>
+                                       
+                                         <div class="col-sm-2">
+                                            <select class="form-control show-tick " id="shDelNy" name="shDelNy">
+                                                <option  value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                                                <option value="1"  th:selected="${vo.shDelNy == 1}">Y</option>
+                                                <option value="0"  th:selected="${vo.shDelNy == 0}">N</option>
                                                
                                             </select>
                                             
-                                        </div>
-                                        <!-- <div class="col-sm-2">
-                                            <select class="form-control show-tick ">
-                                                <option value="">사용여부</option>
-                                                <option value="0">Y</option>
-                                                <option value="1">N</option>
-                                               
-                                            </select>
-                                            
-                                        </div> -->
+                                        </div> 
                                           <div class="col-sm-2">
                                             <select class="form-control show-tick " id="shOptionDate" name="shOptionDate">
-                                                <option>날짜</option>
-                                                <option>주문일</option>
+                                                <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                                                <option value="1" th:selected="${vo.shOptionDate == 1}">주문일</option>
                                                     
                                             </select>
                                             
@@ -53,11 +45,13 @@
                                          <div class="col-sm-2">
 										    <div class="form-group">
 										        <div class="form-line">
-										            <input type="text" class="form-control"  placeholder="주문일" autocomplete="off"/>
+										            <input type="text" class="form-control" 
+										                   th:value="${vo.shDateStart != null && #strings.length(vo.shDateStart) >= 10 ? #strings.substring(vo.shDateStart, 0, 10) : vo.shDateStart}"
+										                   id="shDateStart" name="shDateStart" placeholder="시작일" autocomplete="off"/>
 										        </div>
 										    </div>
 										</div>
-										<!-- <div class="col-sm-2">
+										<div class="col-sm-2">
 										    <div class="form-group">
 										        <div class="form-line">
 										            <input type="text" class="form-control" 
@@ -65,7 +59,8 @@
 										                   id="shDateEnd" name="shDateEnd" placeholder="종료일" autocomplete="off"/>
 										        </div>
 										    </div>
-										</div> --> 
+										</div>
+										 
                                         
 
                                     </div>
@@ -74,16 +69,16 @@
                                     
                                         <div class="col-sm-2">
                                             <select class="form-control show-tick " id="shOption" name="shOption">
-                                                <option >검색구분</option>
-                                                <option >주문자ID</option>
-                                                <option >주문자 이름</option>
+                                                <option value="" th:selected="${vo.shOption == null}">검색구분</option>
+                                                <option value="1" th:selected="${vo.shOption == 1}">주문자ID</option>
+                                                <option value="2" th:selected="${vo.shOption == 2}">주문자 이름</option>
                                                 
                                             </select>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="shValue" name="shValue" placeholder="검색어" />
+                                                    <input type="text" class="form-control" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어" />
                                                 	
                                                 </div>
                                             </div>
@@ -121,21 +116,20 @@
                                         </div>					<!-- js-basic-example 들어가면 페이징 가능-->
                             			<div class="col-sm-2"  style="float: right;">
                                             <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum">
-												<option value="5" >5</option>
-												<option value="10" >10</option>
-												<option value="30" >30</option>
-												<option value="50" >50</option>
-												<option value="80" >80</option>
-												<option value="100">100</option>       
+												<option value="5" th:selected="${vo.rowNumToShow eq 5}">5</option>
+												<option value="10" th:selected="${vo.rowNumToShow eq 10}">10</option>
+												<option value="30" th:selected="${vo.rowNumToShow eq 30}">30</option>
+												       
 											</select>
                                         </div>
                                 <table class="table table-bordered table-striped table-hover  dataTable">
                                     <thead>
                                         <tr>
                                             <th>
-                                                <input class="form-check-input" type="checkbox" id="entire">
-                                                <label class="form-check-label" for="entire"></label>
-                                            </th>
+											  <input class="form-check-input" type="checkbox" id="entire">
+<label class="form-check-label" for="entire"></label>
+
+											</th>
                                             <th>NO</th>
                                             <th>주문번호</th>
                                             <th>주문자ID</th>
@@ -157,9 +151,10 @@
                                     	</tr>
                                         <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
                                             <th>
-                                                <input class="form-check-input row-checkbox" id="1" type="checkbox">
-                                                <label class="form-check-label" for="1"></label>
-                                            </th>
+											    <input class="form-check-input row-checkbox" type="checkbox" th:id="'chk_' + ${list.orderSeq}" th:value="${list.orderSeq}">
+<label class="form-check-label" th:for="'chk_' + ${list.orderSeq}"></label>
+
+											</th>
                                              <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
                                              <td><a th:href="@{/OrderXdmView(orderSeq=${list.orderSeq})}" th:text="${list.orderSeq}"></a></td>
                                             <td  th:text="${list.memId}"></td>
@@ -174,7 +169,7 @@
                                     </tbody>
                                 </table>
                                 <!-- 페이지 네이션 -->
-                                 <!-- <div style="text-align: center;">
+                                <div style="text-align: center;">
 								  <ul class="pagination" >
 								  	  
 									
@@ -194,26 +189,28 @@
 								  
 								  </ul>
 								    
-								</div> -->
+								</div> 
                               
                                 <!-- <a role="button" class="btn btn-danger waves-effect" style=" margin-right:  5px;" href="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                                     </svg>
                                 </a> -->
-                                <a role="button" class="btn btn-danger" href="">
+                                <br>
+                                <!-- 업데이트 삭제 -->
+                                <button type="button" class="btn btn-danger" id="btnUelete">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                                       </svg>
-                                    </a>
+                                    </button>
                                     <!-- 리스트 추가 버트 -->
                                 <!-- <button class="btn btn-primary" type="button" style="float: right; margin-right:  5px;" id="btnForm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                                       </svg>
                                     </button> -->
-                                <a class="btn btn-success" href="" role="button" style="float: right; margin-right:  5px;">
+                               <!--  <a class="btn btn-success" href="" role="button" style="float: right; margin-right:  5px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
                                         <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
                                         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
@@ -223,7 +220,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-underline" viewBox="0 0 16 16">
                                         <path d="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57s-2.687-1.08-2.687-2.57zM12.5 15h-9v-1h9z"/>
                                       </svg>
-                                    </a>   
+                                    </a>  -->  
                                 
                             </div>
                         </div>
@@ -231,9 +228,32 @@
                 </div>
             </div>   
         </div>
+       									 <!-- 삭제 모달 -->
+											<!-- 모달 안 -->
+<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modalConfirmTitle" class="modal-title">타이틀</h5>
+      </div>
+      <div class="modal-body">
+        <p id="modalConfirmBody">내용</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnModalUelete" class="btn btn-danger">확인</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+											
+										<!-- 삭제모달 AND -->
     </section>
 </body>
 </form>
+</form>
+
     <section class="content">
         <div class="container-fluid">
             
@@ -283,55 +303,34 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
    
    
-    <!--체크박스 전체 체크 단독 체크-->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const entireCheckbox = document.getElementById("entire");
-            const rowCheckboxes = document.querySelectorAll(".row-checkbox");
     
-            // 전체 선택 체크박스 클릭 시
-            entireCheckbox.addEventListener("change", function () {
-                rowCheckboxes.forEach(checkbox => {
-                    checkbox.checked = entireCheckbox.checked;
-                });
-            });
-    
-            // 개별 체크박스 클릭 시 전체 선택 체크박스 상태 변경
-            rowCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener("change", function () {
-                    entireCheckbox.checked = [...rowCheckboxes].every(chk => chk.checked);
-                });
-            });
-        });
-    </script>
-    
-<!--        <script type="text/javascript">
+	<script type="text/javascript">
     	// 페이지네이션 자바 스크립
 	    let form = document.querySelector("form[name=formList]");
 	 	goList = function (thisPage) {
 	     document.querySelector("input[name=thisPage]").value = thisPage;
-	     form.action = "/code/codeXdmList";
+	     form.action = "/OrderXdmList";
 	     form.submit();
 	 }  
 
     
-    </script> -->
-<!--          <script type="text/javascript">
+    </script> 
+    <script type="text/javascript">
          document.getElementById("btnReset").onclick = function () {
-   		  window.location.href = "/code/codeXdmList";
+   		  window.location.href = "/OrderXdmList";
    		};
    		/* 검색하기 */
    		document.getElementById("btnSearch").onclick = function () {
    		    let shValue = document.getElementById("shValue"); // 검색어 
 
    		    // 데이터 값이 있을 경우 폼 제출
-   		    form.action = "/code/codeXdmList";
+   		    form.action = "/OrderXdmList";
    		    form.submit();
    		};
 
    		document.getElementById("changeRowNum").onchange = function () {
    		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-   		    form.action = "/code/codeXdmList";
+   		    form.action = "/OrderXdmList";
    		    form.submit();
    		}
 
@@ -343,12 +342,12 @@
 
    		goForm = function (keyValue) {
    		    seq.value = keyValue;
-   		    form.action = "/code/CodeXdmForm";
+   		    form.action = "/OrderXdmList";
    		    form.submit();
    		}
 	    
     
-    </script>  -->
+    </script>  
     
      <script type="text/javascript">
     //달력 
@@ -375,5 +374,75 @@
     	});
     
     </script>
+ <!-- 체크박스 업데이트 삭제 -->
+<!-- <script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+    const entireCheckbox = document.getElementById("entire");
+    const btnUelete = document.getElementById("btnUelete");
+    const btnModalUelete = document.getElementById("btnModalUelete");
+    const form = document.getElementById("form");
+
+    // 전체 체크 → 개별 체크 전부 선택/해제
+    if (entireCheckbox) {
+        entireCheckbox.addEventListener("change", function () {
+            document.querySelectorAll(".row-checkbox").forEach(cb => {
+                cb.checked = entireCheckbox.checked;
+            });
+        });
+    }
+
+    // 개별 체크 변경 → 전체 체크 상태 조정
+    document.querySelectorAll(".row-checkbox").forEach(cb => {
+        cb.addEventListener("change", function () {
+            const all = document.querySelectorAll(".row-checkbox");
+            const checked = document.querySelectorAll(".row-checkbox:checked");
+            entireCheckbox.checked = all.length === checked.length;
+        });
+    });
+
+    // 삭제 버튼 클릭 시
+    if (btnUelete) {
+        btnUelete.addEventListener("click", function () {
+            const checked = document.querySelectorAll(".row-checkbox:checked");
+            if (checked.length === 0) {
+                alert("삭제할 항목을 선택해주세요.");
+                return;
+            }
+
+            // 모달 열기
+            document.getElementById("modalConfirmTitle").textContent = "확 인";
+            document.getElementById("modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+            btnModalUelete.style.display = '';
+            $("#modalConfirm").modal("show"); // jQuery 모달 열기
+        });
+    }
+
+    // 모달 확인 클릭 시 삭제 요청
+    if (btnModalUelete) {
+        btnModalUelete.addEventListener("click", function () {
+            // 기존 hidden input 제거
+            document.querySelectorAll(".delete-id").forEach(el => el.remove());
+
+            // 체크된 항목을 hidden input으로 폼에 추가
+            document.querySelectorAll(".row-checkbox:checked").forEach(cb => {
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "deleteIds";
+                input.value = cb.value; // ✔ value 속성에 orderSeq나 삭제할 ID 필수
+                input.classList.add("delete-id");
+                form.appendChild(input);
+            });
+
+            form.action = "/OrderXdmUele"; // 삭제 요청 URL
+            form.submit();
+        });
+    }
+});
+</script> -->
+
+
+
+
+
 </body>
 </html>
