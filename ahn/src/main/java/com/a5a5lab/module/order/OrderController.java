@@ -64,7 +64,7 @@ public class OrderController {
 	//발주내역 상세List 페이지
 	@RequestMapping(value = "/FactoryOrderXdmList")
 	public String FactoryOrderXdmList(Model model,OrderVo vo) {
-		vo.setParamsPaging(orderService.selectOneCount(vo));
+		vo.setParamsPaging(orderService.selectOneOrderingCount(vo));
 		model.addAttribute("list", orderService.FactoryOrderList(vo));
 		
 		
