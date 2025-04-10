@@ -62,6 +62,7 @@ public class OrderController {
 	@RequestMapping(value = "/FactoryOrderXdmList")
 	public String FactoryOrderXdmList(Model model,OrderVo vo) {
 		vo.setParamsPaging(orderService.selectOneCount(vo));
+		model.addAttribute("list", orderService.FactoryOrderList(vo));
 		
 		
 		
