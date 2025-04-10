@@ -39,7 +39,16 @@
 			`order` AS a
 		left join member AS c ON a.member_memSeq= c.memSeq
 		WHERE 1=1
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://github.com/kimkyoungmin97/repo_ahn.git
 		order By orderSeq DESC
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> branch 'main' of https://github.com/kimkyoungmin97/repo_ahn.git
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 

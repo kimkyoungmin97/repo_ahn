@@ -58,6 +58,27 @@ public class OrderController {
 	}
 	
 	
+	//발주내역 상세List 페이지
+	@RequestMapping(value = "/FactoryOrderXdmList")
+	public String FactoryOrderXdmList(Model model,OrderVo vo) {
+		vo.setParamsPaging(orderService.selectOneCount(vo));
+		
+		
+		
+		
+		
+		model.addAttribute("vo", vo);
+		
+		return "xdm/factoryorder/FactoryOrderXdmList";
+	}
+	
+	
+	@RequestMapping(value = "/ReceivingXdmList")
+	public String receivingXdmList() {
+		
+		return "/xdm/receiving/ReceivingXdmList";
+	}
+	
 	
 	
 }
