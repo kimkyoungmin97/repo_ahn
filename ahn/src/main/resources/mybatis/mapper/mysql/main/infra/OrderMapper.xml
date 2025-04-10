@@ -43,11 +43,17 @@
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 
-		<!-- 카운트 -->
+		<!-- 주문카운트 -->
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)
 		<include refid="selectCommon"></include>
 	</select>
+		<!-- 상품카운트 -->
+	<select id="selectOneProductCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM
+			shoes
+		</select>
 	
 	<!-- 주문상세페이지 -->
 	<!--한개의 주문번호 불러오기 -->

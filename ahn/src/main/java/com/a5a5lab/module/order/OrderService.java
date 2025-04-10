@@ -20,6 +20,9 @@ public class OrderService {
 	public int selectOneCount(OrderVo vo) {
 		return orderDao.selectOneCount(vo);
 	}
+	public int selectOneProductCount(OrderVo vo) {
+		return orderDao.selectOneProductCount(vo);
+	}
 	//주문 상세페이지
 	//한개의 주문
 	public OrderDto selectOne(OrderDto orderDto) {

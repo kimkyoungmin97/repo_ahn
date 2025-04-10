@@ -50,9 +50,12 @@ public class OrderController {
 	public String StorageXdmList(Model model,OrderVo vo, OrderDto orderDto) {
 		
 		
-		vo.setParamsPaging(orderService.selectOneCount(vo));
+		vo.setParamsPaging(orderService.selectOneProductCount(vo));
 		model.addAttribute("list", orderService.storageList(vo));
 		model.addAttribute("vo", vo);
+		System.out.println("전체데이터갯수: "+vo.getTotalRows());
+		System.out.println("화면에보여줄데이터갯수: "+vo.getRowNumToShow());
+		System.out.println("전체 페이지 번호: "+vo.getTotalPages());
 			
 		return "xdm/storage/StorageXdmList";
 	}
