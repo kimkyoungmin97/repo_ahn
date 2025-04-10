@@ -42,6 +42,7 @@
 		WHERE 1=1
 		AND orderTypeCd=20
 		order By orderSeq DESC
+		 
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 
@@ -56,6 +57,14 @@
 		FROM
 			shoes
 		</select>
+			<!-- 발주 카운트 -->
+	 <select id="selectOneOrderingCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM
+			`order`
+		WHERE 1=1
+			 AND orderTypeCd = 21
+		</select> 
 	
 	<!-- 주문상세페이지 -->
 	<!--한개의 주문번호 불러오기 -->
