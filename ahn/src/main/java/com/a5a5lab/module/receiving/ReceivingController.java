@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ReceivingController {
 	
-	@RequestMapping(value = "/xdm/receiving/receivingXdmList")
+	@RequestMapping(value = "/ReceivingXdmList")
 	public String receivingXdmList() {
 		
-		return "/xdm/receiving/receivingXdmList";
+		return "/xdm/receiving/ReceivingXdmList";
 	}
 	
 }
