@@ -77,6 +77,11 @@ public class OrderController {
 	}
 	
 	
+	@RequestMapping(value = "/ReceivingXdmList")
+	public String receivingXdmList() {
+		
+		return "/xdm/receiving/ReceivingXdmList";
+	}
 	
 	
 	
