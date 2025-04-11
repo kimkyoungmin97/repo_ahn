@@ -16,6 +16,7 @@ public interface OrderDao {
 	//발주 목록 리스트 뿌리기
 	public List <OrderDto> FactoryOrderList(OrderVo vo);
 	
+	public int insert(OrderDto orderDto);
 	
 	
 	//페이지네이션

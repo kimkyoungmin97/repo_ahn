@@ -10,12 +10,14 @@ public class ProductDto {
 	private Integer shBrandCd; //브랜드 코드 (나이키,아디다스,퓨마)
 	private Integer shTypeCd; //신발 타입코드 (운동화 슬리퍼 등등)
 	private Integer salesStatus; //판매상태 (판매중 , 판매중지)
-	private Date regDateTime; //등록날짜
-	private Date modDateTime; //수정날짜
 	private Integer shDelNy; //삭제상태NY
 	private Integer shCount; // 신발의 갯수
 	private Integer shPrice; //신발 가격
 // -----
+// 검색 날짜
+	private Date regDateTime; //등록날짜
+	private Date modDateTime; //수정날짜
+// -----	
 	/**
 	 * @return the shSeq
 	 */
