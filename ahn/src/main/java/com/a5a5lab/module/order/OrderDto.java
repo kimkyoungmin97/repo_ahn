@@ -1,6 +1,7 @@
 package com.a5a5lab.module.order;
 
 import java.sql.Date;
+import java.util.List;
 
 
 public class OrderDto {
@@ -47,6 +48,9 @@ public class OrderDto {
 	//주문 금액 계산
 	private Integer sumPrice;
 
+	private List<Long> deleteIds; // 체크박스 확인
+//	----
+	
 	
 	public String getMemTel() {
 		return memTel;
@@ -233,6 +237,12 @@ public class OrderDto {
 	}
 	public void setOrder_orderSeq(Integer order_orderSeq) {
 		this.order_orderSeq = order_orderSeq;
+	}
+	public List<Long> getDeleteIds() {
+		return deleteIds;
+	}
+	public void setDeleteIds(List<Long> deleteIds) {
+		this.deleteIds = deleteIds;
 	}
 	
 	
