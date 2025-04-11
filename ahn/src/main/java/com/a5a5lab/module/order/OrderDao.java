@@ -37,4 +37,10 @@ public interface OrderDao {
 	// 주문내역 목록 업데이트 삭제
 	public int uelete(List<Long> deleteIds);
 	
+// 주문등록폼
+	//멤버 불러오기
+	public List<OrderDto> selectMemberList(OrderDto orderDto);
+	//신발 불러오기(중복없이)
+	public List<OrderDto> selectShoesList(OrderDto orderDto);
+	
 }

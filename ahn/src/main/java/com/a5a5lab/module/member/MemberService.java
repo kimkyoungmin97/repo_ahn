@@ -14,5 +14,10 @@ public class MemberService {
 		return memberDao.selectId(memberDto);
 	}
 	
+	//멤버 정보 가져오기
+	public MemberDto selectOne(MemberDto memberDto) {
+		return memberDao.selectOne(memberDto);
+	}
+	
 	
 }

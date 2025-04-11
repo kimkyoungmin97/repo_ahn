@@ -19,6 +19,8 @@ public class ProductVo {
 	private int startRnumForMysql = 0;							// 쿼리 시작 row
 //	----
 	private String cdgSeq;
+// ----
+	private String shName;
 	
 
 
@@ -38,8 +40,15 @@ public class ProductVo {
 //	----
 	private Date shQptionDate;
 //	----
+	
 	public int getThisPage() {
 		return thisPage;
+	}
+	public String getShName() {
+		return shName;
+	}
+	public void setShName(String shName) {
+		this.shName = shName;
 	}
 	public void setThisPage(int thisPage) {
 		this.thisPage = thisPage;

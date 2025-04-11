@@ -244,6 +244,24 @@
 	    SELECT last_insert_id()
 	</selectKey>
 	</insert>
+	<!-- 주문등록폼-->
+<!-- 멤버목록가져오기 -->
+	<select id="selectMemberList" resultMap="resultMapObj">
+	 select
+	 	*
+	 FROM
+	 	member
+	 WHERE 1=1 
+	</select>
+<!-- 신발목록가져오기(중복없이) -->
+	<select id="selectShoesList" resultMap="resultMapObj">
+	select DISTINCT
+		 shName
+	From
+		shoes
+	</select>
+
+ 
 	
 			
 

@@ -1,6 +1,8 @@
 package com.a5a5lab.module.order;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a5a5lab.common.util.UtilDateTiem;
+import com.a5a5lab.module.member.MemberDto;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class OrderController {
@@ -125,9 +130,13 @@ public class OrderController {
 	
 	//주문등록 페이지
 	@RequestMapping(value="/OrderXdmForm")
-	public String OrderXdmForm() {
+	public String OrderXdmForm(Model model, OrderDto orderDto) {
+		model.addAttribute("list", orderService.selectMemberList(orderDto));
+		model.addAttribute("shoes", orderService.selectShoesList(orderDto));
 		return "xdm/orderlist/OrderXdmForm";
 	}
+	
+	
 	
 		
 	

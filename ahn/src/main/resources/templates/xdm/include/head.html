@@ -559,27 +559,3 @@
 
 
 </script>
-<script type="text/javascript">
-
-document.addEventListener("DOMContentLoaded", function () {
-	
-	 let pathName = window.location.pathname;
-	 if(pathName.startsWith("/code/codeXdmList")){ //코드
-		 document.getElementById("tables-nav").className="nav-content collapse show"
-		 if(pathName.includes("/codeGroup/codeGroupXdmList")){ //코드그룹
-			 document.getElementById("btnCodegroup").className="active"			
-		 }else{
-		 document.getElementById("btnCode").className="active"
-		 }
-	 } else if(pathName.startsWith("/MemberXdmList")){ //회원정보
-		 document.getElementById("user-nav").className="nav-content collapse show"
-			 document.getElementById("btnMember").className="active"
-	 } else if(pathName.startsWith("/FutsalXdmList")){ //풋살장관리
-		 document.getElementById("mc-nav").className="nav-content collapse show"
-			 document.getElementById("btnCompany").className="active"
-	 }
-	  });
-
-
-
-</script>

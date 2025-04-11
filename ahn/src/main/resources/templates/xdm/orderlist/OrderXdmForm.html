@@ -3,116 +3,147 @@
 
 <div th:replace="~{xdm/include/head :: head}"></div>
 
+<form action="/code/CodeXdmInst" method="post" id="form">
+	<!-- ### -->
 
-<form  method="post" id="form">
+	<section class="content">
+		<div class="container-fluid">
 
+			<div class="block-header">
+				<h2>주문</h2>
+			</div>
 
-    <section class="content">
-        <div class="container-fluid">
-            
-            <div class="block-header">
-                <h2>Code Group</h2>
-            </div>
+			<!-- Input -->
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<h2>주문</h2>
+							<ul class="header-dropdown m-r--5">
+								<li class="dropdown"><a href="javascript:void(0);"
+									class="dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false"> <i
+										class="material-icons">more_vert</i>
+								</a>
+									<ul class="dropdown-menu pull-right">
+										<li><a href="javascript:void(0);">Action</a></li>
+										<li><a href="javascript:void(0);">Another action</a></li>
+										<li><a href="javascript:void(0);">Something else here</a></li>
+									</ul></li>
+							</ul>
+						</div>
+						<div class="body">
+							<h2 class="card-inside-title">
+								<small>주문자<span style="color: red;">*</span></small>
+							</h2>
+							<div class="row clearfix">
+								<div class="col-sm-12">
+									<div class="row clearfix">
+										<div class="col-sm-3">
+											<select class="form-control show-tick" id="memSeq" name="memSeq"     >
+												<option value="">선택하세요</option>
+												<option th:each="list : ${list}" th:text="${list.memName}" th:value="${list?.memSeq}" ></option>
+											</select> <span id="codeGroupError"
+												style="color: red; font-size: 10px;"></span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="form-line">
+											<h2 class="card-inside-title">
+												<small>주문자ID</small>
+											</h2>
+											<div  name="memId" id="memId">&nbsp;</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="form-line">
+											<h2 class="card-inside-title">
+												<small>배송주소</small>
+											</h2>
+											<div  name="memAddress" id="memAddress">&nbsp;</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row clearfix">
+								<div class="col-sm-12">
+									<div class="row clearfix">
+										<div class="col-sm-3">
+										<small style="font-size: 11px; color: #999; display: block; margin-top: 5px;">신발<span style="color: red;">*</span></small>
+											<select class="form-control show-tick" id="shName" name="shName"     >
+												<option value="">선택하세요</option>
+												<option th:each="list : ${shoes}" th:text="${list.shName}" th:value="${list.shName}"></option>
+											</select> <span id="codeGroupError"
+												style="color: red; font-size: 10px;"></span>
+										</div>
+										<div class="col-sm-3">
+										<small style="font-size: 11px; color: #999; display: block; margin-top: 5px;">사이즈<span style="color: red;">*</span></small>
+											<select class="form-control show-tick" id="shSizeCd" name="shSizeCd" disabled>
+												<option value="">선택하세요</option>
+											</select> <span id="codeGroupError"
+												style="color: red; font-size: 10px;"></span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="form-line">
+											<h2 class="card-inside-title">
+												<small>수량</small>
+											</h2>
+											<div  name="memId" id="memId">&nbsp;</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row clearfix">
+								<div class="col-sm-12">
+									<div class="row clearfix">
+										<!-- <div class="col-sm-3">
+											<h2 class="card-inside-title">
+												<small>사용여부</small>
+											</h2>
+											<select class="form-control show-tick ">
+												<option value="">사용</option>
 
-            <!-- Input -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                개인정보
-            
-                            </h2>
-                            
-	
-								
-							
-                        </div>
-                        <div class="body">                            
-                            <div class="row clearfix">
-                                <div class="col-sm-12">
-                                    <div class="row clearfix">
-                                        <div class="col-sm-3">
-                                        
-                                            <h2 class="card-inside-title"><small>코드그룹 코드<span style="color: red;">*</span></small></h2>
-                                             <select class="form-control show-tick " disabled>
-<!--                                                 <option th:value="${item?.cdgSeq}" name="cdgSeq" id="cdgSeq">자동생성</option> -->
-                                               
-                                            </select> 
-                                            <!-- <input type="text" id="cdgSeq" name="cdgSeq" th:value="${item?.cdgSeq}" maxlength="20" placeholder="자동생성" disabled /> -->
-                                            
-                                        </div>
-                                        
-                                
-                                        <!-- <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <h2 class="card-inside-title"><small>코드그룹 코드 (ANOTHER)</small></h2>
-                                                    <input type="text" class="form-control" placeholder="영대소문자,숫자" />
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <h2 class="card-inside-title"><small>코드그룹 이름<span style="color: red;">*</span></small></h2>
-<!--                                                     <input type="text" class="form-control" name="ifcgName" id="ifcgName" th:value="${item?.ifcgName}" placeholder="한글,영대소문자,숫자" > -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <h2 class="card-inside-title"><small>코드그룹 이름 (영문)</small></h2>
-                                                    <input type="text" class="form-control" placeholder="영대소문자,숫자" name="ifcgName" id="ifcgName" >
-                                                </div>
-                                            </div>
-                                        </div>  -->
-                                    </div>
-                                    <div class="row clearfix">
-                                        <!-- <div class="col-sm-3">
-                                            <h2 class="card-inside-title"><small>사용여부<span style="color: red;">*</span></small></h2>
-                                            <select class="form-control show-tick" id="usedOrNot" name="usedOrNot">
-                                                <option value="">사용</option>
-                                                <option value="Y">Y</option>
-                                                <option value="N">N</option>
-                                               
-                                            </select> 
-                                              
-                                        </div> -->
-                                        <!-- <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <h2 class="card-inside-title"><small>순서<span style="color: red;">*</span></small></h2>
-                                                    <input type="text" class="form-control" placeholder="" />
-                                                </div>
-                                            </div>
-                                        </div> -->
-										
-										 <!-- <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <h2 class="card-inside-title"><small>갯수<span style="color: red;"></span></small></h2>
-                                                    <input type="text" class="form-control" placeholder="" name="" id=""/>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                  
-                                    <div class="col-sm-12 body">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <h2 class="card-inside-title"><small>설명</small></h2>
-                                                <textarea rows="4" class="form-control no-resize" placeholder=""></textarea>
-                                            </div>
-                                        </div>
-                                        
-                                        <a role="button" class="btn btn-light"  style="float: left;" th:href="@{/codeGroup/codeGroupXdmList}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+											</select>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<div class="form-line">
+													<h2 class="card-inside-title">
+														<small>순서</small>
+													</h2>
+													<input type="text" class="form-control" placeholder="" />
+												</div>
+											</div>
+										</div> -->
+
+									</div>
+									<div class="col-sm-12">
+										<!-- <div class="form-group">
+											<div class="form-line">
+												<h2 class="card-inside-title">
+													<small>설명</small>
+												</h2>
+												<textarea rows="4" class="form-control no-resize"
+													placeholder=""></textarea>
+											</div>
+										</div> -->
+										<a role="button" class="btn btn-light" style="float: left;"
+											th:href="@{/code/codeXdmList}"> <svg
+												xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+												fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                                                <path
+													fill-rule="evenodd"
+													d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                                             </svg>
-                                        </a> 
-	                                        &nbsp; &nbsp;
+										</a>
+										     &nbsp; &nbsp;
                                         <!-- 업데이트 삭제 -->
                                        <button type="button" class="btn btn-danger" id="btnUelete">
 	                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -120,41 +151,19 @@
 	                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
 	                                      </svg>
 	                                    </button>
-	                                    
-                                        <button  type="button" class="btn btn-primary" style="float: right;" id="btnSubmit" data-toggle="modal">
-                                            <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database" viewBox="0 0 16 16">
-                                                <path d="M4.318 2.687C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4c0-.374.356-.875 1.318-1.313M13 5.698V7c0 .374-.356.875-1.318 1.313C10.766 8.729 9.464 9 8 9s-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777A5 5 0 0 0 13 5.698M14 4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16s3.022-.289 4.096-.777C13.125 14.755 14 14.007 14 13zm-1 4.698V10c0 .374-.356.875-1.318 1.313C10.766 11.729 9.464 12 8 12s-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10s3.022-.289 4.096-.777A5 5 0 0 0 13 8.698m0 3V13c0 .374-.356.875-1.318 1.313C10.766 14.729 9.464 15 8 15s-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13s3.022-.289 4.096-.777c.324-.147.633-.323.904-.525"/>
+										<button type="button" class="btn btn-primary"
+											style="float: right;" id="btnSubmit" data-toggle="modal">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor" class="bi bi-database"
+												viewBox="0 0 16 16">
+                                                <path
+													d="M4.318 2.687C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4c0-.374.356-.875 1.318-1.313M13 5.698V7c0 .374-.356.875-1.318 1.313C10.766 8.729 9.464 9 8 9s-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777A5 5 0 0 0 13 5.698M14 4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16s3.022-.289 4.096-.777C13.125 14.755 14 14.007 14 13zm-1 4.698V10c0 .374-.356.875-1.318 1.313C10.766 11.729 9.464 12 8 12s-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10s3.022-.289 4.096-.777A5 5 0 0 0 13 8.698m0 3V13c0 .374-.356.875-1.318 1.313C10.766 14.729 9.464 15 8 15s-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13s3.022-.289 4.096-.777c.324-.147.633-.323.904-.525" />
                                               </svg>
-                                        </button>
-                                       
-										<!-- 코그룹 이름 입력하세요 모달창 -->
-										<div class="modal" id="codeGroupNameModal" role="dialog">
-                                            <div  class="modal-dialog" role="document">
-										        <div class="modal-content">
-										             <div class="modal-body">코드그룹 이름을입력하세요
-                            						 </div>
-                        								<div class="modal-footer">
-                        									
-										            		<button type="button" class="btn bg-red waves-effect" id="check">확인</button>
-                        								</div>
-										         </div>
-										    </div>
-										</div>
-										<!-- 사용여부 선택하세여 모달창 -->
-										<!-- <div class="modal" id="codeGroupYNModal" role="dialog">
-                                            <div  class="modal-dialog" role="document">
-										        <div class="modal-content">
-										             <div class="modal-body">사용여부를 선택하세요
-                            						 </div>
-                        								<div class="modal-footer">
-                        									
-										            		<button type="button" class="btn bg-red waves-effect" id="check1">확인</button>
-                        								</div>
-										         </div>
-										    </div>
-										</div> -->
-										
-										<!-- 삭제 모달 -->
+										</button>
+
+									</div>
+									
+									<!-- 삭제 모달 -->
 											<div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 												<div class="modal-dialog modal-dialog-centered">
 													<div class="modal-content">
@@ -176,34 +185,116 @@
 											</div>
 											
 										<!-- 삭제모달 AND -->
-                                       
-                                       
-                                    </div>
-                                   
-                                    
-                                </div>
-                                
-                                 
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+									
+									
+									
+									
+									
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </form>
- <div th:replace="~{xdm/include/foter :: foter}"></div>
 
+<!-- Jquery Core Js -->
+<script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
 
+<!-- Bootstrap Core Js -->
+<script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
 
+<!-- Select Plugin Js -->
+<script
+	src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
+<!-- Slimscroll Plugin Js -->
+<script
+	src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
+<!-- Waves Effect Plugin Js -->
+<script src="/xdm/template/master./plugins/node-waves/waves.js"></script>
 
+<!-- Autosize Plugin Js -->
+<script src="/xdm/template/master/plugins/autosize/autosize.js"></script>
 
+<!-- Moment Plugin Js -->
+<script src="/xdm/template/master/plugins/momentjs/moment.js"></script>
 
+<!-- Bootstrap Material Datetime Picker Plugin Js -->
+<script
+	src="/xdm/template/master/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
+<!-- Bootstrap Datepicker Plugin Js -->
+<script
+	src="/xdm/template/master/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
+<!-- Custom Js -->
+<script src="/xdm/template/master/js/admin.js"></script>
+<script src="/xdm/template/master/js/pages/forms/basic-form-elements.js"></script>
+
+<!-- Demo Js -->
+<script src="/xdm/template/master/js/demo.js"></script>
+
+<script type="text/javascript">
+
+//	주문자 선택시 주문자 정보 뜨는Proc
+	$('#memSeq').on('change', function () {
+	    $.ajax({
+	    	async: true 
+			,cache: false
+			,type: "post"
+			/* ,dataType:"json" */
+			,url: "/selectOneMemberProc"
+			/* ,data : $("#formLogin").serialize() */
+			,data : { "memSeq" : $("#memSeq").val()}
+			,success: function(response) {
+				   $('#memId').val(response.memId);
+				    $('#memAddress').val(response.memAddress);
+				    $('#memId').text(response.memId);
+				    $('#memAddress').text(response.memAddress);
+	         
+	        }
+	        
+	    });
+	});
+//신발 선택시 size보여주는 Proc
+$('#shName').on('change', function () {
+	let selectedshName =  $(this).val();
  
+    if (selectedshName != "") {
+	    $.ajax({
+	    	async: true 
+			,cache: false
+			,type: "post"
+			/* ,dataType:"json" */
+			,url: "/selectOneShoesProc"
+			/* ,data : $("#formLogin").serialize() */
+			,data : { "shName" : $("#shName").val()}
+			,success: function(response) {
+				  
+				$('#shSizeCd').prop('disabled', false);
+                $('#shSizeCd').selectpicker('refresh');
+	        }
+	        
+	    });
+    } else {
+        // 선택하세요로 돌아온 경우 → 두 번째 셀렉트박스 다시 비활성화
+        $('#shSizeCd').prop('disabled', true);
+        $('#shSizeCd').selectpicker('refresh');
+    }
+});
+
+
+
+</script>
+
+
+
+
+
 </body>
 </html>
