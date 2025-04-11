@@ -35,6 +35,7 @@ public class OrderVo {
 	private String shDateEnd;
 	private Integer shOption;									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private String shValue;
+	private Integer deliveryS; //배송상태 /* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 //	-----
 	
 //	검색 날짜
@@ -244,5 +245,11 @@ public class OrderVo {
 	}
 	public void setCodeGroup_cdgSeq(String codeGroup_cdgSeq) {
 		this.codeGroup_cdgSeq = codeGroup_cdgSeq;
+	}
+	public Integer getDeliveryS() {
+		return deliveryS;
+	}
+	public void setDeliveryS(Integer deliveryS) {
+		this.deliveryS = deliveryS;
 	}
 }

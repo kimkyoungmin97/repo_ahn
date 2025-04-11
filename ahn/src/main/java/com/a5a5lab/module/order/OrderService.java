@@ -59,8 +59,8 @@ public class OrderService {
 	}
 	
 	//주문 목록 리스트 업데이트 삭제
-	public int uelete (OrderDto orderDto) {
-		return orderDao.uelete(orderDto);
+	public int uelete (List<Long> deleteIds) {
+		return orderDao.uelete(deleteIds);
 	}
 	
 	

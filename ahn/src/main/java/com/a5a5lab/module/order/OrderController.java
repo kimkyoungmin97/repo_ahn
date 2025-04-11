@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a5a5lab.common.util.UtilDateTiem;
 
@@ -18,21 +20,27 @@ public class OrderController {
 	// 주문내역 목록 리스트 보여주기
 	@RequestMapping(value ="/OrderXdmList")
 	public String OrderXdmList(Model model,OrderVo vo) {
-		
+		// 날짜 보정
 		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
 		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
 		
+		if (vo.getShDelNy() == null) {
+		    vo.setShDelNy(0);
+		}
 		
+		//페이지 네이션
 		vo.setParamsPaging(orderService.selectOneCount(vo));
 		model.addAttribute("list", orderService.selectList(vo));
 		model.addAttribute("vo", vo);
 		return "xdm/orderlist/OrderXdmList";
 	}
 	// 주문 목록 리스트 업데이트 삭제
-	@RequestMapping(value="/OrderXdmUele")
-	public String OrderXdmUele(OrderDto orderDto) {
-		orderService.uelete(orderDto);
-		return "redirect:/OrderXdmList";
+	@PostMapping("/OrderXdmUele")
+	@ResponseBody
+	public String OrderXdmUele(OrderDto dto) {
+	    List<Long> deleteIds = dto.getDeleteIds();
+	    orderService.uelete(deleteIds);
+	    return "success";
 	}
 	
 	

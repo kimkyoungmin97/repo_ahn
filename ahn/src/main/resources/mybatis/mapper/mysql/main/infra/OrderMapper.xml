@@ -27,7 +27,9 @@
 		left join member AS c ON a.member_memSeq= c.memSeq
 		WHERE 1=1
 		<!-- 업데이트 삭제 여부 검색 -->
-		<if test="shDelNy != null and !shDelNy.equals('')">AND orderDelNy = #{shDelNy}</if> 
+	    <if test="shDelNy != null and !shDelNy.equals('')">AND a.orderDelNy = #{shDelNy}</if>  
+		<!-- <if test="shDelNy != null and shDelNy != ''">  AND a.orderDelNy = #{shDelNy}</if> -->
+
 		
 		<!-- 날짜 검색 기능 -->
 		<choose>
@@ -41,9 +43,15 @@
             <when test="shOption == 2">AND c.memName LIKE CONCAT('%',#{shValue},'%')</when>
             
         </choose>
+        
+        <!-- 검색구분 배송상태 배송전 배송완료 기능 -->
+        <choose>
+			<when test="deliveryS == 18">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
+			<when test="deliveryS == 19">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
+		</choose>
 		
-		AND orderTypeCd=20
-		AND orderDelNy = 0
+		AND a.orderTypeCd = 20
+		
 		 
 		
 		order By orderSeq DESC
@@ -55,7 +63,10 @@
 		UPDATE `order` SET
 			orderDelNy = 1
 		WHERE
-			orderSeq = #{orderSeq};
+			orderSeq IN
+		    <foreach collection="list" item="id" open="(" separator="," close=")">
+		        #{id}
+		    </foreach>
 	</update>
 
 	<!-- 주문카운트 -->

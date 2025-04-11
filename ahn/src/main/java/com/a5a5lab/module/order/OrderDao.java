@@ -35,6 +35,6 @@ public interface OrderDao {
 		
 	
 	// 주문내역 목록 업데이트 삭제
-	public int uelete(OrderDto orderDto);
+	public int uelete(List<Long> deleteIds);
 	
 }

@@ -27,7 +27,7 @@
                                        
                                          <div class="col-sm-2">
                                             <select class="form-control show-tick " id="shDelNy" name="shDelNy">
-                                                <option  value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                                                <option  value="0" th:selected="${vo.shDelNy == null}">삭제여부</option>
                                                 <option value="1"  th:selected="${vo.shDelNy == 1}">Y</option>
                                                 <option value="0"  th:selected="${vo.shDelNy == 0}">N</option>
                                                
@@ -64,7 +64,36 @@
                                         
 
                                     </div>
-                                    
+                                     
+                                       
+										    <div class="col-sm-12">
+										        <div style="display: flex; align-items: center; gap: 30px;">
+										            <label style="font-weight: bold; margin-bottom: 0; min-width: 80px;">배송상태</label>
+										
+										            <div class="form-check">
+										                <input class="form-check-input" type="radio" name="deliveryS" id="radioDefault1" value="" th:checked="${vo.deliveryS == null}" checked>
+										                <label class="form-check-label" for="radioDefault1" >
+										                    전체
+										                </label>
+										            </div>
+										
+										            <div class="form-check">
+										                <input class="form-check-input" type="radio" name="deliveryS" id="radioDefault2" value="18" th:checked="${vo.deliveryS == 18}">
+										                <label class="form-check-label" for="radioDefault2" >
+										                    배송전
+										                </label>
+										            </div>
+										
+										            <div class="form-check">
+										                <input class="form-check-input" type="radio" name=deliveryS id="radioDefault3" value="19" th:checked="${vo.deliveryS == 19}">
+										                <label class="form-check-label" for="radioDefault3" >
+										                    배송완료
+										                </label>
+										            </div>
+										        </div>
+										    </div>
+										    <br> <br> <br> <br>
+										
                                     <div class="row clearfix">
                                     
                                         <div class="col-sm-2">
@@ -125,11 +154,11 @@
                                 <table class="table table-bordered table-striped table-hover  dataTable">
                                     <thead>
                                         <tr>
-                                            <th>
+                                           <th>
 											  <input class="form-check-input" type="checkbox" id="entire">
-<label class="form-check-label" for="entire"></label>
+												<label class="form-check-label" for="entire"></label>
 
-											</th>
+											</th> 
                                             <th>NO</th>
                                             <th>주문번호</th>
                                             <th>주문자ID</th>
@@ -152,9 +181,9 @@
                                         <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
                                             <th>
 											    <input class="form-check-input row-checkbox" type="checkbox" th:id="'chk_' + ${list.orderSeq}" th:value="${list.orderSeq}">
-<label class="form-check-label" th:for="'chk_' + ${list.orderSeq}"></label>
+												<label class="form-check-label" th:for="'chk_' + ${list.orderSeq}"></label>
 
-											</th>
+											</th> 
                                              <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
                                              <td><a th:href="@{/OrderXdmView(orderSeq=${list.orderSeq})}" th:text="${list.orderSeq}"></a></td>
                                             <td  th:text="${list.memId}"></td>
@@ -203,7 +232,7 @@
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                                       </svg>
-                                    </button>
+                                    </button> 
                                     <!-- 리스트 추가 버트 -->
                                 <!-- <button class="btn btn-primary" type="button" style="float: right; margin-right:  5px;" id="btnForm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -242,13 +271,32 @@
       <div class="modal-footer">
         <button type="button" id="btnModalUelete" class="btn btn-danger">확인</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+
       </div>
     </div>
   </div>
 </div>
 
 											
-										<!-- 삭제모달 AND -->
+<!-- 삭제모달 AND -->
+<!-- 삭제버튼 눌렀을때 체크 박스 체크 안헀을경우 -->
+<div class="modal fade" id="modalConfirm22" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalConfirmTitle22">확 인</h5>
+      </div>
+      <div class="modal-body">
+        <p id="modalConfirmBody22">내용</p>
+      </div>
+      <div class="modal-footer">
+       <!--  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+										
     </section>
 </body>
 </form>
@@ -260,7 +308,9 @@
             
         </div>
     </section>
-       
+   
+    
+    
         <!-- Jquery Core Js -->
         <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
 
@@ -302,7 +352,7 @@
         <!-- 달력 플러그인 추가 -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
    
-   
+  
     
 	<script type="text/javascript">
     	// 페이지네이션 자바 스크립
@@ -375,7 +425,7 @@
     
     </script>
  <!-- 체크박스 업데이트 삭제 -->
-<!-- <script type="text/javascript">
+ <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () {
     const entireCheckbox = document.getElementById("entire");
     const btnUelete = document.getElementById("btnUelete");
@@ -400,45 +450,66 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 삭제 버튼 클릭 시
-    if (btnUelete) {
-        btnUelete.addEventListener("click", function () {
-            const checked = document.querySelectorAll(".row-checkbox:checked");
-            if (checked.length === 0) {
-                alert("삭제할 항목을 선택해주세요.");
-                return;
-            }
+ // 삭제 버튼 클릭 시
+if (btnUelete) {
+    btnUelete.addEventListener("click", function () {
+        const checked = document.querySelectorAll(".row-checkbox:checked");
+        
+        if (checked.length === 0) {
+            document.getElementById("modalConfirmTitle22").textContent = "확 인";
+            document.getElementById("modalConfirmBody22").textContent = "삭제할 항목을 선택해주세요.";
 
-            // 모달 열기
-            document.getElementById("modalConfirmTitle").textContent = "확 인";
-            document.getElementById("modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
-            btnModalUelete.style.display = '';
-            $("#modalConfirm").modal("show"); // jQuery 모달 열기
-        });
-    }
+            // 모달창 열기
+            $('#modalConfirm22').modal('show');
 
-    // 모달 확인 클릭 시 삭제 요청
-    if (btnModalUelete) {
-        btnModalUelete.addEventListener("click", function () {
-            // 기존 hidden input 제거
-            document.querySelectorAll(".delete-id").forEach(el => el.remove());
+            return;
+        }
 
-            // 체크된 항목을 hidden input으로 폼에 추가
-            document.querySelectorAll(".row-checkbox:checked").forEach(cb => {
-                const input = document.createElement("input");
-                input.type = "hidden";
-                input.name = "deleteIds";
-                input.value = cb.value; // ✔ value 속성에 orderSeq나 삭제할 ID 필수
-                input.classList.add("delete-id");
-                form.appendChild(input);
-            });
+        document.getElementById("modalConfirmTitle").textContent = "확 인";
+        document.getElementById("modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+        btnModalUelete.style.display = '';
+        
+        //  모달 열기
+        $('#modalConfirm').modal('show');
+    });
+}
 
-            form.action = "/OrderXdmUele"; // 삭제 요청 URL
-            form.submit();
-        });
-    }
+
+
+	//모달 확인 클릭 시 삭제 요청
+	if (btnModalUelete) {
+	    btnModalUelete.addEventListener("click", function () {
+	        // 체크된 항목 수집
+	        let deleteIds = [];
+	        document.querySelectorAll(".row-checkbox:checked").forEach(cb => {
+	            deleteIds.push(cb.value);
+	        });
+	
+	        if (deleteIds.length === 0) {
+	            alert("삭제할 항목이 없습니다.");
+	            return;
+	        }
+	
+	        // Ajax 요청
+	        $.ajax({
+	            url: "/OrderXdmUele", // 삭제 요청 URL
+	            type: "POST",
+	            traditional: true, // 배열 전송 시 꼭 필요!
+	            data: {
+	                deleteIds: deleteIds
+	            }, 
+	            success: function (response) {
+	                // 성공 시 처리
+	               
+	                location.reload(); // 페이지 새로고침
+	            },
+	            
+	        });
+	    });
+	}
+
 });
-</script> -->
+</script> 
 
 
 
