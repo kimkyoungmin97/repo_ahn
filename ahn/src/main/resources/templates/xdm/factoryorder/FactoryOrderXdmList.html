@@ -191,7 +191,7 @@
                                             <th>총수량</th>
                                            	<th>발주날짜</th>
                                             <th>발주자</th>
-                                             <th>발주상태</th>
+                                             <th>처리상태</th>
                                             
                                            
                                             
@@ -220,7 +220,7 @@
                                            <td th:text="${list.shOrderCount}"></td>
                                            <td th:text="${list.regDateTime}"></td>
                                            <td th:text="${list.memName}"></td>
-                                           <td ></td>
+                                           <td th:text="${@codeService.selectOneCachedCode(list.orderStatusCd)}"></td>
                                            
                                            
                                             

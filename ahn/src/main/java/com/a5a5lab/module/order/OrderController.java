@@ -105,6 +105,12 @@ public class OrderController {
 		return "xdm/receiving/ReceivingXdmList";
 	}
 	
+	//주문등록 페이지
+	@RequestMapping(value="/OrderXdmForm")
+	public String OrderXdmForm() {
+		return "xdm/orderlist/OrderXdmForm";
+	}
+	
 		
 	
 	

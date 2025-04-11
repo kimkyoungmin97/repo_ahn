@@ -21,7 +21,8 @@
 		c.memAddress,
 		a.regDateTime,
 		a.deliveryStatus,
-		a.paymentStatus
+		a.paymentStatus,
+		a.orderStatusCd
 		from
 		`order` AS a
 		left join member AS c ON a.member_memSeq= c.memSeq
@@ -173,7 +174,8 @@
 		    d.shTypeCd,
 		    c.shOrderCount,
 		    a.regDateTime,
-		    b.memName
+		    b.memName,
+		    a.orderStatusCd
 		FROM
 			`order` AS a
 		left join member AS b ON a.member_memSeq = b.memSeq

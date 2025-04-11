@@ -15,6 +15,7 @@ public class OrderDto {
 	private Date regDateTime; //등록일(주문일, 입고일, 발주일)
 	private Date modDateTime; //수정일
 	private String momber_memSeq; //멤버 Seq 키
+	private Integer orderStatusCd;//주문처리상태
 	
 	// member 테이블 컬럼
 	private String memSeq; //멤버 Seq
@@ -54,6 +55,12 @@ public class OrderDto {
 	
 	public String getMemTel() {
 		return memTel;
+	}
+	public Integer getOrderStatusCd() {
+		return orderStatusCd;
+	}
+	public void setOrderStatusCd(Integer orderStatusCd) {
+		this.orderStatusCd = orderStatusCd;
 	}
 	public void setMemTel(String memTel) {
 		this.memTel = memTel;
