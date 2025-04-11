@@ -172,6 +172,9 @@
 		    d.shBrandCd,
 		    d.shSizeCd,
 		    d.shTypeCd,
+		    brand.ifcdName AS shBrandName,
+		    size.ifcdName AS shSizeName,
+		    type.ifcdName AS shTypeName,
 		    c.shOrderCount,
 		    a.regDateTime,
 		    b.memName,
@@ -181,7 +184,37 @@
 		left join member AS b ON a.member_memSeq = b.memSeq
 		left join order_detail AS c ON a.orderSeq = c.order_orderSeq
 		left join shoes AS d ON c.shoes_shSeq = d.shSeq
+		
+		LEFT JOIN code AS brand ON d.shBrandCd = brand.cdSeq
+		LEFT JOIN code AS size  ON d.shSizeCd  = size.cdSeq
+		LEFT JOIN code AS type  ON d.shTypeCd  = type.cdSeq
+		
 		WHERE 1=1
+		
+		<if test="shDelNy != null and !shDelNy.equals('')">AND a.orderDelNy = #{shDelNy}</if>
+		
+		<!-- 날짜 검색 기능 -->
+		<choose>
+			<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+		</choose> 
+		
+		<!-- 검색 구분 검색 -->
+		<choose>
+        	<when test="shOption == 1">AND d.shName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 2">AND brand.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND size.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 4">AND type.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 5">AND b.memName LIKE CONCAT('%',#{shValue},'%')</when>
+            
+            
+        </choose>
+        
+        <!-- 검색구분 발주상태 입고대기 입고완료 기능 --> 
+        <choose>
+			<when test="orderS == 26">AND a.orderStatusCd BETWEEN #{orderS} AND #{orderS}</when>
+			<when test="orderS == 27">AND a.orderStatusCd BETWEEN #{orderS} AND #{orderS}</when>
+		</choose>
+        
 		AND	a.orderTypeCd =21
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>

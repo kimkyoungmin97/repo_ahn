@@ -36,6 +36,7 @@ public class OrderVo {
 	private Integer shOption;									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private String shValue;
 	private Integer deliveryS; //배송상태 /* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
+	private Integer orderS; //발주상태 /* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 //	-----
 	
 //	검색 날짜
@@ -48,6 +49,18 @@ public class OrderVo {
 
 	public int getThisPage() {
 		return thisPage;
+	}
+	/**
+	 * @return the orderS
+	 */
+	public Integer getOrderS() {
+		return orderS;
+	}
+	/**
+	 * @param orderS the orderS to set
+	 */
+	public void setOrderS(Integer orderS) {
+		this.orderS = orderS;
 	}
 	public String getOrderSeq() {
 		return orderSeq;

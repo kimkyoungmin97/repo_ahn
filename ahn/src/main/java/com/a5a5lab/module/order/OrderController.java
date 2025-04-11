@@ -95,6 +95,13 @@ public class OrderController {
 		model.addAttribute("list", orderService.FactoryOrderList(vo));
 		model.addAttribute("vo", vo);
 		
+		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
+		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
+		
+		if (vo.getShDelNy() == null) {
+		    vo.setShDelNy(0);
+		}
+		
 		return "xdm/factoryorder/FactoryOrderXdmList";
 	}
 	
