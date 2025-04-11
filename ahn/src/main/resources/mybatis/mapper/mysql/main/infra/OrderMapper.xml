@@ -28,7 +28,7 @@
 		WHERE 1=1
 		<!-- 업데이트 삭제 여부 검색 -->
 	    <if test="shDelNy != null and !shDelNy.equals('')">AND a.orderDelNy = #{shDelNy}</if>  
-		<!-- <if test="shDelNy != null and shDelNy != ''">  AND a.orderDelNy = #{shDelNy}</if> -->
+		
 
 		
 		<!-- 날짜 검색 기능 -->
@@ -64,9 +64,7 @@
 			orderDelNy = 1
 		WHERE
 			orderSeq IN
-		    <foreach collection="list" item="id" open="(" separator="," close=")">
-		        #{id}
-		    </foreach>
+	    <foreach collection="list" item="id" open="(" separator="," close=")"> #{id} </foreach>
 	</update>
 
 	<!-- 주문카운트 -->
