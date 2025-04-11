@@ -21,6 +21,10 @@ public class OrderService {
 		return orderDao.FactoryOrderList(vo);
 	}
 	
+	public int insert(OrderDto orderDto){
+		return orderDao.insert(orderDto);
+	}
+	
 	
 	//페이진이션
 	public int selectOneCount(OrderVo vo) {

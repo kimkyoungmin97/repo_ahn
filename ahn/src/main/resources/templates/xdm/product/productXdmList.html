@@ -6,7 +6,7 @@
 	<form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-< 		<input type="hidden" name="shSeq">
+ 		<input type="hidden" name="shSeq">
     <section class="content">
         <div class="container-fluid">
             
@@ -25,10 +25,10 @@
                                 <div class="col-sm-12">
                                     <div class="row clearfix">
                                         <div class="col-sm-2">
-                                            <select class="form-control show-tick ">
-                                                <option >삭제여부</option>
-                                                <option>Y</option>
-                                                <option >N</option>
+                                            <select class="form-control show-tick" id="shDelNy" name="shDelNy">
+                                                <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                                                <option value="1"  th:selected="${vo.shDelNy == 1}">Y</option>
+                                                <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
                                                
                                             </select>
                                             
@@ -43,9 +43,10 @@
                                             
                                         </div> -->
                                           <div class="col-sm-2">
-                                            <select class="form-control show-tick " >
-                                                <option>날짜</option>
-                                                <option>주문일</option>
+                                            <select class="form-control show-tick" id="shOptionDate" name="shOptionDate" >
+                                                <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                                                <option value="1" th:selected="${vo.shOptionDate == 1}">등록일자</option>
+                                                <option value="2" th:selected="${vo.shOptionDate == 2}">수정일자</option>    
                                                     
                                             </select>
                                             
@@ -53,7 +54,16 @@
                                          <div class="col-sm-2">
 										    <div class="form-group">
 										        <div class="form-line">
-										            <input type="text" class="form-control"  placeholder="주문일" autocomplete="off"/>
+										            <input type="text" class="form-control" th:value="${vo.shDateStart != null && #strings.length(vo.shDateStart) >= 10 ? #strings.substring(vo.shDateStart, 0, 10) : vo.shDateStart}"
+										                   id="shDateStart" name="shDateStart"  placeholder="YYYY-MM-DD" autocomplete="off"/>
+										        </div>
+										    </div>
+										</div>
+										 <div class="col-sm-2">
+										    <div class="form-group">
+										        <div class="form-line">
+										            <input type="text" class="form-control" th:value="${vo.shDateEnd != null && #strings.length(vo.shDateEnd) >= 10 ? #strings.substring(vo.shDateEnd, 0, 10) : vo.shDateEnd}"
+										                   id="shDateEnd" name="shDateEnd" placeholder="YYYY-MM-DD" autocomplete="off"/>
 										        </div>
 										    </div>
 										</div>
@@ -73,17 +83,21 @@
                                     <div class="row clearfix">
                                     
                                         <div class="col-sm-2">
-                                            <select class="form-control show-tick ">
-                                                <option >검색구분</option>
-                                                <option >주문자ID</option>
-                                                <option >주문자 이름</option>
+                                            <select class="form-control show-tick" id="shOption" name="shOption">
+                                                <option value=""  th:selected="${vo.shOption == null}">검색구분</option>
+                                                <option value="1" th:selected="${vo.shOption == 1}">NO</option>
+                                                <option value="2" th:selected="${vo.shOption == 2}">신발이름</option>
+                                                <option value="3" th:selected="${vo.shOption == 3}">신발사이즈</option>
+                                                <option value="4" th:selected="${vo.shOption == 4}">신발브랜드</option>
+                                                <option value="5" th:selected="${vo.shOption == 5}">가격</option>
+                                                <option value="6" th:selected="${vo.shOption == 6}">신발타입</option>
                                                 
                                             </select>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control"  placeholder="검색어" />
+                                                    <input type="text" class="form-control" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()"  placeholder="검색어" />
                                                 	
                                                 </div>
                                             </div>
@@ -117,16 +131,16 @@
                         <div class="body">
                             <div class="table-responsive">
                             <div class="col-sm-2">
-                                        	<strong>Total:<span ></span></strong>
+                                        	<strong>Total:<span th:text="${vo.totalRows}"></span></strong>
                                         </div>					<!-- js-basic-example 들어가면 페이징 가능-->
                             			<div class="col-sm-2"  style="float: right;">
                                             <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum" >
-												<option value="5" >5</option>
-												<option value="10" >10</option>
-												<option value="30" >30</option>
-												<option value="50" >50</option>
-												<option value="80" >80</option>
-												<option value="100">100</option>       
+												<option value="5" th:selected="${vo.rowNumToShow eq 5}" >5</option>
+												<option value="10" th:selected="${vo.rowNumToShow eq 10}" >10</option>
+												<option value="30" th:selected="${vo.rowNumToShow eq 30}" >30</option>
+												<option value="50" th:selected="${vo.rowNumToShow eq 50}" >50</option>
+												<option value="80" th:selected="${vo.rowNumToShow eq 80}" >80</option>
+												<option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>       
 											</select>
                                         </div>
                                 <table class="table table-bordered table-striped table-hover  dataTable">
@@ -212,11 +226,11 @@
 								    
 								</div>
                               
-                                <a role="button" class="btn btn-danger waves-effect" style=" margin-right:  5px;" href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                                    </svg>
-                                </a>
+<!--                                 <a role="button" class="btn btn-danger waves-effect" style=" margin-right:  5px;" href=""> -->
+<!--                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"> -->
+<!--                                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/> -->
+<!--                                     </svg> -->
+<!--                                 </a> -->
                                 <a role="button" class="btn btn-danger" href="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
@@ -224,22 +238,22 @@
                                       </svg>
                                     </a>
                                     <!-- 리스트 추가 버트 -->
-                                <!-- <button class="btn btn-primary" type="button" style="float: right; margin-right:  5px;" id="btnForm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                                      </svg>
-                                    </button> -->
-                                <a class="btn btn-success" href="" role="button" style="float: right; margin-right:  5px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-                                        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-                                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-                                      </svg>
-                                    </a>                                
-                                <a class="btn btn-primary" href="" role="button" style="float: right; margin-right:  5px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-underline" viewBox="0 0 16 16">
-                                        <path d="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57s-2.687-1.08-2.687-2.57zM12.5 15h-9v-1h9z"/>
-                                      </svg>
-                                    </a>   
+<!--                                 <button class="btn btn-primary" type="button" style="float: right; margin-right:  5px;" id="btnForm"> -->
+<!--                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16"> -->
+<!--                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/> -->
+<!--                                       </svg> -->
+<!--                                     </button> -->
+<!--                                 <a class="btn btn-success" href="" role="button" style="float: right; margin-right:  5px;"> -->
+<!--                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16"> -->
+<!--                                         <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/> -->
+<!--                                         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/> -->
+<!--                                       </svg> -->
+<!--                                     </a>                                 -->
+<!--                                 <a class="btn btn-primary" href="" role="button" style="float: right; margin-right:  5px;"> -->
+<!--                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-underline" viewBox="0 0 16 16"> -->
+<!--                                         <path d="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57s-2.687-1.08-2.687-2.57zM12.5 15h-9v-1h9z"/> -->
+<!--                                       </svg> -->
+<!--                                     </a>    -->
                                 
                             </div>
                         </div>
@@ -332,22 +346,22 @@
 
     
     </script>
-<!--          <script type="text/javascript">
+          <script type="text/javascript">
          document.getElementById("btnReset").onclick = function () {
-   		  window.location.href = "/code/codeXdmList";
+   		  window.location.href = "/productXdmList";
    		};
    		/* 검색하기 */
    		document.getElementById("btnSearch").onclick = function () {
    		    let shValue = document.getElementById("shValue"); // 검색어 
 
    		    // 데이터 값이 있을 경우 폼 제출
-   		    form.action = "/code/codeXdmList";
+   		    form.action = "/productXdmList";
    		    form.submit();
    		};
 
    		document.getElementById("changeRowNum").onchange = function () {
    		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-   		    form.action = "/code/codeXdmList";
+   		    form.action = "/productXdmList";
    		    form.submit();
    		}
 
@@ -359,36 +373,37 @@
 
    		goForm = function (keyValue) {
    		    seq.value = keyValue;
-   		    form.action = "/code/CodeXdmForm";
+   		    form.action = "/product/ProductXdmForm";
+   		 
    		    form.submit();
    		}
 	    
     
-    </script>  -->
+    </script>
     
      <script type="text/javascript">
-//     //달력 
-//     $.datetimepicker.setLocale('ko'); //번역기
-//     jQuery(function(){
-//     	 jQuery('#shDateStart').datetimepicker({
-//     	  format:'Y/m/d',
-//     	  onShow:function( ct ){
-//     	   this.setOptions({
-//     	    maxDate:jQuery('#shDateEnd').val()?jQuery('#shDateEnd').val():false
-//     	   })
-//     	  },
-//     	  timepicker:false
-//     	 });
-//     	 jQuery('#shDateEnd').datetimepicker({
-//     	  format:'Y/m/d',
-//     	  onShow:function( ct ){
-//     	   this.setOptions({
-//     	    minDate:jQuery('#shDateStart').val()?jQuery('#shDateStart').val():false
-//     	   })
-//     	  },
-//     	  timepicker:false
-//     	 });
-//     	});
+    //달력 
+    $.datetimepicker.setLocale('ko'); //번역기
+    jQuery(function(){
+    	 jQuery('#shDateStart').datetimepicker({
+    	  format:'Y/m/d',
+    	  onShow:function( ct ){
+    	   this.setOptions({
+    	    maxDate:jQuery('#shDateEnd').val()?jQuery('#shDateEnd').val():false
+    	   })
+    	  },
+    	  timepicker:false
+    	 });
+    	 jQuery('#shDateEnd').datetimepicker({
+    	  format:'Y/m/d',
+    	  onShow:function( ct ){
+    	   this.setOptions({
+    	    minDate:jQuery('#shDateStart').val()?jQuery('#shDateStart').val():false
+    	   })
+    	  },
+    	  timepicker:false
+    	 });
+    	});
     
     </script>
 </body>

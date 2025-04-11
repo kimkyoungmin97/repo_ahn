@@ -90,6 +90,17 @@ public class OrderController {
 		return "xdm/factoryorder/FactoryOrderXdmList";
 	}
 	
+	//발주내역 form 페이지
+	
+	@RequestMapping(value = "/xdm/factoryorder/FactoryOrderXdmform")
+	public String FactoryOrderXdmform(Model model, OrderVo vo, OrderDto orderDto) {
+		
+		
+		model.addAttribute("vo", vo);
+		
+		
+		return "/xdm/factoryorder/FactoryOrderXdmform";
+	}
 	
 	@RequestMapping(value = "/ReceivingXdmList")
 	public String ReceivingXdmList(Model model) {

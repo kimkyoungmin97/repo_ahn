@@ -184,6 +184,37 @@
 		AND o.orderTypeCd = 21
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
+	
+	<!-- 발주 등록하기 -->
+	<insert id="insert">
+		INSERT INTO 'order'(
+			shName,
+			shBrandCd,
+			shSizeCd,
+			shTypeCd,
+			shOrderCount,
+			shPrice,
+			regDateTime,
+			memName
+			
+		) value (
+			#{shName},
+			#{shBrandCd},
+			#{shSizeCd},
+			#{shTypeCd},
+			#{shOrderCount},
+			#{shPrice},
+			NOW(),
+			#{memName}
+				
+		)
+		
+	<selectKey resultType="String" keyProperty="orderSeq" order="AFTER">
+	    SELECT last_insert_id()
+	</selectKey>
+	</insert>
+	
+			
 
 
 
