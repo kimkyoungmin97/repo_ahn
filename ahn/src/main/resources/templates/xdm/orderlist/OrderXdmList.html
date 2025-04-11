@@ -166,7 +166,7 @@
                                             <th>구매금액</th>
                                             <th>구매날자(등록일)</th>
                                             <th>배송상태</th>
-                                            <th>결제상태</th>
+                                            <th>처리상태</th>
                                            
                                            
                                         </tr>
@@ -191,7 +191,7 @@
                                             <td th:text="${list.memAddress}"></td>
                                             <td th:text="${list.regDateTime}"></td>
                                             <td  th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}"></td>
-                                            <td th:text="${@codeService.selectOneCachedCode(list.paymentStatus)}"></td>
+                                            <td th:text="${@codeService.selectOneCachedCode(list.orderStatusCd)}"></td>
                                         </tr>
                                         
                                         
