@@ -85,10 +85,7 @@
                                 <table class="table table-bordered table-striped table-hover  dataTable">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <input class="form-check-input" type="checkbox" id="entire">
-                                                <label class="form-check-label" for="entire"></label>
-                                            </th>
+                                            
                                             <th>NO</th>
                                             <th>브랜드</th>
                                             <th>신발타입</th>
@@ -106,10 +103,7 @@
                                     		</td> 
                                     	</tr>
                                         <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
-                                            <td>
-                                                <input class="form-check-input row-checkbox" id="1" type="checkbox">
-                                                <label class="form-check-label" for="1"></label>
-                                            </td>
+                                            
 <!--                                              <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td> -->
                                              <td th:text="${listStat.index + 1}"></td>
                                              <td th:text="${@codeService.selectOneCachedCode(list.shBrandCd)}"></td>
@@ -168,94 +162,81 @@
     </section>
 
 </form>
+
+<!-- 배송 요청  모달 -->
+
+
+
+
+<!-- 배송요청 모달 -->
+<!-- 모달 -->
 <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 id="modalConfirmTitle" class="modal-title">타이틀</h5>
+        <h4 class="modal-title" id="modalConfirmTitle">알림</h4>
       </div>
       <div class="modal-body">
-        <p id="modalConfirmBody">내용</p>
+        <p id="modalConfirmBody">배송요청 했습니다.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" id="btnModalUelete" class="btn btn-danger">확인</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" id="btnGoList">확인</button>
       </div>
     </div>
   </div>
 </div>
 
-       
-        <!-- Jquery Core Js -->
-        <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
+   
+	<!-- ✅ jQuery Core (가장 먼저) -->
+	<script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
+	
+	<!-- ✅ Bootstrap Core -->
+	<script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
+	
+	<!-- ✅ DataTable 관련 -->
+	<script src="/xdm/template/master/plugins/jquery-datatable/jquery.dataTables.js"></script>
+	<script src="/xdm/template/master/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+	<script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+	<script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+	<script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+	<script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+	<script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+	<script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+	<script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+	
+	<!-- ✅ 기타 플러그인 -->
+	<script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+	<script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
+	
+	<!-- ✅ Custom JS -->
+	<script src="/xdm/template/master/js/admin.js"></script>
+	<script src="/xdm/template/master/js/pages/tables/jquery-datatable.js"></script>
+	<script src="/xdm/template/master/js/demo.js"></script>
+	
+	<!-- ✅ DatetimePicker (정상 로딩용) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
-        <!-- Bootstrap Core Js -->
-        <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
-    
-        <!-- Select Plugin Js -->
-        <script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
-    
-        <!-- Slimscroll Plugin Js -->
-        <script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-    
-        <!-- Waves Effect Plugin Js -->
-        <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
-    
-        <!-- Jquery DataTable Plugin Js -->
-        <script src="/xdm/template/master/plugins/jquery-datatable/jquery.dataTables.js"></script>
-        <script src="/xdm/template/master/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
-    
-        <!-- Custom Js -->
-        <script src="/xdm/template/master/js/admin.js"></script>
-        <script src="/xdm/template/master/js/pages/tables/jquery-datatable.js"></script>
-    
-        <!-- Demo Js -->
-        <script src="/xdm/template/master/js/demo.js"></script>
-        
-        
-        
-        <!-- datetimepicker 플러그인 추가 -->
-		<script src="/xdm/jquery/datetimepicker-master/build"></script>
-        
-        <!-- 달력 플러그인 추가 -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-   
-   
-    <!--체크박스 전체 체크 단독 체크-->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const entireCheckbox = document.getElementById("entire");
-            const rowCheckboxes = document.querySelectorAll(".row-checkbox");
-    
-            // 전체 선택 체크박스 클릭 시
-            entireCheckbox.addEventListener("change", function () {
-                rowCheckboxes.forEach(checkbox => {
-                    checkbox.checked = entireCheckbox.checked;
-                });
-            });
-    
-            // 개별 체크박스 클릭 시 전체 선택 체크박스 상태 변경
-            rowCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener("change", function () {
-                    entireCheckbox.checked = [...rowCheckboxes].every(chk => chk.checked);
-                });
-            });
-        });
-    </script>
- <script type="text/javascript">
- 	document.getElementById("btnDelivery").onclick=function(){
- 		alert("배송요청 완료");
-//  		document.getElementById("modalConfirm").display='block';
- 	}
- 
- </script>
+
+<!-- ✅ 배송요청 버튼 동작 스크립트 -->
+<script>
+  // 배송요청 버튼 클릭 시
+  let btnDelivery = document.getElementById("btnDelivery");
+
+  if (btnDelivery) {
+    btnDelivery.addEventListener("click", function () {
+      alert("배송요청 했습니다.");
+      // 확인 누르면 리스트 페이지로 이동
+     
+    });
+  }
+</script>
+
+
+
+
+
     
     
 </body>
