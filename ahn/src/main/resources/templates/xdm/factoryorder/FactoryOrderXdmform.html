@@ -11,7 +11,7 @@
 		<div class="container-fluid">
 
 			<div class="block-header">
-				<h2>Code</h2>
+				<h2>발주</h2>
 			</div>
 
 			<!-- Input -->
@@ -19,7 +19,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
-							<h2>개인정보</h2>
+							<h2>NO</h2>
 							<ul class="header-dropdown m-r--5">
 								<li class="dropdown"><a href="javascript:void(0);"
 									class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -34,70 +34,121 @@
 							</ul>
 						</div>
 						<div class="body">
-							<h2 class="card-inside-title">
-								<small>코드그룹이름<span style="color: red;">*</span></small>
-							</h2>
+							
 							<div class="row clearfix">
 								<div class="col-sm-12">
 									<div class="row clearfix">
-										<div class="col-sm-3">
-											<select class="form-control show-tick" id="codeGroup_cdgSeq" name="codeGroup_cdgSeq"     >
-												<option value="">선택하세요</option>
-												<option th:each="list : ${list}" th:text="${list.ifcgName}" th:value="${list?.cdgSeq}" ></option>
-
-											</select> <span id="codeGroupError"
-												style="color: red; font-size: 10px;"></span>
-										</div>
-
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="form-group">
-										<div class="form-line">
-											<h2 class="card-inside-title">
-												<small>코드 번호</small>
-											</h2>
-											<input type="hidden" name="cdgSeq" th:value="${item?.cdgSeq}" />
-											<input class="form-control" type="text" name="cdSeq" disabled
-												th:value="${item?.cdSeq}" placeholder="자동생성" />
-
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="row clearfix">
-								<div class="col-sm-12">
-									<div class="row clearfix">
-										<div class="col-sm-3">
-											<h2 class="card-inside-title">
-												<small>코드그룹 코드<span style="color: red;"></span></small>
-											</h2>
-											<select class="form-control " disabled>
-												<option name="" id="">자동생성</option>
-
-											</select>
-
-
-										</div>
-
-
-
-
 										<div class="col-sm-3">
 											<div class="form-group">
 												<div class="form-line">
 													<h2 class="card-inside-title">
-														<small>코드 이름<span style="color: red;">*</span></small>
+														<small>발주 번호<span ></span></small>
 													</h2>
 													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
-													<input type="text" id="ifcdName" name="ifcdName" th:value="${item?.ifcdName}" maxlength="20" placeholder="한글,영대소문자,숫자" class="form-control"/>
-													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span>
+													<input type="hidden" name="orderSeq" th:value="${item?.orderSeq}" />
+													<input class="form-control" type="text" name="orderSeq" disabled
+														th:value="${item?.orderSeq}" placeholder="자동생성" />
+													
 												</div>
 											</div>
 										</div>
+										
+										
+										
 
 									</div>
+									<div class="row clearfix">
+										<div class="col-sm-3">
+											<div class="form-group">
+												<div class="form-line">
+													<h2 class="card-inside-title">
+														<small>발주 담당자<span style="color: red;">*</span></small>
+													</h2>
+													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
+													<input type="text" id="memName" name="memName" th:value="${item?.memName}" maxlength="20" placeholder="발주 담당자 이름을 입력해 주세요" class="form-control"/>
+<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<div class="form-line">
+													<h2 class="card-inside-title">
+														<small>발주 수량<span style="color: red;">*</span></small>
+													</h2>
+													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
+													<input type="text" id="shOrderCount" name="shOrderCount" th:value="${item?.shOrderCount}" maxlength="20" placeholder="발주 수량을 입력해 주세요" class="form-control"/>
+<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
+												</div>
+											</div>
+										</div>
+										
+										
+
+									</div>
+									
+									<div class="row clearfix">
+										<div class="col-sm-3">
+											<div class="form-group">
+												<div class="form-line">
+													<h2 class="card-inside-title">
+														<small>신발 이름<span style="color: red;">*</span></small>
+													</h2>
+													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
+													<input type="text" id="shName" name="shName" th:value="${item?.shName}" maxlength="20" placeholder="신발 이름을 입력해 주세요" class="form-control"/>
+<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<div class="form-line">
+													<h2 class="card-inside-title">
+														<small>신발 브랜드<span style="color: red;">*</span></small>
+													</h2>
+													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
+													<input type="text" id="shBrandCd" name="shBrandCd" th:value="${item?.shBrandCd}" maxlength="20" placeholder="신발 브랜드를 입력해 주세요" class="form-control"/>
+<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<div class="form-line">
+													<h2 class="card-inside-title">
+														<small>신발 사이즈<span style="color: red;">*</span></small>
+													</h2>
+													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
+													<input type="text" id="shSizeCd" name="shSizeCd" th:value="${item?.shSizeCd}" maxlength="20" placeholder="신발 사이즈를 입력해 주세요" class="form-control"/>
+<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<div class="form-line">
+													<h2 class="card-inside-title">
+														<small>신발 타입<span style="color: red;">*</span></small>
+													</h2>
+													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
+													<input type="text" id="shTypeCd" name="shTypeCd" th:value="${item?.shTypeCd}" maxlength="20" placeholder="신발 타입을 입력해 주세요" class="form-control"/>
+<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
+												</div>
+											</div>
+										</div>
+										
+
+									</div>
+									
+									
+									
+								</div>
+								
+							</div>
+
+							<div class="row clearfix">
+								<div class="col-sm-12">
+									
 									<div class="row clearfix">
 										<!-- <div class="col-sm-3">
 											<h2 class="card-inside-title">

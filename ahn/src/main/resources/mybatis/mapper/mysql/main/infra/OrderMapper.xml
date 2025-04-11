@@ -204,7 +204,6 @@
 			shSizeCd,
 			shTypeCd,
 			shOrderCount,
-			shPrice,
 			regDateTime,
 			memName
 			
@@ -214,7 +213,6 @@
 			#{shSizeCd},
 			#{shTypeCd},
 			#{shOrderCount},
-			#{shPrice},
 			NOW(),
 			#{memName}
 				

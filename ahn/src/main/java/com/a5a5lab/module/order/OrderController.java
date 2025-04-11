@@ -100,7 +100,7 @@ public class OrderController {
 	
 	//발주내역 form 페이지
 	
-	@RequestMapping(value = "/xdm/factoryorder/FactoryOrderXdmform")
+	@RequestMapping(value = "/FactoryOrderXdmform")
 	public String FactoryOrderXdmform(Model model, OrderVo vo, OrderDto orderDto) {
 		
 		
