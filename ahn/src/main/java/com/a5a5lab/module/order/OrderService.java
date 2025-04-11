@@ -62,6 +62,15 @@ public class OrderService {
 	public int uelete (List<Long> deleteIds) {
 		return orderDao.uelete(deleteIds);
 	}
+//주문등록 폼
+	//멤버 불러오기
+	public List<OrderDto> selectMemberList(OrderDto orderDto){
+		return orderDao.selectMemberList(orderDto);
+	}
+	//신발 불러오기(중복없이)
+	public List<OrderDto> selectShoesList(OrderDto orderDto){
+		return orderDao.selectShoesList(orderDto);
+	}
 	
 	
 

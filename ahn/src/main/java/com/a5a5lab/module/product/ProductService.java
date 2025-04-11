@@ -19,5 +19,9 @@ public class ProductService {
 	public List<ProductDto> selectList(ProductVo vo){
 		return productDao.selectList(vo);
 	}
+	//신발 정보 가져오기
+	public ProductDto selectOne(ProductDto productDto) {
+		return productDao.selectOne(productDto);
+	}
 	
 }

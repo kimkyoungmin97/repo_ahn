@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.a5a5lab.module.order.OrderDto;
 
 import jakarta.servlet.http.HttpSession;
 @Controller
@@ -125,6 +128,19 @@ public class MemberController {
 			return returnMap;
 				
 		}
+		
+		//주문등록 페이지에서 선택된 주문자 정보가져오기 
+				@ResponseBody
+				@RequestMapping(value = "/selectOneMemberProc")
+				public Map<String, Object> selectOneMemberProc(Model model,MemberDto memberDto) throws Exception {
+					Map<String, Object> returnMap = new HashMap<String, Object>();
+					MemberDto member = memberService.selectOne(memberDto);
+					returnMap.put("memSeq", member.getMemSeq());
+					returnMap.put("memId", member.getMemId());
+					returnMap.put("memAddress", member.getMemAddress());
+					
+					return returnMap;
+				}
 	
 	
 	
