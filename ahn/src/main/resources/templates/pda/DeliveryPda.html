@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{pda/includePda/headPda :: headPda}"></div>
+
+<body style="margin:0; padding:0; font-family:sans-serif; background-color:#f9f9f9;">
+
+  <div th:replace="~{pda/includePda/headerPda :: headerPda}"></div>
+  
+  <div th:replace="~{pda/includePda/sidebarPda :: sidebarPda}"></div>
+  
+
+ 
+ 
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>배송상항</h1>
+    <!-- 
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item active">General</li>
+        </ol>
+      </nav>
+      -->
+      
+    </div><!-- End Page Title -->
+
+  
+
+
+  
+
+  
+  
+
+
+   <button type="button" style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
+    배송하기
+  </button>
+  <br>   <br>   <br>  
+
+
+  <!-- 테이블 -->
+<!-- 테이블 -->
+<!-- 모바일 테이블 -->
+  <!-- 카드 하나 -->
+  <div style="background:#fff; border:1px solid #eee; border-radius:10px; padding:15px; margin-bottom:15px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:14px; margin-bottom:8px;">
+      <div>주문번호: 5000000</div>
+      <div style="color:green;">배송완료</div>
+    </div>
+    <div style="font-size:13px; margin-bottom:4px;">받는분: 김이지</div>
+    <div style="font-size:13px; margin-bottom:4px;">서울 강남구 가로수길 5</div>
+    <div style="font-size:12px; color:#888;">주문날짜: 2025-01-26 12:00</div>
+  </div>
+
+  <!-- 복사해서 여러 개 만들기 -->
+  <div style="background:#fff; border:1px solid #eee; border-radius:10px; padding:15px; margin-bottom:15px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:14px; margin-bottom:8px;">
+      <div>주문번호: 5000000</div>
+      <div style="color:green;">배송완료</div>
+    </div>
+    <div style="font-size:13px; margin-bottom:4px;">받는분: 김이지</div>
+    <div style="font-size:13px; margin-bottom:4px;">서울 강남구 가로수길 5</div>
+    <div style="font-size:12px; color:#888;">주문날짜: 2025-01-26 12:00</div>
+  </div>
+
+  <!-- 원하는 만큼 반복 가능 -->
+</div>
+
+
+  </main><!-- End #main -->
+  
+  <div th:replace="~{pda/includePda/footerPda :: footerPda}"></div>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div th:replace="~{pda/includePda/scriptPda :: scriptPda}"></div>
+
+</body>
+
+</html>

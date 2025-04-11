@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{pda/includePda/headPda :: headPda}"></div>
+
+<body style="margin:0; padding:0; font-family:sans-serif; background-color:#f9f9f9;">
+
+  <div th:replace="~{pda/includePda/headerPda :: headerPda}"></div>
+  
+  <div th:replace="~{pda/includePda/sidebarPda :: sidebarPda}"></div>
+  
+
+ 
+ 
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>입고관리</h1>
+    <!-- 
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item active">General</li>
+        </ol>
+      </nav>
+      -->
+      
+    </div><!-- End Page Title -->
+
+  
+
+  <!-- 브랜드 선택 및 검색 -->
+<form method="get" action="/yourSearchUrl" style="padding:10px;">
+  <label for="brand" style="display:block; font-size:14px; margin-bottom:5px;">브랜드 선택</label>
+  
+  <!-- 셀렉트 박스 -->
+  <select id="brand" name="brand" style="width:100%; padding:10px; font-size:14px; border:1px solid #ccc; border-radius:5px;">
+    <option value="">전체</option>
+    <option value="nike">나이키</option>
+    <option value="adidas">아디다스</option>
+    <option value="newbalance">뉴발란스</option>
+  </select>
+  
+  
+
+  <!-- 검색 버튼 -->
+  <button type="button" style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
+    검색
+  </button>
+ 
+</form>
+
+  <!-- 테이블 -->
+<!-- 테이블 -->
+<div style="padding:10px;">
+  <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px; background-color:#ffffff;">
+      <thead>
+        <tr style="background-color:#f9f9f9; border-bottom:1px solid #ddd;">
+          <th style="padding:8px; text-align:center;">#</th>
+          <th style="padding:8px; text-align:left;">발주번호</th>
+          <th style="padding:8px; text-align:left;">상품명</th>
+          <th style="padding:8px; text-align:right;">수량</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 샘플 데이터 -->
+        <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:10px; text-align:center;">1</td>
+          <td style="padding:10px;">
+            <div style="font-weight:bold;">A13204395</div>
+            <div style="font-size:12px; color:#888;">등록날짜: 2024-08-21</div>
+          </td>
+          <td style="padding:10px;">뉴발란스 992</td>
+          <td style="padding:10px; text-align:right;">28</td>
+        </tr>
+        
+        <!-- 추가 데이터 -->
+        <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:10px; text-align:center;">2</td>
+          <td style="padding:10px;">
+            <div style="font-weight:bold;">B45201923</div>
+            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
+          </td>
+          <td style="padding:10px;">나이키 에어맥스</td>
+          <td style="padding:10px; text-align:right;">12</td>
+        </tr>
+         <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:10px; text-align:center;">2</td>
+          <td style="padding:10px;">
+            <div style="font-weight:bold;">B45201923</div>
+            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
+          </td>
+          <td style="padding:10px;">나이키 에어맥스</td>
+          <td style="padding:10px; text-align:right;">12</td>
+        </tr>
+         <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:10px; text-align:center;">2</td>
+          <td style="padding:10px;">
+            <div style="font-weight:bold;">B45201923</div>
+            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
+          </td>
+          <td style="padding:10px;">나이키 에어맥스</td>
+          <td style="padding:10px; text-align:right;">12</td>
+        </tr>
+         <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:10px; text-align:center;">2</td>
+          <td style="padding:10px;">
+            <div style="font-weight:bold;">B45201923</div>
+            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
+          </td>
+          <td style="padding:10px;">나이키 에어맥스</td>
+          <td style="padding:10px; text-align:right;">12</td>
+        </tr>
+         <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:10px; text-align:center;">2</td>
+          <td style="padding:10px;">
+            <div style="font-weight:bold;">B45201923</div>
+            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
+          </td>
+          <td style="padding:10px;">나이키 에어맥스</td>
+          <td style="padding:10px; text-align:right;">12</td>
+        </tr>
+         <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:10px; text-align:center;">2</td>
+          <td style="padding:10px;">
+            <div style="font-weight:bold;">B45201923</div>
+            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
+          </td>
+          <td style="padding:10px;">나이키 에어맥스</td>
+          <td style="padding:10px; text-align:right;">12</td>
+        </tr>
+         <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:10px; text-align:center;">2</td>
+          <td style="padding:10px;">
+            <div style="font-weight:bold;">B45201923</div>
+            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
+          </td>
+          <td style="padding:10px;">나이키 에어맥스</td>
+          <td style="padding:10px; text-align:right;">12</td>
+        </tr>
+         <tr style="border-bottom:1px solid #eee;">
+          <td style="padding:10px; text-align:center;">2</td>
+          <td style="padding:10px;">
+            <div style="font-weight:bold;">B45201923</div>
+            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
+          </td>
+          <td style="padding:10px;">나이키 에어맥스</td>
+          <td style="padding:10px; text-align:right;">12</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+  </main><!-- End #main -->
+  
+  <div th:replace="~{pda/includePda/footerPda :: footerPda}"></div>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div th:replace="~{pda/includePda/scriptPda :: scriptPda}"></div>
+
+</body>
+
+</html>

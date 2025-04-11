@@ -6,9 +6,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PdaController {
 	
-	@RequestMapping(value="/ReceivingPda")
-	public String ReceivingPda() {
-		return"pda/ReceivingPda";
+	// 입고하기
+	@RequestMapping(value="/LnboundPad")
+	public String LnboundPad() {
+		return"pda/LnboundPad";
 	}
+	
+	//출고하기
+	@RequestMapping(value="/DeliveryPda")
+	public String  DeliveryPda() {
+		return "/pda/DeliveryPda";
+	}
+	
 
 }
