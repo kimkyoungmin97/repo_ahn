@@ -48,29 +48,20 @@
 <!-- 테이블 -->
 <!-- 모바일 테이블 -->
   <!-- 카드 하나 -->
-  <div style="background:#fff; border:1px solid #eee; border-radius:10px; padding:15px; margin-bottom:15px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+  <div style="background:#fff; border:1px solid #eee; border-radius:10px; padding:15px; margin-bottom:15px; box-shadow:0 2px 5px rgba(0,0,0,0.05);" th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
     <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:14px; margin-bottom:8px;">
-      <div>주문번호: 5000000</div>
-      <div style="color:green;">배송완료</div>
+      <div th:text="${list.orderSeq}">주문번호: 5000000</div>
+      <div style="color:green;" th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}">배송완료</div>
     </div>
-    <div style="font-size:13px; margin-bottom:4px;">받는분: 김이지</div>
-    <div style="font-size:13px; margin-bottom:4px;">서울 강남구 가로수길 5</div>
-    <div style="font-size:12px; color:#888;">주문날짜: 2025-01-26 12:00</div>
+    <div style="font-size:13px; margin-bottom:4px;" th:text="${list.memName}">받는분: 김이지</div>
+    <div style="font-size:13px; margin-bottom:4px;" th:text="${list.memAddress}">서울 강남구 가로수길 5</div>
+    <div style="font-size:12px; color:#888;" th:text="${list.regDateTime}">주문날짜: 2025-01-26 12:00</div>
   </div>
 
-  <!-- 복사해서 여러 개 만들기 -->
-  <div style="background:#fff; border:1px solid #eee; border-radius:10px; padding:15px; margin-bottom:15px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
-    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:14px; margin-bottom:8px;">
-      <div>주문번호: 5000000</div>
-      <div style="color:green;">배송완료</div>
-    </div>
-    <div style="font-size:13px; margin-bottom:4px;">받는분: 김이지</div>
-    <div style="font-size:13px; margin-bottom:4px;">서울 강남구 가로수길 5</div>
-    <div style="font-size:12px; color:#888;">주문날짜: 2025-01-26 12:00</div>
-  </div>
+ 
 
   <!-- 원하는 만큼 반복 가능 -->
-</div>
+
 
 
   </main><!-- End #main -->

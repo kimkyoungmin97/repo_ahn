@@ -3,8 +3,7 @@
 
 <mapper namespace="com.a5a5lab.module.order.OrderDao">
 
-	<resultMap id="resultMapObj"
-		type="com.a5a5lab.module.order.OrderDto"></resultMap>
+	<resultMap id="resultMapObj" type="com.a5a5lab.module.order.OrderDto"></resultMap>
 
 
 

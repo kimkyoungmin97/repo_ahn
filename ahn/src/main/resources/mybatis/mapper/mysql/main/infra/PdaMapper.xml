@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.a5a5lab.module.pda.PdaDao">
+
+	<resultMap id="resultMapObj" type="com.a5a5lab.module.pda.PdaDto"></resultMap>
+	
+	
+	
+	<!-- 발주 내역 리스트 -->
+	<select id="FactoryOrderList" resultMap="resultMapObj">
+		select
+			a.orderSeq,
+		    d.shName,
+		    d.shBrandCd,
+		    d.shSizeCd,
+		    d.shTypeCd,
+		    c.shOrderCount,
+		    a.regDateTime,
+		    b.memName,
+		    a.orderStatusCd
+		FROM
+			`order` AS a
+		left join member AS b ON a.member_memSeq = b.memSeq
+		left join order_detail AS c ON a.orderSeq = c.order_orderSeq
+		left join shoes AS d ON c.shoes_shSeq = d.shSeq
+		WHERE 1=1
+		AND	a.orderTypeCd =21
+		<!-- LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} -->
+	</select>
+	
+	<!-- 발주 내역 리스트 조회하고 그 리스트 1개를 업데이트 해서 처리상태를 입고 완료 처리하기  -->
+	<update id="update" >
+		UPDATE `order` SET 
+			orderStatusCd = 25
+		WHERE 
+			orderSeq = #{orderSeq}
+			AND orderStatusCd = 23
+	
+	</update>
+	
+	<!-- 발주번호로 단건 조회 -->
+<select id="selectOne" resultType="com.a5a5lab.module.pda.PdaDto" parameterType="java.lang.Integer">
+  SELECT 
+    a.orderSeq,
+    d.shName,
+    d.shSizeCd,
+    c.shOrderCount,
+    a.orderStatusCd
+  FROM `order` a
+  LEFT JOIN order_detail c ON a.orderSeq = c.order_orderSeq
+  LEFT JOIN shoes d ON c.shoes_shSeq = d.shSeq
+  <where>
+    <if test="orderSeq != null">
+      a.orderSeq = #{orderSeq}
+    </if>
+  </where>
+</select>
+
+	
+	
+	
+	
+	
+	<!-- 주문내역 리스트 -->
+	<select id="selectList"  resultMap="resultMapObj">
+		select
+			a.orderSeq,
+			a.orderTypeCd,
+			a.orderDelNy,
+			c.memName,
+			c.memId,
+			c.memAddress,
+			a.regDateTime,
+			a.deliveryStatus,
+			a.paymentStatus,
+			a.orderStatusCd
+		from
+			`order` AS a
+		left join member AS c ON a.member_memSeq= c.memSeq
+			WHERE 1=1
+		AND a.orderTypeCd = 20
+		
+		order By orderSeq DESC
+	
+	
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

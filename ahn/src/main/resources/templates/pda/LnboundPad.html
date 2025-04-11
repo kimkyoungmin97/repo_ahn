@@ -46,9 +46,17 @@
   
 
   <!-- 검색 버튼 -->
-  <button type="button" style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
-    검색
-  </button>
+<!-- 검색 버튼 -->
+<button type="button" style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px; display:block; text-align:center;">
+  검색
+</button>
+
+<!-- 입고하기 버튼 (링크) -->
+<a th:href="@{/LnboundPadDetailsPad}" 
+   style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px; display:block; text-align:center; text-decoration:none;">
+  입고 하기
+</a>
+
  
 </form>
 
@@ -63,98 +71,37 @@
           <th style="padding:8px; text-align:left;">발주번호</th>
           <th style="padding:8px; text-align:left;">상품명</th>
           <th style="padding:8px; text-align:right;">수량</th>
+          <th style="padding:8px; text-align:right;">처리상태</th>
         </tr>
       </thead>
       <tbody>
         <!-- 샘플 데이터 -->
-        <tr style="border-bottom:1px solid #eee;">
-          <td style="padding:10px; text-align:center;">1</td>
+        <tr style="border-bottom:1px solid #eee;" th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
+          <td style="padding:10px; text-align:center;" >1</td>
           <td style="padding:10px;">
-            <div style="font-weight:bold;">A13204395</div>
-            <div style="font-size:12px; color:#888;">등록날짜: 2024-08-21</div>
+            <div style="font-weight:bold;" th:text="${list.orderSeq}"></div>
+            <div style="font-size:12px; color:#888;" th:text="${list.regDateTime}"></div>
           </td>
-          <td style="padding:10px;">뉴발란스 992</td>
-          <td style="padding:10px; text-align:right;">28</td>
+          <td style="padding:10px;" th:text="${list.shName}"></td>
+          <td style="padding:10px; text-align:right;" th:text="${list.shOrderCount}">28</td>
+          
+          
+           <td style="padding:10px; text-align:right;" th:text="${@codeService.selectOneCachedCode(list.orderStatusCd)}">처리상태</td>
         </tr>
         
-        <!-- 추가 데이터 -->
-        <tr style="border-bottom:1px solid #eee;">
-          <td style="padding:10px; text-align:center;">2</td>
-          <td style="padding:10px;">
-            <div style="font-weight:bold;">B45201923</div>
-            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
-          </td>
-          <td style="padding:10px;">나이키 에어맥스</td>
-          <td style="padding:10px; text-align:right;">12</td>
-        </tr>
-         <tr style="border-bottom:1px solid #eee;">
-          <td style="padding:10px; text-align:center;">2</td>
-          <td style="padding:10px;">
-            <div style="font-weight:bold;">B45201923</div>
-            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
-          </td>
-          <td style="padding:10px;">나이키 에어맥스</td>
-          <td style="padding:10px; text-align:right;">12</td>
-        </tr>
-         <tr style="border-bottom:1px solid #eee;">
-          <td style="padding:10px; text-align:center;">2</td>
-          <td style="padding:10px;">
-            <div style="font-weight:bold;">B45201923</div>
-            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
-          </td>
-          <td style="padding:10px;">나이키 에어맥스</td>
-          <td style="padding:10px; text-align:right;">12</td>
-        </tr>
-         <tr style="border-bottom:1px solid #eee;">
-          <td style="padding:10px; text-align:center;">2</td>
-          <td style="padding:10px;">
-            <div style="font-weight:bold;">B45201923</div>
-            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
-          </td>
-          <td style="padding:10px;">나이키 에어맥스</td>
-          <td style="padding:10px; text-align:right;">12</td>
-        </tr>
-         <tr style="border-bottom:1px solid #eee;">
-          <td style="padding:10px; text-align:center;">2</td>
-          <td style="padding:10px;">
-            <div style="font-weight:bold;">B45201923</div>
-            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
-          </td>
-          <td style="padding:10px;">나이키 에어맥스</td>
-          <td style="padding:10px; text-align:right;">12</td>
-        </tr>
-         <tr style="border-bottom:1px solid #eee;">
-          <td style="padding:10px; text-align:center;">2</td>
-          <td style="padding:10px;">
-            <div style="font-weight:bold;">B45201923</div>
-            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
-          </td>
-          <td style="padding:10px;">나이키 에어맥스</td>
-          <td style="padding:10px; text-align:right;">12</td>
-        </tr>
-         <tr style="border-bottom:1px solid #eee;">
-          <td style="padding:10px; text-align:center;">2</td>
-          <td style="padding:10px;">
-            <div style="font-weight:bold;">B45201923</div>
-            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
-          </td>
-          <td style="padding:10px;">나이키 에어맥스</td>
-          <td style="padding:10px; text-align:right;">12</td>
-        </tr>
-         <tr style="border-bottom:1px solid #eee;">
-          <td style="padding:10px; text-align:center;">2</td>
-          <td style="padding:10px;">
-            <div style="font-weight:bold;">B45201923</div>
-            <div style="font-size:12px; color:#888;">등록날짜: 2024-09-01</div>
-          </td>
-          <td style="padding:10px;">나이키 에어맥스</td>
-          <td style="padding:10px; text-align:right;">12</td>
-        </tr>
+        
+        
+       
 
       </tbody>
     </table>
   </div>
 </div>
+
+
+
+
+
 
 
   </main><!-- End #main -->
