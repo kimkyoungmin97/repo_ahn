@@ -19,8 +19,8 @@ public class PdaService {
 	
 	
 	// 발주 목록ㄹ스트 뿌리기
-	public List<PdaDto> FactoryOrderList(){
-		return pdaDao.FactoryOrderList();
+	public List<PdaDto> FactoryOrderList(PdaVo vo){
+		return pdaDao.FactoryOrderList(vo);
 	}
 	//Pda 입고 (발주내역)을 출고대기에서 출고 완료로 업데이트 하기
 	public int update (Integer orderSeq) {

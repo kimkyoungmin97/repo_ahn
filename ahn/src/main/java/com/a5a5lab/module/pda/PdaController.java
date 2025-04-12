@@ -20,10 +20,12 @@ public class PdaController {
 	
 	//Pad 입고목록
 	@RequestMapping(value="/LnboundPad")
-	public String LnboundPad(Model model) {
+	public String LnboundPad(Model model,PdaVo vo) {
 		
-		model.addAttribute("list", pdaService.FactoryOrderList());
 		
+		
+		model.addAttribute("list", pdaService.FactoryOrderList(vo));
+		model.addAttribute("vo", vo);
 		
 		
 		return"pda/LnboundPad";
