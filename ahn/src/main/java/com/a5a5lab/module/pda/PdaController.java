@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.a5a5lab.module.code.CodeService;
+
 @Controller
 public class PdaController {
 	
@@ -31,19 +33,19 @@ public class PdaController {
 	
 	//Pad 입고하기 상세
 	@RequestMapping("/LnboundPadDetailsPad")
-	public String LnboundPadDetailsPad(@RequestParam(value = "orderSeq", required = false) String orderSeqStr, Model model) {
-	    if (orderSeqStr != null && orderSeqStr.matches("\\d+")) {
-	        Integer orderSeq = Integer.valueOf(orderSeqStr);
-	        PdaDto order = pdaService.selectOne(orderSeq);
-	        if (order != null) {
-	            model.addAttribute("list", order);
-	            model.addAttribute("orderSeq", orderSeq);
-	        } else {
-	            model.addAttribute("errorMessage", "조회 결과가 없습니다.");
-	        }
-	    } else {
-	        model.addAttribute("errorMessage", "유효한 발주번호가 아닙니다.");
-	    }
+	public String LnboundPadDetailsPad() {
+//	    if (orderSeqStr != null && orderSeqStr.matches("\\d+")) {
+//	        Integer orderSeq = Integer.valueOf(orderSeqStr);
+//	        PdaDto order = pdaService.selectOne(orderSeq);
+//	        if (order != null) {
+//	            model.addAttribute("list", order);
+//	            model.addAttribute("orderSeq", orderSeq);
+//	        } else {
+//	            model.addAttribute("errorMessage", "조회 결과가 없습니다.");
+//	        }
+//	    } else {
+//	        model.addAttribute("errorMessage", "유효한 발주번호가 아닙니다.");
+//	    }
 	    return "pda/LnboundPadDetailsPad";
 	}
 
@@ -59,21 +61,21 @@ public class PdaController {
 	    return "redirect:/pda/LnboundPadList";
 	}
 
-	
+
 	@ResponseBody
 	@RequestMapping("/api/getInboundOrder")
-	public Map<String, Object> getInboundOrder(@RequestParam("orderSeq") Integer orderSeq) {
+	public Map<String, Object> getInboundOrder(PdaDto pdaDto) throws Exception {
 	    Map<String, Object> resultMap = new HashMap<>();
 	    
-	    System.out.println(orderSeq);
+	   PdaDto order = pdaService.selectOne(pdaDto);
+	   
+	   resultMap.put("orderSeq", order.getOrderSeq());
+	   resultMap.put("shName", order.getShName());
+	   resultMap.put("shSizeCd", CodeService.selectOneCachedCode(order.getShSizeCd()));
+	   resultMap.put("shOrderCount", order.getShOrderCount());
+	   resultMap.put("orderStatusCd", CodeService.selectOneCachedCode(order.getOrderStatusCd()));
 	    
-//	    PdaDto dto = pdaService.selectOne(orderSeq);
-//	    if (dto != null) {
-//	        resultMap.put("rt", "success");
-//	        resultMap.put("order", dto);
-//	    } else {
-//	        resultMap.put("rt", "fail");
-//	    }
+	    
 
 	    return resultMap;
 	}

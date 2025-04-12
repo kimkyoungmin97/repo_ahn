@@ -5,7 +5,7 @@ import java.sql.Date;
 public class PdaDto {
 	
 	// order 테이블 컬럼
-	private Integer orderSeq; //오더테이블 Seq
+	private String orderSeq; //오더테이블 Seq
 	private Integer deliveryStatus; // 배송상태
 	private Integer paymentStatus; //결제 상태
 	private Integer orderTypeCd; //오더타입 (배송, 창고, 공장)
@@ -44,10 +44,10 @@ public class PdaDto {
 	private String shoes_shSeq; //신발 Seq 키
 	private Integer shOrderCount; // 신발 주문 갯수
 //	----
-	public Integer getOrderSeq() {
+	public String getOrderSeq() {
 		return orderSeq;
 	}
-	public void setOrderSeq(Integer orderSeq) {
+	public void setOrderSeq(String orderSeq) {
 		this.orderSeq = orderSeq;
 	}
 	public Integer getDeliveryStatus() {

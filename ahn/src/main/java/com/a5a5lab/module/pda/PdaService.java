@@ -28,8 +28,8 @@ public class PdaService {
 	}
 	
 	//Pda 입고 발주 내역 데이터 1개씩 뽑기
-	public PdaDto selectOne(Integer orderSeq) {
-		return pdaDao.selectOne(orderSeq);
+	public PdaDto selectOne(PdaDto pdaDto) {
+		return pdaDao.selectOne(pdaDto);
 	}
 
 
