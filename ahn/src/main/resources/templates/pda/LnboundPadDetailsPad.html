@@ -11,7 +11,7 @@
   
 
  
-<form id="form" action="/pda/LnboundPadUdate" method="post">
+<form id="form"  method="post" autocomplte="off">
   
 
   <main id="main" class="main">
@@ -49,8 +49,7 @@
                  <div class="form-line">
                      <!-- 검색용 input -->
 					<!-- <input type="text" id="orderSeqInput" placeholder="발주번호 입력" class="form-control" onkeyup="enterkey(event)" /> -->
-					<input type="text" id="orderSeqInput" onkeyup="enterkey(event)"  placeholder="발주번호 입력" class="form-control">
- 				    <input type="hidden" id="orderSeqHidden" name="orderSeq">
+					<input type="text" id="orderSeq" name="orderSeq"  placeholder="발주번호 입력" class="form-control">
 					<!-- 실제 전송용 hidden input (검색 성공 시 채움) -->
 					
 
@@ -85,16 +84,24 @@
       </thead>
 
       <!-- Ajax로 데이터를 동적으로 채움 -->
-      <tbody id="resultArea">
+      <tbody id="resultOrder">
         <tr>
           <td colspan="5" style="text-align:center; color:gray;">발주번호를 입력해 검색하세요.</td>
         </tr>
+<!--  		<tr style="background-color:#f9f9f9; border-bottom:1px solid #ddd;"> -->
+<!--           <td style="padding:8px; text-align:left;"></td> -->
+<!--           <td style="padding:8px; text-align:left;"></td> -->
+<!--           <td style="padding:8px; text-align:left;"></td> -->
+<!--           <td style="padding:8px; text-align:right;"></td> -->
+<!--           <td style="padding:8px; text-align:right;"></td> -->
+<!--         </tr> -->
+         
       </tbody>
     </table>
   </div>
 
   <!-- 입고 버튼 -->
-  <button type="button" onclick="submitInbound()" 
+  <button type="button"  
     style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
     입고하기
   </button>
@@ -114,13 +121,36 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <div th:replace="~{pda/includePda/scriptPda :: scriptPda}"></div>
+  
+  
+  <script type="text/javascript">
+  document.getElementById("orderSeq").oninput=function(){
+	  
+	  $.ajax({
+	    	async: true 
+			,cache: false
+			,type: "post"
+			/* ,dataType:"json" */
+			,url: "/api/getInboundOrder"
+			/* ,data : $("#formLogin").serialize() */
+			,data : { "orderSeq" : $("#orderSeq").val()}
+			,success: function(response) {
+				 $("#resultOrder").empty();
 
-
-
-
-
-
-
+				 $("#resultOrder").append(`
+						 <tr>
+						   <td>${response.orderSeq}</td>
+						   <td>${response.shName}</td>
+						   <td>${response.shSizeCd}</td>
+						   <td>${response.shOrderCount}</td>
+						   <td>${response.orderStatusCd}</td>
+						 </tr>
+						 `);
+	        }
+	        
+	    });
+  }
+  </script>
 
 
 

@@ -40,7 +40,7 @@
 	</update>
 	
 	<!-- 발주번호로 단건 조회 -->
-<select id="selectOne" resultType="com.a5a5lab.module.pda.PdaDto" parameterType="java.lang.Integer">
+<select id="selectOne" resultMap="resultMapObj">
   SELECT 
     a.orderSeq,
     d.shName,
@@ -50,11 +50,12 @@
   FROM `order` a
   LEFT JOIN order_detail c ON a.orderSeq = c.order_orderSeq
   LEFT JOIN shoes d ON c.shoes_shSeq = d.shSeq
-  <where>
-    <if test="orderSeq != null">
-      a.orderSeq = #{orderSeq}
-    </if>
-  </where>
+  WHERE 1=1
+  AND orderStatusCd = 26
+  AND orderSeq=#{orderSeq}
+    
+   
+
 </select>
 
 	
