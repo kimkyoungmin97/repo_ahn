@@ -56,11 +56,9 @@ public class PdaController {
 
 	// Pda 입고하기 출고대기에서 출고 요청으로 변경 업데이트
 	@RequestMapping(value="/LnboundPadUdate")
-	public String LnboundPadUdate(@RequestParam(value="orderSeq", required=false) Integer orderSeq) {
-	    if (orderSeq != null) {
-	      
-	    }
-	    pdaService.update(orderSeq);
+	public String LnboundPadUdate(PdaDto pdaDto) {
+		pdaService.stockCompleted(pdaDto);
+	  
 	    return "redirect:/LnboundPad";
 	}
 	

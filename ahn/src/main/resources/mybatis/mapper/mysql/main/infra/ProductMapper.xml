@@ -55,15 +55,26 @@
 		    a.shDelNy,
 		    a.shCount,
 		    a.shPrice
-		
+		 
+			
+			
+			
 		 	<include refid="selectCommon"></include>
 		 	 <if test="shName != null and !shName.equals('')">AND shName = #{shName}</if>
+		 	 
 		    ORDER BY shSeq DESC
    		   <choose>
-        <when test="shName == null or shName.equals('')">LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}</when>
-        <!-- shName이 있을 경우에는 LIMIT을 걸지 않음 -->
-    	</choose>
+        		<when test="shName == null or shName.equals('')">LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}</when>
+       			 <!-- shName이 있을 경우에는 LIMIT을 걸지 않음 -->
+    	  </choose>
 	</select>
+	
+	
+	
+	
+	
+	
+	
 	<!-- 등록하기 -->
 	<insert id="insert">
 		INSERT INTO shoes(
@@ -136,7 +147,9 @@
 	 	WHERE
 	 		shSeq  IN
 	 	<foreach collection="list" item="id" open="(" separator="," close=")"> #{id} </foreach>
-	 </update>      
+	 </update>     
+	 
+	
                 
 	
 	

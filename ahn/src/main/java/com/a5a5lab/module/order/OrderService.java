@@ -53,6 +53,10 @@ public class OrderService {
 	public OrderDto totalSumPrice(OrderDto orderDto) {
 		return orderDao.totalSumPrice(orderDto);
 	}
+	//주문상세페이지 배송요청누를시 처리상태 출고요청으로 바뀌기
+	public int deliveryRequest(OrderDto orderDto) {
+		return orderDao.deliveryRequest(orderDto);
+	}
 	
 	//창고목록 리스트 뿌리기
 	public List <OrderDto> storageList(OrderVo vo){
@@ -82,6 +86,13 @@ public class OrderService {
 	 public void orderRegister(OrderDto orderDto) {
 	        orderDao.orderInst(orderDto);          // 주문 등록
 	        orderDao.orderDetailInst(orderDto);    // 주문 상세 등록
+	    }
+	 
+	//트랜잭션으로 주문등록,주문 상세등록을 묶어줌
+	 @Transactional
+	 public void orderRegister1(OrderDto orderDto) {
+	        orderDao.orderInst1(orderDto);          // 발주 등록
+	        orderDao.orderDetailInst(orderDto);    // 주문 상세 등록    
 	    }
 //	//주문테이블생성
 //	public int orderInst(OrderDto orderDto) {

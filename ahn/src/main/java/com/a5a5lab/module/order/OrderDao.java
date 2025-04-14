@@ -32,6 +32,8 @@ public interface OrderDao {
 	public List<OrderDto> orderDetailList(OrderDto orderDto);
 	//주문금액 총 합계
 	public OrderDto totalSumPrice(OrderDto orderDto);
+	//배송요청 누를시 처리상태 출고요청으로 변환
+	public int deliveryRequest(OrderDto orderDto);
 		
 	
 	// 주문내역 목록 업데이트 삭제
@@ -50,5 +52,10 @@ public interface OrderDao {
 	public int orderInst(OrderDto orderDto);
 	//주문테이블에 맞는 주문상세목록생성
 	public int orderDetailInst(OrderDto orderDto);
+	
+// 발주 등록폼	
+	//발주테이블 생성
+	public int orderInst1(OrderDto orderDto);
+	
 	
 }

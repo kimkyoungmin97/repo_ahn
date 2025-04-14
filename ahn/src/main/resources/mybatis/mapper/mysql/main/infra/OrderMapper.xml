@@ -5,7 +5,18 @@
 
 	<resultMap id="resultMapObj" type="com.a5a5lab.module.order.OrderDto"></resultMap>
 
-
+	<!-- <update id="StoreCompleted">
+		UPDATE `order` SET
+			
+	
+	
+	</update> -->
+	
+	
+	
+	
+	
+	
 
 
 
@@ -149,6 +160,16 @@
 		where
 		order_orderSeq = #{orderSeq}
 	</select>
+	<!--주문상세목록에서 배송요청 누를시 처리상태 출고요청으로바뀌게하기 -->
+	<update id="deliveryRequest">
+		UPDATE `order`
+		SET
+		orderStatusCd = 24
+		
+		WHERE 1=1
+		AND	orderSeq=#{orderSeq}
+		
+	</update>
 
 
 
@@ -226,6 +247,7 @@
 		</choose>
         
 		AND	a.orderTypeCd =21
+		order by orderSeq DESC
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 	
@@ -298,6 +320,7 @@
 	    SELECT last_insert_id()
 	</selectKey>
 	</insert>
+	
 	<!-- orderSeq,shSeq,shOrderCount를 받아서 order_detail생성 -->
 	<insert id="orderDetailInst">
 	INSERT INTO order_detail(
@@ -317,7 +340,31 @@
 
  
 	
-			
+	<!-- 발주 등록 -->
+	<insert id="orderInst1">
+	INSERT INTO `order`(
+		deliveryStatus,
+		paymentStatus,
+		orderTypeCd,
+		orderDelNy,
+		regDateTime,
+		modDateTime,
+		member_memSeq,
+		orderStatusCd
+	)VALUES(
+		18,
+		14,
+		21,
+		0,
+		now(),
+		now(),
+		#{memSeq},
+		26
+		)
+		<selectKey resultType="String" keyProperty="orderSeq" order="AFTER">
+	    SELECT last_insert_id()
+	</selectKey>
+	</insert>	
 
 
 

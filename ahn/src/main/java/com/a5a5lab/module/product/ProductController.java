@@ -49,7 +49,7 @@ public class ProductController {
 	//주문등록 페이지에서 선택된 신발 사이즈가져오기 
 	@ResponseBody
 	@RequestMapping(value = "/selectOneShoesSizeProc")
-	public Map<String, Object> selectOneMemberProc(Model model,ProductDto productDto,ProductVo vo) throws Exception {
+	public Map<String, Object> selectOneShoesSizeProc(Model model,ProductDto productDto,ProductVo vo) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		//db에서 선택된 신발이 갖고있는 사이즈리스트가져오가
@@ -63,7 +63,7 @@ public class ProductController {
 	//주문등록 페이지에서 신발이름,사이즈 둘다 선택되면 shSeq가져오기
 	@ResponseBody
 	@RequestMapping(value = "/selectOneShoesProc")
-	public Map<String, Object> selectOneMemberProc(ProductDto productDto) throws Exception {
+	public Map<String, Object> selectOneShoesProc(ProductDto productDto) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		ProductDto shoes= productService.selectOne(productDto);
@@ -74,6 +74,8 @@ public class ProductController {
 		
 		return returnMap;
 	}
+	
+
 	
 	@RequestMapping("/productXdmUele")
 	@ResponseBody

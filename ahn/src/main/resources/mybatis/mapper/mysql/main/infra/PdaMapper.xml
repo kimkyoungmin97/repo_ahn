@@ -26,6 +26,7 @@
 		left join shoes AS d ON c.shoes_shSeq = d.shSeq
 		WHERE 1=1
 		AND	a.orderTypeCd =21
+		order by orderSeq DESC
 		
 		<!-- LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} -->
 	</select>
@@ -48,6 +49,9 @@
 		LEFT JOIN shoes AS d ON c.shoes_shSeq = d.shSeq
 	WHERE 1=1
 	AND a.deliveryStatus = 18
+	ANd a.orderStatusCd = 24
+	AND a.orderTypeCd = 20
+	
 	order By orderSeq DESC
 
 		
@@ -65,7 +69,15 @@
 		WHERE 
 			orderSeq = #{orderSeq}
 			AND orderStatusCd = 26
-	
+	</update>
+	<!--발주 내역 리스트 조회하고 그 리스트 1개를 업데이트해서 발주갯수만큼 재고늘리기 -->
+	<update id="updateStoreCount">
+		UPDATE shoes AS a
+		JOIN order_detail AS b ON a.shSeq = b.shoes_shSeq
+		SET
+			 a.shCount = a.shCount + b.shOrderCount
+		WHERE 1=1
+		AND	 b.order_orderSeq = #{orderSeq}
 	</update>
 	
 	<!-- 배송 리스트 조회하고 그 리스트 1개를 업데이트 해서 처리상태를 입고 완료 처리하기  -->
@@ -82,6 +94,7 @@
 <select id="selectOne" resultMap="resultMapObj">
   SELECT 
     a.orderSeq,
+    d.shSeq,
     d.shName,
     d.shSizeCd,
     c.shOrderCount,

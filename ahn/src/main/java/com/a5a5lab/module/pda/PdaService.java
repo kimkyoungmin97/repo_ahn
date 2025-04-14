@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.a5a5lab.module.code.CodeDto;
 import com.a5a5lab.module.order.OrderVo;
@@ -24,6 +25,7 @@ public class PdaService {
 		return pdaDao.FactoryOrderList(vo);
 	}
 	
+
 	// 배송 목록리스트 
 	public List<PdaDto> FactoryOrderListDl(PdaVo vo){
 		return pdaDao.FactoryOrderListDl(vo);
@@ -32,6 +34,15 @@ public class PdaService {
 	public int update (Integer orderSeq) {
 		 int completeStatusCd = 27;
 		return pdaDao.update(orderSeq , completeStatusCd);
+	}
+	
+	//트랜잭션으로 발주내용 입고대기->입고완료 , 상품재고증가 함께 처리
+	@Transactional
+	public void stockCompleted(PdaDto pdaDto) {
+		pdaDao.update(pdaDto); //Pda 입고 (발주내역)을 입고대기에서 입고 완료로 업데이트 하기
+		pdaDao.updateStoreCount(pdaDto); // 상품재고 증가
+		
+
 	}
 	
 	public int updateDl(PdaDto pdaDto) {

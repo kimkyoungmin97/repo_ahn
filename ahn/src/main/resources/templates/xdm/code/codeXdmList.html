@@ -166,7 +166,11 @@
                                                 <input class="form-check-input row-checkbox" type="checkbox" th:id="'chk_' + ${list.cdSeq}" th:value="${list.cdSeq}">
                                                 <label class="form-check-label" th:for="'chk_' + ${list.cdSeq}"></label>
                                             </th>
+
+                                            <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow +listStat.index )}"></td>
+
                                             <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+
                                             
                                             <td th:text="${list.cdgSeq}"></td>
                                             <td th:text="${list.ifcgName}"></td>

@@ -3,8 +3,8 @@
 
 <div th:replace="~{xdm/include/head :: head}"></div>
 
-<form action="" method="post" id="form">
-	<input type="hidden" name="orderSeq" th:value="${vo.orderSeq}">
+<form  method="post" id="form">
+<input type="hidden" id="shSeq" name="shSeq" >
 	<!-- ### -->
 
 	<section class="content">
@@ -19,7 +19,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
-							<h2>NO</h2>
+							<h2>발주</h2>
 							<ul class="header-dropdown m-r--5">
 								<li class="dropdown"><a href="javascript:void(0);"
 									class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -34,121 +34,76 @@
 							</ul>
 						</div>
 						<div class="body">
-							
+							<h2 class="card-inside-title">
+								<small>주문자<span style="color: red;">*</span></small>
+							</h2>
 							<div class="row clearfix">
 								<div class="col-sm-12">
 									<div class="row clearfix">
 										<div class="col-sm-3">
-											<div class="form-group">
-												<div class="form-line">
-													<h2 class="card-inside-title">
-														<small>발주 번호<span ></span></small>
-													</h2>
-													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
-													<input type="hidden" name="orderSeq" th:value="${item?.orderSeq}" />
-													<input class="form-control" type="text" name="orderSeq" disabled
-														th:value="${item?.orderSeq}" placeholder="자동생성" />
-													
-												</div>
-											</div>
+											<select class="form-control show-tick" id="memSeq" name="memSeq"     >
+												<option value="">선택하세요</option>
+												<option th:each="list : ${list}" th:text="${list.memName}" th:value="${list?.memSeq}" ></option>
+											</select> <span id="codeGroupError"
+												style="color: red; font-size: 10px;"></span>
 										</div>
-										
-										
-										
-
 									</div>
-									<div class="row clearfix">
-										<div class="col-sm-3">
-											<div class="form-group">
-												<div class="form-line">
-													<h2 class="card-inside-title">
-														<small>발주 담당자<span style="color: red;">*</span></small>
-													</h2>
-													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
-													<input type="text" id="memName" name="memName" th:value="${item?.memName}" maxlength="20" placeholder="발주 담당자 이름을 입력해 주세요" class="form-control"/>
-<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-3">
-											<div class="form-group">
-												<div class="form-line">
-													<h2 class="card-inside-title">
-														<small>발주 수량<span style="color: red;">*</span></small>
-													</h2>
-													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
-													<input type="text" id="shOrderCount" name="shOrderCount" th:value="${item?.shOrderCount}" maxlength="20" placeholder="발주 수량을 입력해 주세요" class="form-control"/>
-<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
-												</div>
-											</div>
-										</div>
-										
-										
-
-									</div>
-									
-									<div class="row clearfix">
-										<div class="col-sm-3">
-											<div class="form-group">
-												<div class="form-line">
-													<h2 class="card-inside-title">
-														<small>신발 이름<span style="color: red;">*</span></small>
-													</h2>
-													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
-													<input type="text" id="shName" name="shName" th:value="${item?.shName}" maxlength="20" placeholder="신발 이름을 입력해 주세요" class="form-control"/>
-<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-3">
-											<div class="form-group">
-												<div class="form-line">
-													<h2 class="card-inside-title">
-														<small>신발 브랜드<span style="color: red;">*</span></small>
-													</h2>
-													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
-													<input type="text" id="shBrandCd" name="shBrandCd" th:value="${item?.shBrandCd}" maxlength="20" placeholder="신발 브랜드를 입력해 주세요" class="form-control"/>
-<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-3">
-											<div class="form-group">
-												<div class="form-line">
-													<h2 class="card-inside-title">
-														<small>신발 사이즈<span style="color: red;">*</span></small>
-													</h2>
-													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
-													<input type="text" id="shSizeCd" name="shSizeCd" th:value="${item?.shSizeCd}" maxlength="20" placeholder="신발 사이즈를 입력해 주세요" class="form-control"/>
-<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-3">
-											<div class="form-group">
-												<div class="form-line">
-													<h2 class="card-inside-title">
-														<small>신발 타입<span style="color: red;">*</span></small>
-													</h2>
-													<!-- <input type="text" class="form-control" name="ifcdName" id="ifcdName" placeholder="한글,영대소문자,숫자" th:value="${item?.ifcdName}" />  -->
-													<input type="text" id="shTypeCd" name="shTypeCd" th:value="${item?.shTypeCd}" maxlength="20" placeholder="신발 타입을 입력해 주세요" class="form-control"/>
-<!-- 													<span id="ifcdNameError" style="color: red; font-size: 10px;"></span> -->
-												</div>
-											</div>
-										</div>
-										
-
-									</div>
-									
-									
-									
 								</div>
-								
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="form-line">
+											<h2 class="card-inside-title">
+												<small>주문자ID</small>
+											</h2>
+											<div  name="memId" id="memId">&nbsp;</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="form-line">
+											<h2 class="card-inside-title">
+												<small>배송주소</small>
+											</h2>
+											<div  name="memAddress" id="memAddress">&nbsp;</div>
+										</div>
+									</div>
+								</div>
 							</div>
-
 							<div class="row clearfix">
 								<div class="col-sm-12">
-									
+									<div class="row clearfix">
+										<div class="col-sm-3">
+										<small style="font-size: 11px; color: #999; display: block; margin-top: 5px;">신발<span style="color: red;">*</span></small>
+											<select class="form-control show-tick" id="shName" name="shName"  >
+												<option value="">선택하세요</option>
+												<option th:each="list : ${shoes}" th:text="${list.shName}" th:value="${list.shName}"></option>
+											</select> <span id="codeGroupError"
+												style="color: red; font-size: 10px;"></span>
+										</div>
+										<div class="col-sm-3">
+										<small style="font-size: 11px; color: #999; display: block; margin-top: 5px;">사이즈<span style="color: red;">*</span></small>
+											<select class="form-control show-tick" id="shSizeCd" name="shSizeCd" disabled>
+												<option value="">선택하세요</option>
+											</select> <span id="codeGroupError"
+												style="color: red; font-size: 10px;"></span>
+										</div>
+									</div>
+								</div>
+								 <div class="col-sm-3">
+									<div class="form-group">
+										<div class="form-line">
+											<h2 class="card-inside-title">
+												<small>수량</small>
+											</h2>
+											<input type="text" id="shOrderCount" name="shOrderCount" class="form-control">
+										</div>
+									</div>
+								</div> 
+								 
+							</div>
+							<div class="row clearfix">
+								<div class="col-sm-12">
 									<div class="row clearfix">
 										<!-- <div class="col-sm-3">
 											<h2 class="card-inside-title">
@@ -287,96 +242,120 @@
 <script src="/xdm/template/master/js/demo.js"></script>
 
 <script type="text/javascript">
-// document.getElementById("btnSubmit").onclick = function() {
-//     let ifcdName = document.getElementById("ifcdName"); // 코드 이름
-//     let codeGroup_cdgSeq = document.getElementById("codeGroup_cdgSeq"); // 코드 그룹 Seq
-//     let codeGroupError = document.getElementById("codeGroupError"); // 코드그룹 Seq 잘못 입력 했을 경우
-//     let ifcdNameError = document.getElementById("ifcdNameError"); // 코드 이름 잘못 입력 했을 경우
-//     let isValid = true;
 
-//     // 코드 그룹 선택 필드 검증
-//     if (codeGroup_cdgSeq.value.trim() == "") {
-//         codeGroupError.innerText = "코드 그룹을 선택하세요!";
-//         codeGroup_cdgSeq.focus();
-//         isValid = false;
-//     } else {
-//         codeGroupError.innerText = "";
-//     }
+//	주문자 선택시 주문자 정보 뜨는Proc
+	$('#memSeq').on('change', function () {
+	    $.ajax({
+	    	async: true 
+			,cache: false
+			,type: "post"
+			/* ,dataType:"json" */
+			,url: "/selectOneMemberProc"
+			/* ,data : $("#formLogin").serialize() */
+			,data : { "memSeq" : $("#memSeq").val()}
+			,success: function(response) {
+				   $('#memId').val(response.memId);
+				    $('#memAddress').val(response.memAddress);
+				    $('#memId').text(response.memId);
+				    $('#memAddress').text(response.memAddress);
+	         
+	        }
+	        
+	    });
+	});
+//신발 선택시 size보여주는 Proc
+$('#shName').on('change', function () {
+	let selectedshName =  $(this).val();
+ 
+    if (selectedshName != "") {
+	    $.ajax({
+	    	async: true 
+			,cache: false
+			,type: "post"
+			/* ,dataType:"json" */
+			,url: "/selectOneShoesSizeProc"
+			/* ,data : $("#formLogin").serialize() */
+			,data : { "shName" : $("#shName").val()}
+			,success: function(response) {
+				  
+				//sizeCd셀렉트박스 초기화
+				 $('#shSizeCd').empty();
+				  $('#shSizeCd').append('<option value="">선택하세요</option>');
+				//셀렉트박스 활성화
+				$('#shSizeCd').prop('disabled', false);
+				
+				//컨트롤러에서 받아온 sizeList를 배열로 뿌려줌
+				response.sizeList.forEach(function(item) {
+					//받아온 shSizeCd를 클라이언트에서 보일땐 변환해서 보여줌
+					  let displayText = item.shSizeCd; 
+					  if (item.shSizeCd === 8) {
+	                        displayText = '230';
+	                    } else if (item.shSizeCd === 9) {
+	                        displayText = '240';
+	                    
+	                    } else if (item.shSizeCd === 10) {
+	                        displayText = '250';
+	                    
+	                    } else if (item.shSizeCd ===11) {
+	                        displayText = '260';
+	                    
+	                    } else if (item.shSizeCd ===12) {
+	                        displayText = '270';
+	                 
+	                    } else if (item.shSizeCd === 13) {
+	                        displayText = '280';
+	                    }else{
+	                    	
+	                    }
+	              
+			        $('#shSizeCd').append('<option value="' + item.shSizeCd + '">' + displayText + '</option>');
+			    });
+				
+                $('#shSizeCd').selectpicker('refresh');
+	        }
+	        
+	    });
+    } else {
+        //sizeCd셀렉트박스 초기화
+		 $('#shSizeCd').empty();
+		 $('#shSizeCd').append('<option value="">선택하세요</option>');
+        // 선택하세요로 돌아온 경우 → 두 번째 셀렉트박스 다시 비활성화
+        $('#shSizeCd').prop('disabled', true);
+        $('#shSizeCd').selectpicker('refresh');
+    }
+});
 
-//     // 코드 이름 입력 필드 검증 (한글, 영문, 숫자만 허용)
-//     let regex = /^[a-zA-Z0-9가-힣]+$/;
-//     if (ifcdName.value.trim() == "") {
-//         ifcdNameError.innerText = "코드 이름을 입력하세요!";
-//         ifcdName.focus();
-//         isValid = false;
-//     } else if (!regex.test(ifcdName.value.trim())) {
-//         ifcdNameError.innerText = "한글, 영문, 숫자만 허용됩니다!";
-//         ifcdName.focus();
-//         isValid = false;
-//     } else {
-//         ifcdNameError.innerText = "";
-//     }
+//신발이선택되고 사이즈도 선택됐을씨 shSeq를 가져오는Proc
+$('#shSizeCd').on('change', function() {
+//     let selectedshName = $('#shName').val();
+//     let selectedshSizeCd = $(this).val();
+	 if ($('#shName').val() !== "" && $('#shSizeCd').val() !== "") {
+        $.ajax({
+            async: true,
+            cache: false,
+            type: "post",
+            url: "/selectOneShoesProc", 
+            data: {"shName" : $("#shName").val(),"shSizeCd" : $("#shSizeCd").val()},
+            success: function(response) {
+              	
+            	 $("#shSeq").val(response.shSeq);
+            }
+        });
+    }
+});
 
-//     // 데이터 값이 있을 경우 폼 제출
-//     if (isValid) {
-//         let seq = document.querySelector("input[name=cdSeq]");
-        
-//         /* 등록 */
-//         function validationInst() {
-//             if (validationUpdt() == false)
-//                 return false;
-//         }
-//         /* 수정 */
-//         function validationUpdt() {
-//             let isValid = true;
-//             if (seq.value == "") {
-//                 isValid = false;
-//             }
-//             return isValid;
-//         }
+document.getElementById("btnSubmit").onclick= function(){
 
-//         if (seq.value == "0" || seq.value == "") {
-//             if (validationInst() == false)
-//                 return false;
+	let form = document.getElementById("form");
+	form.action="/OrderXdmInst1";
+	form.submit();
+}
 
-//             form.action = "/code/CodeXdmInst";
-//             form.submit();
-//         } else {
-//             if (validationUpdt() == false)
-//                 return false;
 
-//             form.action = "/code/CodeXdmUpdt";
-//             form.submit();
-//         }
-//     }
-// }
 
 </script>
 
-<script type="text/javascript">
-// 업데이트 삭제
-	
-// 	if(document.getElementById("btnUelete")){
-		
-// 		document.getElementById("btnUelete").onclick = function () {
-// 			document.querySelector("#modalConfirmTitle").textContent = "확 인";
-// 			document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
-// 			document.querySelector("#btnModalUelete").style.display = '';
-// 			/* document.querySelector("#btnModalDelete").style.display = 'none'; */
-// 			$("#modalConfirm").modal("show");      	
-// 		}
-// 	}
-	
-	
-// 	document.getElementById("btnModalUelete").onclick = function () {
-		
-// 		form.action = "/code/CodeXdmUele";
-							
-// 		form.submit();
-// 	}
 
-
-</script>
 
 
 
