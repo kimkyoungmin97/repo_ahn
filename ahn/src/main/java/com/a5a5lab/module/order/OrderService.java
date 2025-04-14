@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OrderService {
@@ -71,6 +72,21 @@ public class OrderService {
 	public List<OrderDto> selectShoesList(OrderDto orderDto){
 		return orderDao.selectShoesList(orderDto);
 	}
+	
+	//트랜잭션으로 주문등록,주문 상세등록을 묶어줌
+	 @Transactional
+	 public void orderRegister(OrderDto orderDto) {
+	        orderDao.orderInst(orderDto);          // 주문 등록
+	        orderDao.orderDetailInst(orderDto);    // 주문 상세 등록
+	    }
+//	//주문테이블생성
+//	public int orderInst(OrderDto orderDto) {
+//		return orderDao.orderInst(orderDto);
+//	}
+//	//주문테이블에 맞는 주문상세목록생성
+//	public int orderDetailInst(OrderDto orderDto) {
+//		return orderDao.orderDetailInst(orderDto);
+//	}
 	
 	
 

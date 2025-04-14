@@ -42,5 +42,9 @@ public interface OrderDao {
 	public List<OrderDto> selectMemberList(OrderDto orderDto);
 	//신발 불러오기(중복없이)
 	public List<OrderDto> selectShoesList(OrderDto orderDto);
+	//주문테이블생성
+	public int orderInst(OrderDto orderDto);
+	//주문테이블에 맞는 주문상세목록생성
+	public int orderDetailInst(OrderDto orderDto);
 	
 }
