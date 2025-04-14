@@ -3,7 +3,8 @@
 
 <div th:replace="~{xdm/include/head :: head}"></div>
 
-<form action="/code/CodeXdmInst" method="post" id="form">
+<form  method="post" id="form">
+<input type="hidden" id="shSeq" name="shSeq" >
 	<!-- ### -->
 
 	<section class="content">
@@ -74,7 +75,7 @@
 									<div class="row clearfix">
 										<div class="col-sm-3">
 										<small style="font-size: 11px; color: #999; display: block; margin-top: 5px;">신발<span style="color: red;">*</span></small>
-											<select class="form-control show-tick" id="shName" name="shName"     >
+											<select class="form-control show-tick" id="shName" name="shName"  >
 												<option value="">선택하세요</option>
 												<option th:each="list : ${shoes}" th:text="${list.shName}" th:value="${list.shName}"></option>
 											</select> <span id="codeGroupError"
@@ -95,7 +96,7 @@
 											<h2 class="card-inside-title">
 												<small>수량</small>
 											</h2>
-											<div  name="memId" id="memId">&nbsp;</div>
+											<input id="shOrderCount" name="shOrderCount">
 										</div>
 									</div>
 								</div>
@@ -135,7 +136,7 @@
 											</div>
 										</div> -->
 										<a role="button" class="btn btn-light" style="float: left;"
-											th:href="@{/code/codeXdmList}"> <svg
+											th:href="@{/OrderXdmList}"> <svg
 												xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 												fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                                                 <path
@@ -271,22 +272,83 @@ $('#shName').on('change', function () {
 			,cache: false
 			,type: "post"
 			/* ,dataType:"json" */
-			,url: "/selectOneShoesProc"
+			,url: "/selectOneShoesSizeProc"
 			/* ,data : $("#formLogin").serialize() */
 			,data : { "shName" : $("#shName").val()}
 			,success: function(response) {
 				  
+				//sizeCd셀렉트박스 초기화
+				 $('#shSizeCd').empty();
+				  $('#shSizeCd').append('<option value="">선택하세요</option>');
+				//셀렉트박스 활성화
 				$('#shSizeCd').prop('disabled', false);
+				
+				//컨트롤러에서 받아온 sizeList를 배열로 뿌려줌
+				response.sizeList.forEach(function(item) {
+					//받아온 shSizeCd를 클라이언트에서 보일땐 변환해서 보여줌
+					  let displayText = item.shSizeCd; 
+					  if (item.shSizeCd === 8) {
+	                        displayText = '230';
+	                    } else if (item.shSizeCd === 9) {
+	                        displayText = '240';
+	                    
+	                    } else if (item.shSizeCd === 10) {
+	                        displayText = '250';
+	                    
+	                    } else if (item.shSizeCd ===11) {
+	                        displayText = '260';
+	                    
+	                    } else if (item.shSizeCd ===12) {
+	                        displayText = '270';
+	                 
+	                    } else if (item.shSizeCd === 13) {
+	                        displayText = '280';
+	                    }else{
+	                    	
+	                    }
+	              
+			        $('#shSizeCd').append('<option value="' + item.shSizeCd + '">' + displayText + '</option>');
+			    });
+				
                 $('#shSizeCd').selectpicker('refresh');
 	        }
 	        
 	    });
     } else {
+        //sizeCd셀렉트박스 초기화
+		 $('#shSizeCd').empty();
+		 $('#shSizeCd').append('<option value="">선택하세요</option>');
         // 선택하세요로 돌아온 경우 → 두 번째 셀렉트박스 다시 비활성화
         $('#shSizeCd').prop('disabled', true);
         $('#shSizeCd').selectpicker('refresh');
     }
 });
+
+//신발이선택되고 사이즈도 선택됐을씨 shSeq를 가져오는Proc
+$('#shSizeCd').on('change', function() {
+//     let selectedshName = $('#shName').val();
+//     let selectedshSizeCd = $(this).val();
+	 if ($('#shName').val() !== "" && $('#shSizeCd').val() !== "") {
+        $.ajax({
+            async: true,
+            cache: false,
+            type: "post",
+            url: "/selectOneShoesProc", 
+            data: {"shName" : $("#shName").val(),"shSizeCd" : $("#shSizeCd").val()},
+            success: function(response) {
+              	
+            	 $("#shSeq").val(response.shSeq);
+            }
+        });
+    }
+});
+
+document.getElementById("btnSubmit").onclick= function(){
+
+	let form = document.getElementById("form");
+	form.action="/OrderXdmInst";
+	form.submit();
+}
 
 
 
