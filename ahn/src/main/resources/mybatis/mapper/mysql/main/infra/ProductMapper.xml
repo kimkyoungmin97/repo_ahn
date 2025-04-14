@@ -136,7 +136,9 @@
 	 	WHERE
 	 		shSeq  IN
 	 	<foreach collection="list" item="id" open="(" separator="," close=")"> #{id} </foreach>
-	 </update>      
+	 </update>     
+	 
+	
                 
 	
 	

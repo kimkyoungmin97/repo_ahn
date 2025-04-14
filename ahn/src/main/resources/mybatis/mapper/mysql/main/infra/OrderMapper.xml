@@ -149,6 +149,16 @@
 		where
 		order_orderSeq = #{orderSeq}
 	</select>
+	<!--주문상세목록에서 배송요청 누를시 처리상태 출고요청으로바뀌게하기 -->
+	<update id="deliveryRequest">
+		UPDATE `order`
+		SET
+		orderStatusCd = 24
+		
+		WHERE 1=1
+		AND	orderSeq=#{orderSeq}
+		
+	</update>
 
 
 

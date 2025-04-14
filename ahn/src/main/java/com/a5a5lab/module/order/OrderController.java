@@ -77,6 +77,12 @@ public class OrderController {
 		
 		return "xdm/orderlist/OrderXdmView";
 	}
+	//주문내역상세페이지에서 배송요청 누를시 처리상태 출고요청으로 변경
+	@RequestMapping(value="/deliveryRequest")
+	public String deliveryRequest(OrderDto orderDto) {
+		orderService.deliveryRequest(orderDto);
+		return "redirect:/OrderXdmList";
+	}
 	
 	
 	

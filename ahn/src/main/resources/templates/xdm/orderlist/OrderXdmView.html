@@ -6,7 +6,7 @@
 	<form name="formList" id="formList" method="post" autocomplete="off">
 <!-- 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/> -->
 <!-- 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/> -->
-		<input type="hidden" name="orderSeq">
+		<input type="hidden" name="orderSeq" id="orderSeq" th:value="${item?.orderSeq}">
 		<input type="hidden" name="order_orderSeq">
     <section class="content">
         <div class="container-fluid">
@@ -223,11 +223,10 @@
 <script>
   // 배송요청 버튼 클릭 시
   let btnDelivery = document.getElementById("btnDelivery");
-
   if (btnDelivery) {
     btnDelivery.addEventListener("click", function () {
-      alert("배송요청 했습니다.");
-      // 확인 누르면 리스트 페이지로 이동
+     document.getElementById("formList").action="/deliveryRequest";
+     
      
     });
   }

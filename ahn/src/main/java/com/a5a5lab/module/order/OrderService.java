@@ -53,6 +53,10 @@ public class OrderService {
 	public OrderDto totalSumPrice(OrderDto orderDto) {
 		return orderDao.totalSumPrice(orderDto);
 	}
+	//주문상세페이지 배송요청누를시 처리상태 출고요청으로 바뀌기
+	public int deliveryRequest(OrderDto orderDto) {
+		return orderDao.deliveryRequest(orderDto);
+	}
 	
 	//창고목록 리스트 뿌리기
 	public List <OrderDto> storageList(OrderVo vo){
