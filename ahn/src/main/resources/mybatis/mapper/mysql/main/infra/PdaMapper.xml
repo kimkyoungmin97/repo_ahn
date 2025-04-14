@@ -30,6 +30,34 @@
 		<!-- LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} -->
 	</select>
 	
+	<select id="FactoryOrderListDl" resultMap="resultMapObj">
+	SELECT
+		a.orderSeq,
+		d.shName,
+		d.shBrandCd,
+		d.shSizeCd,
+		d.shTypeCd,
+		c.shOrderCount,
+		a.regDateTime,
+		b.memName,
+		a.deliveryStatus
+	FROM
+		`order` AS a
+		LEFT JOIN member AS b ON a.member_memSeq = b.memSeq
+		LEFT JOIN order_detail AS c ON a.orderSeq = c.order_orderSeq
+		LEFT JOIN shoes AS d ON c.shoes_shSeq = d.shSeq
+	WHERE 1=1
+	AND a.deliveryStatus = 18
+	order By orderSeq DESC
+
+		
+		
+		
+		
+		
+		<!-- LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} -->
+	</select>
+	
 	<!-- 발주 내역 리스트 조회하고 그 리스트 1개를 업데이트 해서 처리상태를 입고 완료 처리하기  -->
 	<update id="update" >
 		UPDATE `order` SET 
@@ -37,6 +65,16 @@
 		WHERE 
 			orderSeq = #{orderSeq}
 			AND orderStatusCd = 26
+	
+	</update>
+	
+	<!-- 배송 리스트 조회하고 그 리스트 1개를 업데이트 해서 처리상태를 입고 완료 처리하기  -->
+	<update id="updateDl" >
+		UPDATE `order` SET 
+			deliveryStatus = 19
+		WHERE 
+			orderSeq
+			AND deliveryStatus = 18
 	
 	</update>
 	

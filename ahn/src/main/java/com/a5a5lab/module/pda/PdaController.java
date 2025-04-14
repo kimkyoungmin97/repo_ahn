@@ -33,6 +33,18 @@ public class PdaController {
 		return"pda/LnboundPad";
 	}
 	
+	@RequestMapping(value="/DeliveryPda")
+	public String DeliveryPda(Model model,PdaVo vo) {
+		
+		
+		
+		model.addAttribute("list", pdaService.FactoryOrderListDl(vo));
+		model.addAttribute("vo", vo);
+		
+		
+		return"pda/DeliveryPda";
+	}
+	
 	//Pad 입고하기 상세
 	@RequestMapping("/LnboundPadDetailsPad")
 	public String LnboundPadDetailsPad() {
@@ -50,6 +62,12 @@ public class PdaController {
 	    }
 	    pdaService.update(orderSeq);
 	    return "redirect:/LnboundPad";
+	}
+	
+	@RequestMapping(value="/DeliveryPadUdate")
+	public String DeliveryPadUdate(PdaDto pdaDto) {
+		pdaService.updateDl(pdaDto);
+		return "redirect:/DeliveryPda";
 	}
 
 	
@@ -74,14 +92,14 @@ public class PdaController {
 	
 	
 	
-	//Pad 배송하기
-	@RequestMapping(value="/DeliveryPda")
-	public String  DeliveryPda(Model model) {
-		
-		model.addAttribute("list", pdaService.selectList());
-		
-		return "/pda/DeliveryPda";
-	}
+//	//Pad 배송하기
+//	@RequestMapping(value="/DeliveryPda")
+//	public String  DeliveryPda(Model model) {
+//		
+//		model.addAttribute("list", pdaService.selectList());
+//		
+//		return "/pda/DeliveryPda";
+//	}
 	
 
 }

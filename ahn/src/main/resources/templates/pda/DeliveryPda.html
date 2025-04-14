@@ -12,7 +12,8 @@
 
  
  
-
+  <form id="form"  method="post" autocomplte="off">
+  	  <input type="hidden" name="orderSeq" id="hiddenOrderSeq">
   <main id="main" class="main">
 
     <div class="pagetitle">
@@ -36,9 +37,9 @@
 
   
   
+	
 
-
-   <button type="button" style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
+   <button type="button" id="buttonDeliver" style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
     배송하기
   </button>
   <br>   <br>   <br>  
@@ -46,17 +47,41 @@
 
   <!-- 테이블 -->
 <!-- 테이블 -->
-<!-- 모바일 테이블 -->
-  <!-- 카드 하나 -->
-  <div style="background:#fff; border:1px solid #eee; border-radius:10px; padding:15px; margin-bottom:15px; box-shadow:0 2px 5px rgba(0,0,0,0.05);" th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
-    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:14px; margin-bottom:8px;">
-      <div th:text="${list.orderSeq}">주문번호: 5000000</div>
-      <div style="color:green;" th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}">배송완료</div>
-    </div>
-    <div style="font-size:13px; margin-bottom:4px;" th:text="${list.memName}">받는분: 김이지</div>
-    <div style="font-size:13px; margin-bottom:4px;" th:text="${list.memAddress}">서울 강남구 가로수길 5</div>
-    <div style="font-size:12px; color:#888;" th:text="${list.regDateTime}">주문날짜: 2025-01-26 12:00</div>
+<div style="padding:10px;">
+  <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px; background-color:#ffffff;">
+      <thead>
+        <tr style="background-color:#f9f9f9; border-bottom:1px solid #ddd;">
+          <th style="padding:8px; text-align:center;">#</th>
+          <th style="padding:8px; text-align:left;">배송번호</th>
+          <th style="padding:8px; text-align:left;">상품명</th>
+          <th style="padding:8px; text-align:right;">수량</th>
+          <th style="padding:8px; text-align:right;">처리상태</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 샘플 데이터 -->
+        <tr style="border-bottom:1px solid #eee;" th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
+          <td style="padding:10px; text-align:center;" th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index + 1)}"></td>
+          <td style="padding:10px;">
+            <div style="font-weight:bold;" th:text="${list.orderSeq}"></div>
+            <div style="font-size:12px; color:#888;" th:text="${list.regDateTime}"></div>
+          </td>
+          <td style="padding:10px;" th:text="${list.shName}"></td>
+          <td style="padding:10px; text-align:right;" th:text="${list.shOrderCount}">28</td>
+          
+          
+           <td style="padding:10px; text-align:right;" th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}">처리상태</td>
+        </tr>
+        
+        
+        
+       
+
+      </tbody>
+    </table>
   </div>
+</div>
 
  
 
@@ -65,13 +90,24 @@
 
 
   </main><!-- End #main -->
-  
+  </form>
   <div th:replace="~{pda/includePda/footerPda :: footerPda}"></div>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <div th:replace="~{pda/includePda/scriptPda :: scriptPda}"></div>
 
+  <script type="text/javascript">
+  	
+  	
+  	
+  	document.getElementById("buttonDeliver").onclick = function () {
+		
+  		form.action = "/DeliveryPadUdate";
+		form.submit();
+  	}
+
+  </script>  
 </body>
 
 </html>

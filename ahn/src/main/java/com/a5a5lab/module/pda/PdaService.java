@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.a5a5lab.module.code.CodeDto;
 import com.a5a5lab.module.order.OrderVo;
 
 @Service
@@ -22,10 +23,19 @@ public class PdaService {
 	public List<PdaDto> FactoryOrderList(PdaVo vo){
 		return pdaDao.FactoryOrderList(vo);
 	}
+	
+	// 배송 목록리스트 
+	public List<PdaDto> FactoryOrderListDl(PdaVo vo){
+		return pdaDao.FactoryOrderListDl(vo);
+	}
 	//Pda 입고 (발주내역)을 출고대기에서 출고 완료로 업데이트 하기
 	public int update (Integer orderSeq) {
 		 int completeStatusCd = 27;
 		return pdaDao.update(orderSeq , completeStatusCd);
+	}
+	
+	public int updateDl(PdaDto pdaDto) {
+		return pdaDao.updateDl(pdaDto);
 	}
 	
 	//Pda 입고 발주 내역 데이터 1개씩 뽑기
@@ -38,6 +48,8 @@ public class PdaService {
 	public List<PdaDto> selectList(){
 		return pdaDao.selectList();
 	}
+	
+	
 
 
 
