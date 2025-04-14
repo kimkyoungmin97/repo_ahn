@@ -142,7 +142,12 @@
         alert("주문번호를 입력해주세요.");
         return; // Ajax 호출을 막음
       }
-	
+		
+      // 한글이 포함된 경우 얼럿을 띄운다
+      if (/[가-힣]/.test(orderSeq)) {
+        alert("한글은 입력할 수 없습니다.");
+        return; // Ajax 호출을 막음
+      }
       // 값이 있을 때만 Ajax 호출
       $.ajax({
         async: true,
