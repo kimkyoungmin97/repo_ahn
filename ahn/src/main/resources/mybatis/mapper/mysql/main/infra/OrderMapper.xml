@@ -271,6 +271,49 @@
 	From
 		shoes
 	</select>
+	
+<!--주문 등록폼에서 주문넣기(트랜잭션으로 묶음) -->
+	<!--memSeq를 받아서 주문번호 생성 -->
+	<insert id="orderInst">
+	INSERT INTO `order`(
+		deliveryStatus,
+		paymentStatus,
+		orderTypeCd,
+		orderDelNy,
+		regDateTime,
+		modDateTime,
+		member_memSeq,
+		orderStatusCd
+	)VALUES(
+		18,
+		14,
+		20,
+		0,
+		now(),
+		now(),
+		#{memSeq},
+		23
+		)
+		<selectKey resultType="String" keyProperty="orderSeq" order="AFTER">
+	    SELECT last_insert_id()
+	</selectKey>
+	</insert>
+	<!-- orderSeq,shSeq,shOrderCount를 받아서 order_detail생성 -->
+	<insert id="orderDetailInst">
+	INSERT INTO order_detail(
+		order_orderSeq,
+		shoes_shSeq,
+		shOrderCount
+	)VALUES(
+		#{orderSeq},
+		#{shSeq},
+		#{shOrderCount}
+	)
+		<selectKey resultType="String" keyProperty="orderDetailSeq" order="AFTER">
+	    SELECT last_insert_id()
+	</selectKey>
+	</insert>
+	
 
  
 	

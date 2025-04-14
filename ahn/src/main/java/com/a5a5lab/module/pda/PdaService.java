@@ -19,17 +19,18 @@ public class PdaService {
 	
 	
 	// 발주 목록ㄹ스트 뿌리기
-	public List<PdaDto> FactoryOrderList(){
-		return pdaDao.FactoryOrderList();
+	public List<PdaDto> FactoryOrderList(PdaVo vo){
+		return pdaDao.FactoryOrderList(vo);
 	}
 	//Pda 입고 (발주내역)을 출고대기에서 출고 완료로 업데이트 하기
 	public int update (Integer orderSeq) {
-		return pdaDao.update(orderSeq);
+		 int completeStatusCd = 27;
+		return pdaDao.update(orderSeq , completeStatusCd);
 	}
 	
 	//Pda 입고 발주 내역 데이터 1개씩 뽑기
-	public PdaDto selectOne(Integer orderSeq) {
-		return pdaDao.selectOne(orderSeq);
+	public PdaDto selectOne(PdaDto pdaDto) {
+		return pdaDao.selectOne(pdaDto);
 	}
 
 

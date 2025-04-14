@@ -113,6 +113,9 @@
 		    FROM
 		        shoes
 			    WHERE 1=1
+	<!-- 주문등록폼에서 신발이름과 사이즈선택시 -->
+	 <if test="shName != null and !shName.equals('')">AND shName = #{shName}</if>
+	 <if test="shSizeCd != null and !shSizeCd.equals('')">AND shSizeCd = #{shSizeCd}</if>
 			    ORDER BY shSeq DESC;
 	
 	</select>

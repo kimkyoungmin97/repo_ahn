@@ -143,6 +143,12 @@ public class OrderController {
 		model.addAttribute("shoes", orderService.selectShoesList(orderDto));
 		return "xdm/orderlist/OrderXdmForm";
 	}
+	//주문등록 페이지(주문등록)
+	@RequestMapping(value="/OrderXdmInst")
+	public String OrderXdmInst(OrderDto orderDto) {
+		orderService.orderRegister(orderDto);
+		return"redirect:/OrderXdmList";
+	}
 	
 	
 	

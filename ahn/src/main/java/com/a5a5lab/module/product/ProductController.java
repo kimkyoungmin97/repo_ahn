@@ -1,5 +1,6 @@
 package com.a5a5lab.module.product;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a5a5lab.common.util.UtilDateTiem;
+import com.a5a5lab.module.code.CodeService;
 
 @Controller
 public class ProductController {
@@ -46,12 +48,29 @@ public class ProductController {
 	}
 	//주문등록 페이지에서 선택된 신발 사이즈가져오기 
 	@ResponseBody
-	@RequestMapping(value = "/selectOneShoesProc")
+	@RequestMapping(value = "/selectOneShoesSizeProc")
 	public Map<String, Object> selectOneMemberProc(Model model,ProductDto productDto,ProductVo vo) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
+		//db에서 선택된 신발이 갖고있는 사이즈리스트가져오가
 		 List<ProductDto> sizeList = productService.selectList(vo);
+		 
+		
 		    returnMap.put("sizeList", sizeList);
+		
+		return returnMap;
+	}
+	//주문등록 페이지에서 신발이름,사이즈 둘다 선택되면 shSeq가져오기
+	@ResponseBody
+	@RequestMapping(value = "/selectOneShoesProc")
+	public Map<String, Object> selectOneMemberProc(ProductDto productDto) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		ProductDto shoes= productService.selectOne(productDto);
+		
+		returnMap.put("shSeq", shoes.getShSeq());
+		
+		
 		
 		return returnMap;
 	}
