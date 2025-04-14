@@ -36,6 +36,10 @@ public class CodeGroupService {
 		return codeGroupDao.update(codeGroupDto);
 	}
 	
+	public int ueleteCk(List<Long> deleteIds) {
+		return codeGroupDao.ueleteCk(deleteIds);
+	}
+	
 	//페이지 네이션
 	public int selectOneCount(CodeGroupVo vo) {
 		return codeGroupDao.selectOneCount(vo);

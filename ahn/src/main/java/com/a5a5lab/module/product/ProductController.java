@@ -20,18 +20,23 @@ public class ProductController {
 	
 	// 상품목록조회 리스트 보여주기
 	@RequestMapping(value = "/productXdmList")
-	public String productXdmList(Model model,ProductVo vo) {
+	public String productXdmList(ProductVo vo, Model model) {
 		
-		vo.setParamsPaging(productService.selectOneCount(vo));
-		model.addAttribute("list", productService.selectList(vo));
-		model.addAttribute("vo", vo);
 		
 		// UtilDateTime 함수 가져와서 사용
 		
 		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
 		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
 		
-		return "/xdm/product/productXdmList";
+		
+		if (vo.getShDelNy() == null) {
+		    vo.setShDelNy(0);
+		}
+		
+		vo.setParamsPaging(productService.selectOneCount(vo));
+		model.addAttribute("list", productService.selectList(vo));
+		model.addAttribute("vo", vo);
+		return "xdm/product/productXdmList";
 	}
 	
 	// 등록폼
@@ -49,6 +54,14 @@ public class ProductController {
 		    returnMap.put("sizeList", sizeList);
 		
 		return returnMap;
+	}
+	
+	@RequestMapping("/productXdmUele")
+	@ResponseBody
+	public String productXdmUele(ProductDto Productdto) {
+		List<Long> deleteIds = Productdto.getDeleteIds();
+		productService.uelete(deleteIds);
+		return "success";
 	}
 	
 	

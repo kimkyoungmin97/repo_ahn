@@ -19,12 +19,20 @@ public class CodeDto {
 	private Date regDateTime;
 	private Date modDateTime;
 //	----
+	private List<Long> deleteIds;
+// -----	
 	
 	
 	
 	public static List<CodeDto> cachedCodeArrayList = new ArrayList<CodeDto>();
 	
 	
+	public List<Long> getDeleteIds() {
+		return deleteIds;
+	}
+	public void setDeleteIds(List<Long> deleteIds) {
+		this.deleteIds = deleteIds;
+	}
 	public String getCdSeq() {
 		return cdSeq;
 	}

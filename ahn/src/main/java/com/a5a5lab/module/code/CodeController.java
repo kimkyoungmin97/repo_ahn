@@ -1,9 +1,12 @@
 package com.a5a5lab.module.code;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a5a5lab.common.util.UtilDateTiem;
 
@@ -28,14 +31,19 @@ public class CodeController {
 	@RequestMapping(value = "/code/codeXdmList")
 	public String codeXdmList(CodeVo vo, Model model) {
 		
-		vo.setParamsPaging(codeService.selectOneCount(vo));
-		model.addAttribute("list", codeService.selectList(vo));
-		model.addAttribute("vo",vo);
 		
 		// UtilDateTiem 함수 가져와서 사용 
 		
 		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
 		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
+		
+		if (vo.getShDelNy() == null) {
+		    vo.setShDelNy(0);
+		}
+		
+		vo.setParamsPaging(codeService.selectOneCount(vo));
+		model.addAttribute("list", codeService.selectList(vo));
+		model.addAttribute("vo",vo);
 		
 		return "xdm/code/codeXdmList";
 	}
@@ -84,6 +92,14 @@ public class CodeController {
 	public String CodeXdmUele(CodeDto codeDto) {
 		codeService.uelete(codeDto);
 		return "redirect:/code/codeXdmList";
+	}
+	
+	@RequestMapping("/code/CodeXdmUeleCk")
+	@ResponseBody
+	public String CodeXdmUeleCk(CodeDto codeDto) {
+		List<Long> deleteIds = codeDto.getDeleteIds();
+		codeService.ueleteCk(deleteIds);
+		return "success";
 	}
 	
 	

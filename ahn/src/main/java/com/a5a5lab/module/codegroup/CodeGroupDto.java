@@ -1,6 +1,7 @@
 package com.a5a5lab.module.codegroup;
 
 import java.sql.Date;
+import java.util.List;
 
 public class CodeGroupDto {
 	
@@ -17,8 +18,17 @@ public class CodeGroupDto {
 	private Date regDateTime;
 	private Date modDateTime;
 //	----
+	private List<Long> deleteIds;
+// -----
+	
 	public String getCdgSeq() {
 		return cdgSeq;
+	}
+	public List<Long> getDeleteIds() {
+		return deleteIds;
+	}
+	public void setDeleteIds(List<Long> deleteIds) {
+		this.deleteIds = deleteIds;
 	}
 	public void setCdgSeq(String cdgSeq) {
 		this.cdgSeq = cdgSeq;

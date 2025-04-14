@@ -26,4 +26,7 @@ public interface CodeGroupDao {
 	public int update(CodeGroupDto codeGroupDto);
 	
 	public int selectOneCount(CodeGroupVo vo);
+	
+	public int ueleteCk(List<Long> deleteIds);
+	
 }

@@ -43,8 +43,10 @@ public class CodeService {
 	public int update(CodeDto codeDto) {
 		return codeDao.update(codeDto);
 	}
-	
-	
+	//체크박스 삭제
+	public int ueleteCk(List<Long> deleteIds) {
+		return codeDao.ueleteCk(deleteIds);
+	}
 	//코드 그룹 에있는 이름 Seq 리스트 뿌리기
 	public List<CodeDto> codeGroupNameSeq(CodeDto codeDto){
 		return codeDao.codeGroupNameSeq(codeDto);
