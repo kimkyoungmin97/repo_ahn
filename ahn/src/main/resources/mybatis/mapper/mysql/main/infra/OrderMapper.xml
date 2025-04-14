@@ -247,6 +247,7 @@
 		</choose>
         
 		AND	a.orderTypeCd =21
+		order by orderSeq DESC
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 	
@@ -353,7 +354,7 @@
 	)VALUES(
 		18,
 		14,
-		20,
+		21,
 		0,
 		now(),
 		now(),

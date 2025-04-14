@@ -26,6 +26,7 @@
 		left join shoes AS d ON c.shoes_shSeq = d.shSeq
 		WHERE 1=1
 		AND	a.orderTypeCd =21
+		order by orderSeq DESC
 		
 		<!-- LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} -->
 	</select>
