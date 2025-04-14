@@ -9,8 +9,10 @@ public interface MemberDao {
 	// 관리자 로그인 비교
 	public MemberDto selectId(MemberDto memberDto);
 	
-	//멤버 정보 가져오기
+	//주문자 멤버 정보 가져오기
 	public MemberDto selectOne(MemberDto memberDto);
+	
+
 	
 	
 	

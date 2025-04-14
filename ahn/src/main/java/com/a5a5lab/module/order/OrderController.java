@@ -125,11 +125,11 @@ public class OrderController {
 	}
 	
 	//발주내역 form 페이지
-	
 	@RequestMapping(value = "/FactoryOrderXdmform")
 	public String FactoryOrderXdmform(Model model, OrderVo vo, OrderDto orderDto) {
 		
-		
+		model.addAttribute("list", orderService.selectMemberList(orderDto));
+		model.addAttribute("shoes", orderService.selectShoesList(orderDto));
 		model.addAttribute("vo", vo);
 		
 		
@@ -154,6 +154,13 @@ public class OrderController {
 	public String OrderXdmInst(OrderDto orderDto) {
 		orderService.orderRegister(orderDto);
 		return"redirect:/OrderXdmList";
+	}
+	
+	//발주등록 페이지(주문등록)
+	@RequestMapping(value="/OrderXdmInst1")
+	public String OrderXdmInst1(OrderDto orderDto) {
+		orderService.orderRegister1(orderDto);
+		return"redirect:/FactoryOrderXdmList";
 	}
 	
 	

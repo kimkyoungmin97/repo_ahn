@@ -53,4 +53,9 @@ public interface OrderDao {
 	//주문테이블에 맞는 주문상세목록생성
 	public int orderDetailInst(OrderDto orderDto);
 	
+// 발주 등록폼	
+	//발주테이블 생성
+	public int orderInst1(OrderDto orderDto);
+	
+	
 }
