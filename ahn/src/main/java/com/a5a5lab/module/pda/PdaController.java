@@ -37,7 +37,6 @@ public class PdaController {
 	public String DeliveryPda(Model model,PdaVo vo) {
 		
 		
-		
 		model.addAttribute("list", pdaService.FactoryOrderListDl(vo));
 		model.addAttribute("vo", vo);
 		
