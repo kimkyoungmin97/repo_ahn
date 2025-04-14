@@ -130,17 +130,19 @@ public class MemberController {
 		}
 		
 		//주문등록 페이지에서 선택된 주문자 정보가져오기 
-				@ResponseBody
-				@RequestMapping(value = "/selectOneMemberProc")
-				public Map<String, Object> selectOneMemberProc(Model model,MemberDto memberDto) throws Exception {
-					Map<String, Object> returnMap = new HashMap<String, Object>();
-					MemberDto member = memberService.selectOne(memberDto);
-					returnMap.put("memSeq", member.getMemSeq());
-					returnMap.put("memId", member.getMemId());
-					returnMap.put("memAddress", member.getMemAddress());
+		@ResponseBody
+		@RequestMapping(value = "/selectOneMemberProc")
+		public Map<String, Object> selectOneMemberProc(Model model,MemberDto memberDto) throws Exception {
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			MemberDto member = memberService.selectOne(memberDto);
+			returnMap.put("memSeq", member.getMemSeq());
+			returnMap.put("memId", member.getMemId());
+			returnMap.put("memAddress", member.getMemAddress());
 					
-					return returnMap;
-				}
+			return returnMap;
+		}
+				
+
 	
 	
 	

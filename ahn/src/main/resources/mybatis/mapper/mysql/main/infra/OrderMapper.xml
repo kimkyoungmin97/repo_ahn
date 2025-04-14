@@ -5,7 +5,18 @@
 
 	<resultMap id="resultMapObj" type="com.a5a5lab.module.order.OrderDto"></resultMap>
 
-
+	<!-- <update id="StoreCompleted">
+		UPDATE `order` SET
+			
+	
+	
+	</update> -->
+	
+	
+	
+	
+	
+	
 
 
 
@@ -298,6 +309,7 @@
 	    SELECT last_insert_id()
 	</selectKey>
 	</insert>
+	
 	<!-- orderSeq,shSeq,shOrderCount를 받아서 order_detail생성 -->
 	<insert id="orderDetailInst">
 	INSERT INTO order_detail(
@@ -317,7 +329,31 @@
 
  
 	
-			
+	<!-- 발주 등록 -->
+	<insert id="orderInst1">
+	INSERT INTO `order`(
+		deliveryStatus,
+		paymentStatus,
+		orderTypeCd,
+		orderDelNy,
+		regDateTime,
+		modDateTime,
+		member_memSeq,
+		orderStatusCd
+	)VALUES(
+		18,
+		14,
+		20,
+		0,
+		now(),
+		now(),
+		#{memSeq},
+		26
+		)
+		<selectKey resultType="String" keyProperty="orderSeq" order="AFTER">
+	    SELECT last_insert_id()
+	</selectKey>
+	</insert>	
 
 
 

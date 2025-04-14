@@ -83,6 +83,13 @@ public class OrderService {
 	        orderDao.orderInst(orderDto);          // 주문 등록
 	        orderDao.orderDetailInst(orderDto);    // 주문 상세 등록
 	    }
+	 
+	//트랜잭션으로 주문등록,주문 상세등록을 묶어줌
+	 @Transactional
+	 public void orderRegister1(OrderDto orderDto) {
+	        orderDao.orderInst1(orderDto);          // 발주 등록
+	        orderDao.orderDetailInst(orderDto);    // 주문 상세 등록    
+	    }
 //	//주문테이블생성
 //	public int orderInst(OrderDto orderDto) {
 //		return orderDao.orderInst(orderDto);
