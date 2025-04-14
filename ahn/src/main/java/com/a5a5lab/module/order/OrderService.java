@@ -63,6 +63,10 @@ public class OrderService {
 	public int uelete (List<Long> deleteIds) {
 		return orderDao.uelete(deleteIds);
 	}
+	
+	public int ueleteFt (List<Long> deleteIdsf) {
+		return orderDao.ueleteFt(deleteIdsf);
+	}
 //주문등록 폼
 	//멤버 불러오기
 	public List<OrderDto> selectMemberList(OrderDto orderDto){

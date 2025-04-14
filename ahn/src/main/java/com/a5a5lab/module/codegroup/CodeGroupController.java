@@ -1,13 +1,17 @@
 package com.a5a5lab.module.codegroup;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a5a5lab.common.util.UtilDateTiem;
+import com.a5a5lab.module.code.CodeDto;
 
 
 
@@ -25,14 +29,18 @@ public class CodeGroupController {
 		// 본데이터 값이 그다음 돌아야된다
 		
 		
-		vo.setParamsPaging(codeGroupService.selectOneCount(vo));
-		model.addAttribute("list", codeGroupService.selectList(vo));
-		model.addAttribute("vo", vo);
 		
 		
 		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
 		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
 		
+		if (vo.getShDelNy() == null) {
+		    vo.setShDelNy(0);
+		}
+		
+		vo.setParamsPaging(codeGroupService.selectOneCount(vo));
+		model.addAttribute("list", codeGroupService.selectList(vo));
+		model.addAttribute("vo", vo);
 
 		return "xdm/codeGroup/codeGroupXdmList";
 	}
@@ -79,6 +87,16 @@ public class CodeGroupController {
 	public String codeGroupUele(CodeGroupDto codeGroupDto) {
 		codeGroupService.uelete(codeGroupDto);
 		return "redirect:/codeGroup/codeGroupXdmList";
+	}
+	
+	//체크박스 삭제
+	
+	@RequestMapping("/codeGroup/codeGroupUeleCk")
+	@ResponseBody
+	public String CodeXdmUeleCk(CodeGroupDto codeGroupDto) {
+		List<Long> deleteIds = codeGroupDto.getDeleteIds();
+		codeGroupService.ueleteCk(deleteIds);
+		return "success";
 	}
 	
 	

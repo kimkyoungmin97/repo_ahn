@@ -34,8 +34,8 @@
             
         </choose>
 		
-			   AND ifchDelNy = 0  
-			   AND ifcdDelNy = 0
+<!--			   AND ifchDelNy = 0  -->
+<!--			   AND ifcdDelNy = 0-->
 	</sql>
 	
 	<select id="selectOneCount" resultType="Integer">
@@ -126,6 +126,15 @@
 	 		ifcdDelNy = 1
 	 	WHERE
 	 		cdSeq = #{cdSeq}
+	 </update>
+	 
+	 <!-- 체크박스 업데이트 삭제 -->
+	 <update id="ueleteCk">
+	 	UPDATE code SET
+	 		ifcdDelNy = 1
+	 	WHERE
+	 		cdSeq IN
+	 	<foreach collection="list" item="id" open="(" separator="," close=")"> #{id} </foreach>	
 	 </update>
 	
 	<select id="codeGroupNameSeq">

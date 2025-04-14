@@ -48,6 +48,14 @@ public class OrderController {
 	    return "success";
 	}
 	
+	@PostMapping("/OrderXdmUeleFt")
+	@ResponseBody
+	public String OrderXdmUeleFt(OrderDto dto) {
+	    List<Long> deleteIdsf = dto.getDeleteIdsf();
+	    orderService.ueleteFt(deleteIdsf);
+	    return "success";
+	}
+	
 	
 	
 	// 주문내역 상세 보여주기 (임시)
@@ -96,9 +104,6 @@ public class OrderController {
 		
 		
 		
-		vo.setParamsPaging(orderService.selectOneOrderingCount(vo));
-		model.addAttribute("list", orderService.FactoryOrderList(vo));
-		model.addAttribute("vo", vo);
 		
 		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
 		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
@@ -106,6 +111,9 @@ public class OrderController {
 		if (vo.getShDelNy() == null) {
 		    vo.setShDelNy(0);
 		}
+		vo.setParamsPaging(orderService.selectOneOrderingCount(vo));
+		model.addAttribute("list", orderService.FactoryOrderList(vo));
+		model.addAttribute("vo", vo);
 		
 		return "xdm/factoryorder/FactoryOrderXdmList";
 	}

@@ -49,12 +49,19 @@ public class OrderDto {
 	//주문 금액 계산
 	private Integer sumPrice;
 
-	private List<Long> deleteIds; // 체크박스 확인
+	private List<Long> deleteIds;
+	private List<Long> deleteIdsf;// 체크박스 확인
 //	----
 	
 	
 	public String getMemTel() {
 		return memTel;
+	}
+	public List<Long> getDeleteIdsf() {
+		return deleteIdsf;
+	}
+	public void setDeleteIdsf(List<Long> deleteIdsf) {
+		this.deleteIdsf = deleteIdsf;
 	}
 	public Integer getOrderStatusCd() {
 		return orderStatusCd;

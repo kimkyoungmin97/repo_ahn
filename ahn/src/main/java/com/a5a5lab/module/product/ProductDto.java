@@ -1,6 +1,7 @@
 package com.a5a5lab.module.product;
 
 import java.sql.Date;
+import java.util.List;
 
 public class ProductDto {
 
@@ -18,11 +19,20 @@ public class ProductDto {
 	private Date regDateTime; //등록날짜
 	private Date modDateTime; //수정날짜
 // -----	
+	private List<Long> deleteIds;
+// -----
+	
 	/**
 	 * @return the shSeq
 	 */
 	public String getShSeq() {
 		return shSeq;
+	}
+	public List<Long> getDeleteIds() {
+		return deleteIds;
+	}
+	public void setDeleteIds(List<Long> deleteIds) {
+		this.deleteIds = deleteIds;
 	}
 	/**
 	 * @param shSeq the shSeq to set
@@ -153,3 +163,4 @@ public class ProductDto {
 	
 	
 }
+	

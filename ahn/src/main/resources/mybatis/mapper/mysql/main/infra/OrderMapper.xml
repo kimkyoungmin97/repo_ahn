@@ -66,6 +66,17 @@
 			orderSeq IN
 	    <foreach collection="list" item="id" open="(" separator="," close=")"> #{id} </foreach>
 	</update>
+	
+	<!-- 발주내역 목록 업데이트 삭제-->
+	<update id="ueleteFt">
+		UPDATE `order` SET
+			orderDelNy = 1
+		WHERE
+			orderSeq IN
+	    <foreach collection="list" item="id" open="(" separator="," close=")"> #{id} </foreach>
+	    AND orderTypeCd 
+	    
+	</update>
 
 	<!-- 주문카운트 -->
 	<select id="selectOneCount" resultType="Integer">

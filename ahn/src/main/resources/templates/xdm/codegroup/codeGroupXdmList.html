@@ -79,7 +79,7 @@
                                                 <option value="" th:selected="${vo.shOption == null}">검색구분</option>
                                                 <option value="1"  th:selected="${vo.shOption == 1}">코드그룹 코드</option>
                                                 <option value="2"  th:selected="${vo.shOption == 2}">코드그룹 이름</option>
-                                                <option value="3" th:selected="${vo.shOption == 3}">코드그룹 이름 (영문)</option>
+<!--                                                <option value="3" th:selected="${vo.shOption == 3}">코드그룹 이름 (영문)</option>-->
                                             </select>
                                         </div>
                                         <div class="col-sm-2">
@@ -163,8 +163,8 @@
                                         <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
                                             <td>
                                             	
-                                                <input class="form-check-input row-checkbox" th:id="${list.cdgSeq}" type="checkbox">
-                                                <label class="form-check-label" th:for="${list.cdgSeq}"></label>
+                                                <input class="form-check-input row-checkbox" type="checkbox" th:id="'chk_' + ${list.cdgSeq}" th:value="${list.cdgSeq}">
+                                                <label class="form-check-label" th:for="'chk_' + ${list.cdgSeq}"></label>
                                             </td>
                                             <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
                                             
@@ -206,12 +206,12 @@
 								    
 								</div>
 							
-                                <a role="button" href="" class="btn btn-danger" style=" margin-right:  5px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                                  </svg>
-                                </a>
+<!--                                <a role="button" href="" class="btn btn-danger" style=" margin-right:  5px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">-->
+<!--                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>-->
+<!--                                  </svg>-->
+<!--                                </a>-->
                                 <!-- 업데이트 삭제 버튼 -->
-                                <button type="button" class="btn btn-danger" id="uelete">
+                                <button type="button" class="btn btn-danger" id="btnUelete">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
@@ -224,24 +224,59 @@
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                                       </svg>
                                     </button >
-                                <a class="btn btn-success" href="" role="button" style="float: right; margin-right:  5px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-                                        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-                                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-                                      </svg>
-                                    </a>
+<!--                                <a class="btn btn-success" href="" role="button" style="float: right; margin-right:  5px;">-->
+<!--                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">-->
+<!--                                        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>-->
+<!--                                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>-->
+<!--                                      </svg>-->
+<!--                                    </a>-->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>   
         </div>
-    </section>
-    
-    
-    
-    
-    
+		<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 id="modalConfirmTitle" class="modal-title">타이틀</h5>
+						      </div>
+						      <div class="modal-body">
+						        <p id="modalConfirmBody">내용</p>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" id="btnModalUelete" class="btn btn-danger">확인</button>
+						        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+
+						      </div>
+						    </div>
+						  </div>
+						</div>
+
+																	
+						<!-- 삭제모달 AND -->
+						<!-- 삭제버튼 눌렀을때 체크 박스 체크 안헀을경우 -->
+						<div class="modal fade" id="modalConfirm22" tabindex="-1">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="modalConfirmTitle22">확 인</h5>
+						      </div>
+						      <div class="modal-body">
+						        <p id="modalConfirmBody22">내용</p>
+						      </div>
+						      <div class="modal-footer">
+						       <!--  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button> -->
+						      </div>
+						    </div>
+						  </div>
+						</div>
+
+																
+						    </section>
+						</body>
+						</form>
     <section class="content">
         <div class="container-fluid">
             
@@ -289,28 +324,28 @@
 
 	
 	
-    <!--체크박스 전체 체크 단독 체크-->
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            const entireCheckbox = document.getElementById("entire");
-            const rowCheckboxes = document.querySelectorAll(".row-checkbox");
+<!--    체크박스 전체 체크 단독 체크-->
+<!--    <script type="text/javascript">-->
+<!--        document.addEventListener("DOMContentLoaded", function () {-->
+<!--            const entireCheckbox = document.getElementById("entire");-->
+<!--            const rowCheckboxes = document.querySelectorAll(".row-checkbox");-->
     
-            // 전체 선택 체크박스 클릭 시
-            entireCheckbox.addEventListener("change", function () {
-                rowCheckboxes.forEach(checkbox => {
-                    checkbox.checked = entireCheckbox.checked;
-                });
-            });
+<!--            // 전체 선택 체크박스 클릭 시-->
+<!--            entireCheckbox.addEventListener("change", function () {-->
+<!--                rowCheckboxes.forEach(checkbox => {-->
+<!--                    checkbox.checked = entireCheckbox.checked;-->
+<!--                });-->
+<!--            });-->
     
-            // 개별 체크박스 클릭 시 전체 선택 체크박스 상태 변경
-            rowCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener("change", function () {
-                    entireCheckbox.checked = [...rowCheckboxes].every(chk => chk.checked);
-                });
-            });
-        });
+<!--            // 개별 체크박스 클릭 시 전체 선택 체크박스 상태 변경-->
+<!--            rowCheckboxes.forEach(checkbox => {-->
+<!--                checkbox.addEventListener("change", function () {-->
+<!--                    entireCheckbox.checked = [...rowCheckboxes].every(chk => chk.checked);-->
+<!--                });-->
+<!--            });-->
+<!--        });-->
               
-    </script>
+<!--    </script>-->
    
     
     <script type="text/javascript">
@@ -388,7 +423,99 @@
     	});
     
     </script>
+	
+	<!-- 체크박스 업데이트 삭제 -->
+			 <script type="text/javascript">
+			document.addEventListener("DOMContentLoaded", function () {
+			    const entireCheckbox = document.getElementById("entire");
+			    const btnUelete = document.getElementById("btnUelete");
+			    const btnModalUelete = document.getElementById("btnModalUelete");
+			    const form = document.getElementById("form");
+
+			    // 전체 체크 → 개별 체크 전부 선택/해제
+			    if (entireCheckbox) {
+			        entireCheckbox.addEventListener("change", function () {
+			            document.querySelectorAll(".row-checkbox").forEach(cb => {
+			                cb.checked = entireCheckbox.checked;
+			            });
+			        });
+			    }
+
+			    // 개별 체크 변경 → 전체 체크 상태 조정
+			    document.querySelectorAll(".row-checkbox").forEach(cb => {
+			        cb.addEventListener("change", function () {
+			            const all = document.querySelectorAll(".row-checkbox");
+			            const checked = document.querySelectorAll(".row-checkbox:checked");
+			            entireCheckbox.checked = all.length === checked.length;
+			        });
+			    });
+
+			 // 삭제 버튼 클릭 시
+			if (btnUelete) {
+			    btnUelete.addEventListener("click", function () {
+			        const checked = document.querySelectorAll(".row-checkbox:checked");
+			        
+			        if (checked.length === 0) {
+			            document.getElementById("modalConfirmTitle22").textContent = "확 인";
+			            document.getElementById("modalConfirmBody22").textContent = "삭제할 항목을 선택해주세요.";
+
+			            // 모달창 열기
+			            $('#modalConfirm22').modal('show');
+
+			            return;
+			        }
+
+			        document.getElementById("modalConfirmTitle").textContent = "확 인";
+			        document.getElementById("modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+			        btnModalUelete.style.display = '';
+			        
+			        //  모달 열기
+			        $('#modalConfirm').modal('show');
+			    });
+			}
+
+
+
+				//모달 확인 클릭 시 삭제 요청
+				if (btnModalUelete) {
+				    btnModalUelete.addEventListener("click", function () {
+				        // 체크된 항목 수집
+				        let deleteIds = [];
+				        document.querySelectorAll(".row-checkbox:checked").forEach(cb => {
+				            deleteIds.push(cb.value);
+				        });
+				
+				        if (deleteIds.length === 0) {
+				            alert("삭제할 항목이 없습니다.");
+				            return;
+				        }
+				
+				        // Ajax 요청
+				        $.ajax({
+				            url: "/codeGroup/codeGroupUeleCk", // 삭제 요청 URL
+				            type: "POST",
+				            traditional: true, // 배열 전송 시 꼭 필요!
+				            data: {
+				                deleteIds: deleteIds
+				            }, 
+				            success: function (response) {
+				                // 성공 시 처리
+				               
+				                location.reload(); // 페이지 새로고침
+				            },
+				            
+				        });
+				    });
+				}
+
+			});
+			</script>
 </body>
 </html>
 
  
+    
+    
+    
+    
+    

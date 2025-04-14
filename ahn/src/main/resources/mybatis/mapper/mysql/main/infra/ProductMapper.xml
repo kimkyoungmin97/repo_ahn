@@ -14,7 +14,7 @@
 		
 		WHERE 1=1
 		
-		<if test="shDelNy != null and !shDelNy.equals('')">AND shDelNy = #{shDelNy}</if>
+		<if test="shDelNy != null and !shDelNy.equals('')">AND a.shDelNy = #{shDelNy}</if>
         
  	<choose>
 		<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
@@ -27,8 +27,11 @@
 		<when test="shOption == 3">AND b.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
 		<when test="shOption == 4">AND c.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
 		<when test="shOption == 5">AND a.shPrice LIKE CONCAT('%',#{shValue},'%')</when>
-		<when test="shOption == 4">AND d.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
+		<when test="shOption == 6">AND d.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
 	</choose>
+	
+
+			
 	</sql>
 	
 	<select id="selectOneCount" resultType="Integer">
@@ -52,9 +55,8 @@
 		    a.shDelNy,
 		    a.shCount,
 		    a.shPrice
-		 From
-		 	shoes AS a
-		 	WHERE 1=1
+		
+		 	<include refid="selectCommon"></include>
 		 	 <if test="shName != null and !shName.equals('')">AND shName = #{shName}</if>
 		    ORDER BY shSeq DESC
    		   <choose>
@@ -90,7 +92,7 @@
 	        #{shPrice}
 	    )
 		
-		<selectKey resultType="String" keyProperty="cdSeq" order="AFTER">
+		<selectKey resultType="String" keyProperty="shSeq" order="AFTER">
 	    SELECT last_insert_id()
 	  </selectKey>	
 	</insert>
@@ -119,7 +121,7 @@
 	</select>
 	<!-- 업데이트 -->
 	<update id="update">
-		UPDATE code SET
+		UPDATE shName SET
 			shName = #{shName},
 			modDateTime = NOW()  <!-- 현재 시간으로 업데이트 -->
 		WHERE
@@ -127,7 +129,14 @@
 	
 	</update>
 			        
-			       
+	 <!-- 업데이트 삭제 -->
+	 <update id="uelete">
+	 	UPDATE shoes SET
+	 		shDelNy = 1
+	 	WHERE
+	 		shSeq  IN
+	 	<foreach collection="list" item="id" open="(" separator="," close=")"> #{id} </foreach>
+	 </update>      
                 
 	
 	

@@ -12,4 +12,6 @@ public interface ProductDao {
 	public List <ProductDto> selectList(ProductVo vo);
 	//신발 정보 가져오기
 	public ProductDto selectOne(ProductDto productDto);
+	
+	public int uelete(List<Long> deleteIds);
 }

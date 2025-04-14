@@ -24,4 +24,8 @@ public class ProductService {
 		return productDao.selectOne(productDto);
 	}
 	
+	public int uelete(List<Long> deleteIds) {
+		return productDao.uelete(deleteIds);
+	}
+	
 }

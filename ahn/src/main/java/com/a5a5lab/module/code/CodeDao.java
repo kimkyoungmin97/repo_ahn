@@ -17,6 +17,9 @@ public interface CodeDao {
 	//업데이트 삭제
 	public int uelete(CodeDto codeDto);
 	
+	//체크박스 삭제
+	public int ueleteCk(List<Long> deleteIds);
+	
 	// 페이지 네이션
 	public int selectOneCount(CodeVo vo);
 	
