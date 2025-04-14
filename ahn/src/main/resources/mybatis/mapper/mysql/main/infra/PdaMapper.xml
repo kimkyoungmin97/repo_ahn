@@ -85,10 +85,11 @@
 	<!-- 배송 리스트 조회하고 그 리스트 1개를 업데이트 해서 처리상태를 입고 완료 처리하기  -->
 	<update id="updateDl" >
 		UPDATE `order` SET 
-			deliveryStatus = 19
+			deliveryStatus = 19, <!-- 배송완료 -->
+			orderStatusCd = 25					<!-- 처리상태 출고완료 -->
 		WHERE 
 			orderSeq
-			AND deliveryStatus = 18
+			AND deliveryStatus = 18 <!-- 배송전꺼만 보여주라 -->
 	
 	</update>
 	

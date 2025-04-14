@@ -246,7 +246,8 @@
 			<when test="orderS == 27">AND a.orderStatusCd BETWEEN #{orderS} AND #{orderS}</when>
 		</choose>
         
-		AND	a.orderTypeCd =21
+		AND	a.orderTypeCd = 21 
+		
 		order by orderSeq DESC
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>

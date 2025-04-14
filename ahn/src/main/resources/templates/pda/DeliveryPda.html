@@ -62,7 +62,7 @@
       <tbody>
         <!-- 샘플 데이터 -->
         <tr style="border-bottom:1px solid #eee;" th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
-          <td style="padding:10px; text-align:center;" th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index + 1)}"></td>
+          <td style="padding:10px; text-align:center;" th:text="${(vo.thisPage - 1) * vo.rowNumToShow + listStat.index + 1}"></td>
           <td style="padding:10px;">
             <div style="font-weight:bold;" th:text="${list.orderSeq}"></div>
             <div style="font-size:12px; color:#888;" th:text="${list.regDateTime}"></div>
