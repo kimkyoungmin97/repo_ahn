@@ -12,7 +12,7 @@
 
  
 <form id="form"  method="post" autocomplte="off">
-  
+  <input type="hidden" name="orderSeq" id="hiddenOrderSeq">
 
   <main id="main" class="main">
 
@@ -101,10 +101,16 @@
   </div>
 
   <!-- 입고 버튼 -->
-  <button type="button"  
+ <!--  <button type="button"  
     style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
     입고하기
-  </button>
+  </button> -->
+  <button type="submit"  
+  formaction="/LnboundPadUdate"
+  formmethod="post"
+  style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
+  입고하기
+</button>
 </div>
 
 
@@ -123,34 +129,59 @@
   <div th:replace="~{pda/includePda/scriptPda :: scriptPda}"></div>
   
   
-  <script type="text/javascript">
-  document.getElementById("orderSeq").oninput=function(){
-	  
-	  $.ajax({
-	    	async: true 
-			,cache: false
-			,type: "post"
-			/* ,dataType:"json" */
-			,url: "/api/getInboundOrder"
-			/* ,data : $("#formLogin").serialize() */
-			,data : { "orderSeq" : $("#orderSeq").val()}
-			,success: function(response) {
-				 $("#resultOrder").empty();
+<script type="text/javascript">
+  document.getElementById("orderSeq").onkeydown = function(event) {
+    // 엔터 키(13번)가 눌렸을 때만 처리하도록 설정
+    if (event.key === "Enter") {
+      event.preventDefault(); // 엔터키 기본 동작 방지 (폼 제출 방지)
+      
+      const orderSeq = $("#orderSeq").val();
 
-				 $("#resultOrder").append(`
-						 <tr>
-						   <td>${response.orderSeq}</td>
-						   <td>${response.shName}</td>
-						   <td>${response.shSizeCd}</td>
-						   <td>${response.shOrderCount}</td>
-						   <td>${response.orderStatusCd}</td>
-						 </tr>
-						 `);
-	        }
-	        
-	    });
-  }
-  </script>
+      // orderSeq가 비어있는 경우 얼럿을 띄운다
+      if (!orderSeq) {
+        alert("주문번호를 입력해주세요.");
+        return; // Ajax 호출을 막음
+      }
+	
+      // 값이 있을 때만 Ajax 호출
+      $.ajax({
+        async: true,
+        cache: false,
+        type: "post",
+        url: "/api/getInboundOrder",
+        data: { "orderSeq": orderSeq },
+        success: function(response) {
+          $("#resultOrder").empty();
+
+          $("#resultOrder").append(`
+            <tr>
+              <td>${response.orderSeq}</td>
+              <td>${response.shName}</td>
+              <td>${response.shSizeCd}</td>
+              <td>${response.shOrderCount}</td>
+              <td>${response.orderStatusCd}</td>
+            </tr>
+          `);
+
+          // hidden input에 orderSeq 세팅
+          $("#hiddenOrderSeq").val(response.orderSeq);
+        },
+        error: function() {
+          alert("발주 번호를 확인해주세요");
+        }
+      });
+      
+    }
+    
+  };
+
+ 
+</script>
+
+
+
+
+
 
 
 

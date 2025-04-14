@@ -36,18 +36,7 @@ public class PdaController {
 	//Pad 입고하기 상세
 	@RequestMapping("/LnboundPadDetailsPad")
 	public String LnboundPadDetailsPad() {
-//	    if (orderSeqStr != null && orderSeqStr.matches("\\d+")) {
-//	        Integer orderSeq = Integer.valueOf(orderSeqStr);
-//	        PdaDto order = pdaService.selectOne(orderSeq);
-//	        if (order != null) {
-//	            model.addAttribute("list", order);
-//	            model.addAttribute("orderSeq", orderSeq);
-//	        } else {
-//	            model.addAttribute("errorMessage", "조회 결과가 없습니다.");
-//	        }
-//	    } else {
-//	        model.addAttribute("errorMessage", "유효한 발주번호가 아닙니다.");
-//	    }
+
 	    return "pda/LnboundPadDetailsPad";
 	}
 
@@ -60,10 +49,10 @@ public class PdaController {
 	      
 	    }
 	    pdaService.update(orderSeq);
-	    return "redirect:/pda/LnboundPadList";
+	    return "redirect:/LnboundPad";
 	}
 
-
+	
 	@ResponseBody
 	@RequestMapping("/api/getInboundOrder")
 	public Map<String, Object> getInboundOrder(PdaDto pdaDto) throws Exception {

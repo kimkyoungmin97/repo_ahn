@@ -24,7 +24,8 @@ public class PdaService {
 	}
 	//Pda 입고 (발주내역)을 출고대기에서 출고 완료로 업데이트 하기
 	public int update (Integer orderSeq) {
-		return pdaDao.update(orderSeq);
+		 int completeStatusCd = 27;
+		return pdaDao.update(orderSeq , completeStatusCd);
 	}
 	
 	//Pda 입고 발주 내역 데이터 1개씩 뽑기
