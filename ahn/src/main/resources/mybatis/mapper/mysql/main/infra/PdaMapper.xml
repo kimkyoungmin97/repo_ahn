@@ -28,7 +28,7 @@
 		AND	a.orderTypeCd =21
 		order by orderSeq DESC
 		
-		ORDER BY a.orderSeq DESC
+		
 		
 		<!-- LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} -->
 	</select>
