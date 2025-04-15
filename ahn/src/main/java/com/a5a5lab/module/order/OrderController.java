@@ -33,6 +33,7 @@ public class OrderController {
 		    vo.setShDelNy(0);
 		}
 		
+		
 		//페이지 네이션
 		vo.setParamsPaging(orderService.selectOneCount(vo));
 		model.addAttribute("list", orderService.selectList(vo));
