@@ -45,7 +45,31 @@ SELECT DISTINCT
 	a.orderStatusCd
 FROM `order` AS a
 LEFT JOIN member AS c ON a.member_memSeq = c.memSeq
-WHERE a.orderTypeCd = 20
+WHERE 1=1
+		<!-- 업데이트 삭제 여부 검색 -->
+	    <if test="shDelNy != null and !shDelNy.equals('')">AND a.orderDelNy = #{shDelNy}</if>  
+		
+
+		
+		<!-- 날짜 검색 기능 -->
+		<choose>
+			<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+		</choose>
+		
+		<!-- 검색 구분 검색 -->
+		<choose>
+        	<when test="shOption == 1">AND c.memId LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 2">AND c.memName LIKE CONCAT('%',#{shValue},'%')</when>
+            
+        </choose>
+        
+        <!-- 검색구분 배송상태 배송전 배송완료 기능 -->
+        <choose>
+			<when test="deliveryS == 18">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
+			<when test="deliveryS == 19">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
+		</choose>
+AND a.orderTypeCd = 20
   AND (a.orderStatusCd = 24 OR a.orderStatusCd = 25)
 ORDER BY a.orderSeq DESC
 LIMIT #{startRnumForMysql}, #{rowNumToShow}
