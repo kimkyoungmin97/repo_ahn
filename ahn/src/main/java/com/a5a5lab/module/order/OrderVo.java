@@ -51,15 +51,11 @@ public class OrderVo {
 	public int getThisPage() {
 		return thisPage;
 	}
-	/**
-	 * @return the orderS
-	 */
+
 	public Integer getOrderS() {
 		return orderS;
 	}
-	/**
-	 * @param orderS the orderS to set
-	 */
+
 	public void setOrderS(Integer orderS) {
 		this.orderS = orderS;
 	}
