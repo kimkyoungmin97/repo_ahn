@@ -44,21 +44,35 @@
   
 
 	<!-- 발주 번호 입ㄹ겨 검색  -->
-	  <div class="col-sm-2">
+<!-- 	  <div class="col-sm-2">
             <div class="form-group">
                  <div class="form-line">
-                     <!-- 검색용 input -->
-					<!-- <input type="text" id="orderSeqInput" placeholder="발주번호 입력" class="form-control" onkeyup="enterkey(event)" /> -->
+                     검색용 input
+					<input type="text" id="orderSeqInput" placeholder="발주번호 입력" class="form-control" onkeyup="enterkey(event)" />
 					<input type="text" id="orderSeq" name="orderSeq"  placeholder="발주번호 입력" class="form-control">
-					<!-- 실제 전송용 hidden input (검색 성공 시 채움) -->
+					실제 전송용 hidden input (검색 성공 시 채움)
 					
 
                                                 	
                   </div>
              </div>
-        </div>
- 
-  
+        </div> -->
+        
+        
+<div class="col-sm-4">
+  <div class="form-group">
+    <label for="orderSeq">발주번호</label>
+    <div class="input-group">
+      <input type="text" id="orderSeq" name="orderSeq" placeholder="발주번호 입력" class="form-control">
+      <div class="input-group-append">
+        <button type="button" id="search" class="btn btn-primary">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
   
   
   
@@ -130,58 +144,54 @@
   
   
 <script type="text/javascript">
-  document.getElementById("orderSeq").onkeydown = function(event) {
-    // 엔터 키(13번)가 눌렸을 때만 처리하도록 설정
-    if (event.key === "Enter") {
-      event.preventDefault(); // 엔터키 기본 동작 방지 (폼 제출 방지)
-      
-      const orderSeq = $("#orderSeq").val();
+  function searchOrderBySeq() {
+    const orderSeq = $("#orderSeq").val();
 
-      // orderSeq가 비어있는 경우 얼럿을 띄운다
-      if (!orderSeq) {
-        alert("주문번호를 입력해주세요.");
-        return; // Ajax 호출을 막음
-      }
-		
-      // 한글이 포함된 경우 얼럿을 띄운다
-      if (/[가-힣]/.test(orderSeq)) {
-        alert("한글은 입력할 수 없습니다.");
-        return; // Ajax 호출을 막음
-      }
-      // 값이 있을 때만 Ajax 호출
-      $.ajax({
-        async: true,
-        cache: false,
-        type: "post",
-        url: "/api/getInboundOrder",
-        data: { "orderSeq": orderSeq },
-        success: function(response) {
-          $("#resultOrder").empty();
-
-          $("#resultOrder").append(`
-            <tr>
-              <td>${response.orderSeq}</td>
-              <td>${response.shName}</td>
-              <td>${response.shSizeCd}</td>
-              <td>${response.shOrderCount}</td>
-              <td>${response.orderStatusCd}</td>
-            </tr>
-          `);
-
-          // hidden input에 orderSeq 세팅
-          $("#hiddenOrderSeq").val(response.orderSeq);
-        },
-        error: function() {
-          alert("발주 번호를 확인해주세요");
-        }
-      });
-      
+    if (!orderSeq) {
+      alert("주문번호를 입력해주세요.");
+      return;
     }
-    
-  };
 
- 
+    if (/[가-힣]/.test(orderSeq)) {
+      alert("한글은 입력할 수 없습니다.");
+      return;
+    }
+
+    $.ajax({
+      async: true,
+      cache: false,
+      type: "post",
+      url: "/api/getInboundOrder",
+      data: { "orderSeq": orderSeq },
+      success: function(response) {
+        $("#resultOrder").empty();
+
+        $("#resultOrder").append(`
+          <tr>
+            <td>${response.orderSeq}</td>
+            <td>${response.shName}</td>
+            <td>${response.shSizeCd}</td>
+            <td>${response.shOrderCount}</td>
+            <td>${response.orderStatusCd}</td>
+          </tr>
+        `);
+
+        $("#hiddenOrderSeq").val(response.orderSeq);
+      },
+      error: function() {
+        alert("발주 번호를 확인해주세요");
+      }
+    });
+  }
+
+
+
+  // 검색 버튼 클릭 이벤트
+  document.getElementById("search").onclick = function () {
+    searchOrderBySeq(); // 같은 함수 호출
+  };
 </script>
+
 
 
 
