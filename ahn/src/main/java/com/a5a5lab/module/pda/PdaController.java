@@ -62,7 +62,7 @@ public class PdaController {
 	
 	@RequestMapping(value="/DeliveryPadUdate")
 	public String DeliveryPadUdate(PdaDto pdaDto) {
-		pdaService.updateDl(pdaDto);
+		pdaService.deliveryCompleted(pdaDto);
 		return "redirect:/DeliveryPda";
 	}
 

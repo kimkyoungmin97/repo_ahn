@@ -22,7 +22,7 @@ public interface PdaDao {
 
 	//Pda 입고 (발주내역)을 입고대기에서 입고 완료로 업데이트 하기
 	public int update(PdaDto pdaDto);
-	//pda 입고완료시 발주내용에 따른 신발재고증가
+	//pda 입고완료시 발주내용에 따른 신발재고증가 또는감소 (orderTypeCd에따라)
 	public int updateStoreCount(PdaDto pdaDto);
 
 	

@@ -76,10 +76,14 @@
 	<update id="updateStoreCount">
 		UPDATE shoes AS a
 		JOIN order_detail AS b ON a.shSeq = b.shoes_shSeq
-		SET
-			 a.shCount = a.shCount + b.shOrderCount
+        JOin `order` AS c ON c.orderSeq= b.order_orderSeq
+		SET	a.shCount = CASE
+					WHEN c.orderTypeCd= 20 THEN a.shCount -b.shOrderCount
+                    WHEN c.orderTypeCd= 21 THEN a.shCount +b.shOrderCount
+                    END
 		WHERE 1=1
-		AND	 b.order_orderSeq = #{orderSeq}
+		
+		AND b.order_orderSeq = #{orderSeq}
 	</update>
 	
 	<!-- 배송 리스트 조회하고 그 리스트 1개를 업데이트 해서 처리상태를 입고 완료 처리하기  -->
@@ -87,8 +91,8 @@
 		UPDATE `order` SET 
 			deliveryStatus = 19, <!-- 배송완료 -->
 			orderStatusCd = 25	<!-- 처리상태 출고완료 -->
-		WHERE 
-			orderSeq
+		WHERE 1=1
+			
 			AND deliveryStatus = 18 <!-- 배송전꺼만 보여주라 -->
 	</update>
 	

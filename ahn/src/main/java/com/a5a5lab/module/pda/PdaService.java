@@ -40,10 +40,14 @@ public class PdaService {
 		
 
 	}
-	
-	public int updateDl(PdaDto pdaDto) {
-		return pdaDao.updateDl(pdaDto);
+	@Transactional
+	public void deliveryCompleted(PdaDto pdaDto) {
+		pdaDao.updateDl(pdaDto); //Pda 입고 (발주내역)을 출고요청에서 출고완료로 업데이트 하기
+		pdaDao.updateStoreCount(pdaDto); // 상품재고 증가
+		
+
 	}
+	
 	
 	//Pda 입고 발주 내역 데이터 1개씩 뽑기
 	public PdaDto selectOne(PdaDto pdaDto) {
