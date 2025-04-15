@@ -182,7 +182,7 @@
                                                 <input class="form-check-input row-checkbox" type="checkbox" th:id="'chk_' + ${list.shSeq}" th:value="${list.shSeq}">
                                                 <label class="form-check-label" th:for="'chk_' + ${list.shSeq}"></label>
                                             </th>
-                                            <td th:text="${list.shSeq}"></td>
+                                            <td th:text="${(vo.thisPage - 1) * vo.rowNumToShow + listStat.index + 1}"></td>
                                             
                                             
                                             <td th:text="${list.shName}"></td>

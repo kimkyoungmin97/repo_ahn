@@ -33,6 +33,7 @@
 		<!-- LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} -->
 	</select>
 	
+	<!-- 배송 리스트 뿌리기 -->
 	<select id="FactoryOrderListDl" resultMap="resultMapObj">
 	SELECT
 		a.orderSeq,
@@ -50,17 +51,11 @@
 		LEFT JOIN order_detail AS c ON a.orderSeq = c.order_orderSeq
 		LEFT JOIN shoes AS d ON c.shoes_shSeq = d.shSeq
 	WHERE 1=1
-	AND a.deliveryStatus = 18
-	ANd a.orderStatusCd = 24
-	AND a.orderTypeCd = 20
+
+	AND a.orderTypeCd = 20 <!-- 창고(주문) -->
 	
 	order By orderSeq DESC
 
-		
-		
-		
-		
-		
 		<!-- LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql} -->
 	</select>
 	
@@ -91,30 +86,56 @@
 		UPDATE `order` SET 
 			deliveryStatus = 19, <!-- 배송완료 -->
 			orderStatusCd = 25	<!-- 처리상태 출고완료 -->
-		WHERE 1=1
+
 			
+
+		WHERE 
+			orderSeq = #{orderSeq}
 			AND deliveryStatus = 18 <!-- 배송전꺼만 보여주라 -->
+			
+	
 	</update>
 	
 	<!-- 발주번호로 단건 조회 -->
-<select id="selectOne" resultMap="resultMapObj">
-  SELECT 
-    a.orderSeq,
-    d.shSeq,
-    d.shName,
-    d.shSizeCd,
-    c.shOrderCount,
-    a.orderStatusCd
-  FROM `order` a
-  LEFT JOIN order_detail c ON a.orderSeq = c.order_orderSeq
-  LEFT JOIN shoes d ON c.shoes_shSeq = d.shSeq
-  WHERE 1=1
-  AND orderStatusCd = 26
-  AND orderSeq=#{orderSeq}
-    
-   
+	<select id="selectOne" resultMap="resultMapObj">
+	  SELECT 
+	    a.orderSeq,
+	    d.shSeq,
+	    d.shName,
+	    d.shSizeCd,
+	    c.shOrderCount,
+	    a.orderStatusCd
+	  FROM `order` a
+	  LEFT JOIN order_detail c ON a.orderSeq = c.order_orderSeq
+	  LEFT JOIN shoes d ON c.shoes_shSeq = d.shSeq
+	  WHERE 1=1
+	  AND orderStatusCd = 26
+	  AND orderSeq=#{orderSeq}
+	    
+	   
+	
+	</select>
 
-</select>
+	<!-- 배송번호로 단건 조회 -->
+	<select id="selectOne1" resultMap="resultMapObj">
+	  SELECT 
+	    a.orderSeq,
+	    d.shSeq,
+	    d.shName,
+	    d.shSizeCd,
+	    c.shOrderCount,
+	    a.orderStatusCd,
+	    a.deliveryStatus
+	  FROM `order` a
+	  LEFT JOIN order_detail c ON a.orderSeq = c.order_orderSeq
+	  LEFT JOIN shoes d ON c.shoes_shSeq = d.shSeq
+	  WHERE 1=1
+	  AND orderStatusCd = 24
+	  AND orderSeq=#{orderSeq}
+	    
+	   
+	
+	</select>
 
 	
 	

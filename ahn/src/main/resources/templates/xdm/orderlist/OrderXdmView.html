@@ -8,6 +8,10 @@
 <!-- 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/> -->
 		<input type="hidden" name="orderSeq" id="orderSeq" th:value="${item?.orderSeq}">
 		<input type="hidden" name="order_orderSeq">
+		
+		
+		
+		
     <section class="content">
         <div class="container-fluid">
             
@@ -77,7 +81,9 @@
                             	<div class="col-sm-2">
                                         <strong>Total:<span th:text="${vo.totalRows}"></span></strong>
                                  </div>
+                                 
                                  <div class="col-sm-10" style="text-align: end;">
+                                 	<button class= "btn btn-success waves-effect" type=button id="btnOrdering">발주요청</button>
                                  		<button class= "btn btn-success waves-effect" id="btnDelivery">배송요청</button>
                                  </div>					
                             </div>
@@ -85,7 +91,12 @@
                                 <table class="table table-bordered table-striped table-hover  dataTable">
                                     <thead>
                                         <tr>
-                                            
+                                         <th>
+											  <input class="form-check-input" type="checkbox" id="entire">
+												<label class="form-check-label" for="entire"></label>
+
+											</th> 
+                                            <th>shseq</th>
                                             <th>NO</th>
                                             <th>브랜드</th>
                                             <th>신발타입</th>
@@ -103,8 +114,12 @@
                                     		</td> 
                                     	</tr>
                                         <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
-                                            
-<!--                                              <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td> -->
+	                                            <td>
+													<input class="form-check-input row-checkbox" type="checkbox" th:id="'chk_' + ${list.shSeq}" th:value="${list.shSeq}">
+													<label class="form-check-label" th:for="'chk_' + ${list.shSeq}"></label>
+	
+												</td> 
+											<td th:text="${list.shSeq}"></td>
                                              <td th:text="${listStat.index + 1}"></td>
                                              <td th:text="${@codeService.selectOneCachedCode(list.shBrandCd)}"></td>
                                             <td  th:text="${@codeService.selectOneCachedCode(list.shTypeCd)}"></td>
@@ -220,7 +235,7 @@
 
 
 <!-- ✅ 배송요청 버튼 동작 스크립트 -->
-<script>
+<script th:inline="javascript">
   // 배송요청 버튼 클릭 시
   let btnDelivery = document.getElementById("btnDelivery");
   if (btnDelivery) {
@@ -240,6 +255,11 @@
      
      
     });
+  }
+  document.getElementById("btnOrdering").onclick=function(){
+// 	  let shSeq = $(".row-checkbox:checked").val();
+// 	  location.href = "/FactoryOrderXdmform?shSeq=" + shSeq;
+	 location.href = "/FactoryOrderXdmform";
   }
 </script>
 

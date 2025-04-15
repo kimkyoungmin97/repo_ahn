@@ -61,6 +61,13 @@
 			<when test="deliveryS == 19">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
 		</choose>
 		
+		
+		 <!-- 검색구분 처리상태 출고요청 출고 완료 검색 -->
+        <choose>
+			<when test="deliveryS1 == 24">AND a.deliveryStatus BETWEEN #{deliveryS1} AND #{deliveryS1}</when>
+			<when test="deliveryS1 == 25">AND a.deliveryStatus BETWEEN #{deliveryS1} AND #{deliveryS1}</when>
+		</choose>
+		
 		AND a.orderTypeCd = 20
 		
 		 

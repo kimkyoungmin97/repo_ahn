@@ -73,7 +73,6 @@ public class OrderController {
 	        .mapToInt(OrderDto::getSumPrice)
 	        .sum();
 	    model.addAttribute("totalSumPrice", totalSumPrice); 
-	    System.out.println(vo.getTotalRows());
 		
 		return "xdm/orderlist/OrderXdmView";
 	}
@@ -128,6 +127,7 @@ public class OrderController {
 	@RequestMapping(value = "/FactoryOrderXdmform")
 	public String FactoryOrderXdmform(Model model, OrderVo vo, OrderDto orderDto) {
 		
+	
 		model.addAttribute("list", orderService.selectMemberList(orderDto));
 		model.addAttribute("shoes", orderService.selectShoesList(orderDto));
 		model.addAttribute("vo", vo);

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{pda/includePda/headPda :: headPda}"></div>
+
+<body style="margin:0; padding:0; font-family:sans-serif; background-color:#f9f9f9;">
+
+  <div th:replace="~{pda/includePda/headerPda :: headerPda}"></div>
+  
+  <div th:replace="~{pda/includePda/sidebarPda :: sidebarPda}"></div>
+  
+
+ 
+<form id="form"  method="post" autocomplte="off">
+<!--   <input type="hidden" name="orderSeq" id="hiddenOrderSeq"> -->
+
+  <main id="main" class="main">
+
+<!-- 페이지 타이틀 -->
+<div class="pagetitle" style="display: flex; align-items: center; gap: 10px;">
+
+  <!-- ⬅️ 입고 관리로 이동하는 버튼 -->
+  <a th:href="@{/DeliveryPda}" 
+     style="font-size: 20px; text-decoration: none; color: #4CAF50; font-weight: bold;">
+    &lt;
+  </a>
+
+  <!-- 타이틀 텍스트 -->
+  <h1 style="font-size: 20px; margin: 0;">배송하기</h1>
+
+</div>
+    <!-- 
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item active">General</li>
+        </ol>
+      </nav>
+      -->
+      
+    </div><!-- End Page Title -->
+
+  
+
+	<!-- 발주 번호 입ㄹ겨 검색  -->
+	  <div class="col-sm-2">
+            <div class="form-group">
+                 <div class="form-line">
+                     <!-- 검색용 input -->
+					<!-- <input type="text" id="orderSeqInput" placeholder="발주번호 입력" class="form-control" onkeyup="enterkey(event)" /> -->
+					<input type="text" id="orderSeq" name="orderSeq"  placeholder="배송번호 입력" class="form-control">
+					<!-- 실제 전송용 hidden input (검색 성공 시 채움) -->
+					
+
+                                                	
+                  </div>
+             </div>
+        </div>
+ 
+  
+  
+  
+  
+
+
+  
+
+ 
+
+
+<!-- 테이블 -->
+<div style="padding:10px;">
+  <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px; background-color:#ffffff;">
+      <thead>
+        <tr style="background-color:#f9f9f9; border-bottom:1px solid #ddd;">
+          <th style="padding:8px; text-align:left;">배송번호</th>
+          <th style="padding:8px; text-align:left;">상품명</th>
+          <th style="padding:8px; text-align:left;">사이즈</th>
+          <th style="padding:8px; text-align:right;">수량</th>
+          <th style="padding:8px; text-align:right;">배송상태</th>
+        </tr>
+      </thead>
+
+      <!-- Ajax로 데이터를 동적으로 채움 -->
+      <tbody id="resultOrder">
+        <tr>
+          <td colspan="5" style="text-align:center; color:gray;">발주번호를 입력해 검색하세요.</td>
+        </tr>
+<!--  		<tr style="background-color:#f9f9f9; border-bottom:1px solid #ddd;"> -->
+<!--           <td style="padding:8px; text-align:left;"></td> -->
+<!--           <td style="padding:8px; text-align:left;"></td> -->
+<!--           <td style="padding:8px; text-align:left;"></td> -->
+<!--           <td style="padding:8px; text-align:right;"></td> -->
+<!--           <td style="padding:8px; text-align:right;"></td> -->
+<!--         </tr> -->
+         
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 입고 버튼 -->
+ <!--  <button type="button"  
+    style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
+    입고하기
+  </button> -->
+  <button type="submit"  
+  formaction="/DeliveryPadUdate"
+  formmethod="post"
+  style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
+  배송하기
+</button>
+</div>
+
+
+
+
+
+
+
+  </main><!-- End #main -->
+ </form>
+  
+  <div th:replace="~{pda/includePda/footerPda :: footerPda}"></div>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div th:replace="~{pda/includePda/scriptPda :: scriptPda}"></div>
+  
+  
+<script type="text/javascript">
+  document.getElementById("orderSeq").onkeydown = function(event) {
+    // 엔터 키(13번)가 눌렸을 때만 처리하도록 설정
+    if (event.key === "Enter") {
+      event.preventDefault(); // 엔터키 기본 동작 방지 (폼 제출 방지)
+      
+      const orderSeq = $("#orderSeq").val();
+
+      // orderSeq가 비어있는 경우 얼럿을 띄운다
+      if (!orderSeq) {
+        alert("배송번호를 입력해주세요.");
+        return; // Ajax 호출을 막음
+      }
+		
+      // 한글이 포함된 경우 얼럿을 띄운다
+      if (/[가-힣]/.test(orderSeq)) {
+        alert("한글은 입력할 수 없습니다.");
+        return; // Ajax 호출을 막음
+      }
+      // 값이 있을 때만 Ajax 호출
+      $.ajax({
+        async: true,
+        cache: false,
+        type: "post",
+        url: "/api/getInboundOrder1",
+        data: { "orderSeq": orderSeq },
+        success: function(response) {
+          $("#resultOrder").empty();
+
+          $("#resultOrder").append(`
+            <tr>
+              <td>${response.orderSeq}</td>
+              <td>${response.shName}</td>
+              <td>${response.shSizeCd}</td>
+              <td>${response.shOrderCount}</td>
+              <td>${response.deliveryStatus}</td>
+            </tr>
+          `);
+
+          // hidden input에 orderSeq 세팅
+          $("#hiddenOrderSeq").val(response.orderSeq);
+        },
+        error: function() {
+          alert("배송번호를 확인해주세요");
+        }
+      });
+      
+    }
+    
+  };
+
+ 
+</script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
