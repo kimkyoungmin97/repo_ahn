@@ -69,10 +69,10 @@ WHERE 1=1
 			<when test="deliveryS == 18">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
 			<when test="deliveryS == 19">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
 		</choose>
-AND a.orderTypeCd = 20
-  AND (a.orderStatusCd = 24 OR a.orderStatusCd = 25)
-ORDER BY a.orderSeq DESC
-LIMIT #{startRnumForMysql}, #{rowNumToShow}
+		AND a.orderTypeCd = 20
+		  AND (a.orderStatusCd = 24 OR a.orderStatusCd = 25)
+		ORDER BY a.orderSeq DESC
+		LIMIT #{startRnumForMysql}, #{rowNumToShow}
 
 		
 	</select>
