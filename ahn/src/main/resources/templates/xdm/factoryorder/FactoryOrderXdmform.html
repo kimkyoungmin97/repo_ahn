@@ -351,6 +351,47 @@ document.getElementById("btnSubmit").onclick= function(){
 	form.submit();
 }
 
+document.getElementById("btnSubmit").onclick = function (e) {
+    e.preventDefault(); // 기본 제출 막기
+
+    // 각각의 필드 값 가져오기
+    let memSeq = $("#memSeq").val();
+    let shName = $("#shName").val();
+    let shSizeCd = $("#shSizeCd").val();
+    let shSeq = $("#shSeq").val(); // 숨겨진 input
+    let shOrderCount = $("#shOrderCount").val(); // ✅ 수량값도 가져와야 함
+
+    // 유효성 검사
+    if (!memSeq) {
+        alert("주문자를 선택해주세요.");
+        $("#memSeq").focus();
+        return;
+    }
+
+    if (!shName) {
+        alert("신발을 선택해주세요.");
+        $("#shName").focus();
+        return;
+    }
+
+    if (!shSizeCd) {
+        alert("사이즈를 선택해주세요.");
+        $("#shSizeCd").focus();
+        return;
+    }
+
+    if (!shOrderCount || isNaN(shOrderCount) || parseInt(shOrderCount) <= 0) {
+        alert("수량은 1개 이상 입력해주세요.");
+        $("#shOrderCount").focus();
+        return;
+    }
+
+    // 모든 값이 유효할 경우 폼 제출
+    let form = document.getElementById("form");
+    form.action = "/OrderXdmInst1";
+    form.submit();
+};
+
 
 
 </script>
