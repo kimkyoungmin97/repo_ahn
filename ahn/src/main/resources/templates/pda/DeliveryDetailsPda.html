@@ -118,9 +118,7 @@
     style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
     입고하기
   </button> -->
-  <button type="submit"  
-  formaction="/DeliveryPadUdate"
-  formmethod="post"
+  <button type="button" id="btnDelivery"
   style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
   배송하기
 </button>
@@ -187,6 +185,19 @@
       }
     });
   };
+  document.getElementById("btnDelivery").onclick=function(){
+	  let form = document.getElementById("form");
+	  let orderSeq= document.getElementById("orderSeq").value;
+	  if(orderSeq == ""){
+		  alert("배송번호를 선택해주세요.")
+		  return false
+	  }else{
+		  form.action="/DeliveryPadUdate";
+		  form.submit();
+		
+	  }
+	  
+  }
 </script>
 
 

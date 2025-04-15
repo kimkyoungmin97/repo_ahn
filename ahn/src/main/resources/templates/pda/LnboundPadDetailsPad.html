@@ -119,9 +119,8 @@
     style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
     입고하기
   </button> -->
-  <button type="submit"  
-  formaction="/LnboundPadUdate"
-  formmethod="post"
+  <button type="button" id="btnOrdering"  
+  
   style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
   입고하기
 </button>
@@ -190,6 +189,21 @@
   document.getElementById("search").onclick = function () {
     searchOrderBySeq(); // 같은 함수 호출
   };
+//   formaction="/LnboundPadUdate"
+// 	  formmethod="post"
+ document.getElementById("btnOrdering").onclick=function(){
+	  let form = document.getElementById("form");
+	  let orderSeq= document.getElementById("orderSeq").value;
+	  if(orderSeq == ""){
+		  alert("발주번호를 선택해주세요.")
+		  return false
+	  }else{
+		  form.action="/LnboundPadUdate";
+		  form.submit();
+		
+	  }
+	  
+  }
 </script>
 
 
