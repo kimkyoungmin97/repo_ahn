@@ -44,7 +44,8 @@
 		c.shOrderCount,
 		a.regDateTime,
 		b.memName,
-		a.deliveryStatus
+		a.deliveryStatus,
+		a.orderStatusCd
 	FROM
 		`order` AS a
 		LEFT JOIN member AS b ON a.member_memSeq = b.memSeq
@@ -53,6 +54,8 @@
 	WHERE 1=1
 
 	AND a.orderTypeCd = 20 <!-- 창고(주문) -->
+	AND a.orderStatusCd= 24
+	
 	
 	order By orderSeq DESC
 
