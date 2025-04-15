@@ -137,7 +137,9 @@ LIMIT #{startRnumForMysql}, #{rowNumToShow}
 	</update>
 <!-- 배송관리카운트-->
 	<select id="deliveryselectOneCount" resultType="Integer">
-		SELECT COUNT(*)
+
+
+SELECT COUNT(*)
 FROM `order`
 WHERE orderTypeCd = 20
   AND (orderStatusCd = 24 OR orderStatusCd = 25);
