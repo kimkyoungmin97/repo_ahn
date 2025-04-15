@@ -243,8 +243,6 @@ public class OrderVo {
 //		System.out.println("getTotalPages():" + getTotalPages());
 //		System.out.println("getStartPage():" + getStartPage());
 //		System.out.println("getEndPage():" + getEndPage());		
-//		System.out.println("getStartRnumForOracle():" + getStartRnumForOracle());
-//		System.out.println("getEndRnumForOracle():" + getEndRnumForOracle());
 //		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
 		
 	}
