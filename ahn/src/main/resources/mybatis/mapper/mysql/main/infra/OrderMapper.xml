@@ -13,6 +13,26 @@
 	</update> -->
 	
 	
+<!--배송관리리스트보여주기-->
+	<select id="deliveryList">
+	SELECT
+		a.orderSeq,
+		a.orderTypeCd,
+		a.orderDelNy,
+		c.memName,
+		c.memId,
+		c.memAddress,
+		a.regDateTime,
+		a.deliveryStatus,
+		a.orderStatusCd
+	FROM
+		`order` AS a
+	left join member AS c ON a.member_memSeq= c.memSeq
+	WHERE 1=1
+	AND a.orderTypeCd = 20
+	AND a.orderStatusCd=24 OR a.orderStatusCd=25 
+		
+	</select>
 	
 	
 	
@@ -95,7 +115,15 @@
 	    AND orderTypeCd 
 	    
 	</update>
-
+<!-- 배송관리카운트-->
+	<select id="deliveryselectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM
+		`order`
+		WHERE 1=1
+		AND orderTypeCd = 20
+		AND orderStatusCd =24 OR orderStatusCd =25
+	</select>
 	<!-- 주문카운트 -->
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)

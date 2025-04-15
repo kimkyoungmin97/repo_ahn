@@ -137,7 +137,19 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/ReceivingXdmList")
-	public String ReceivingXdmList(Model model) {
+	public String ReceivingXdmList(Model model,OrderVo vo) {
+		// 날짜 보정
+				vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
+				vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
+				
+				if (vo.getShDelNy() == null) {
+				    vo.setShDelNy(0);
+				}
+				
+				//페이지 네이션
+				vo.setParamsPaging(orderService.deliveryselectOneCount(vo));
+				model.addAttribute("list", orderService.deliveryList(vo));
+				model.addAttribute("vo", vo);
 		
 		return "xdm/receiving/ReceivingXdmList";
 	}

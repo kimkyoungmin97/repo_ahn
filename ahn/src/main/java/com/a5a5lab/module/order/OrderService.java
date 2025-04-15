@@ -16,6 +16,10 @@ public class OrderService {
 	public List<OrderDto> selectList(OrderVo vo){
 		return orderDao.selectList(vo);
 	}
+	//배송관리 리스트 뿌리기
+	public List<OrderDto> deliveryList(OrderVo vo){
+		return orderDao.deliveryList(vo);
+	}
 	
 	// 발주 목록ㄹ스트 뿌리기
 	public List<OrderDto> FactoryOrderList(OrderVo vo){
@@ -39,6 +43,9 @@ public class OrderService {
 	}
 	public int selectOneOrderDetailCount(OrderVo vo) {
 		return orderDao.selectOneOrderDetailCount(vo);
+	}
+	public int deliveryselectOneCount(OrderVo vo) {
+		return orderDao.deliveryselectOneCount(vo);
 	}
 	//주문 상세페이지
 	//한개의 주문
