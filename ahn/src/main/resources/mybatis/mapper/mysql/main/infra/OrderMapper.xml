@@ -32,24 +32,24 @@
 <!-- 	AND a.orderTypeCd = 20 -->
 <!-- 	AND  a.orderStatusCd=24 -->
 <!-- 	order by a.orderSeq DESC -->
-SELECT
-    o.orderSeq,
-    o.orderTypeCd,
-    o.orderDelNy,
-    m.memName,
-    m.memId,
-    m.memAddress,
-    o.regDateTime,
-    o.deliveryStatus,
-    o.orderStatusCd
-FROM (
-    SELECT *
-    FROM `order`
-    WHERE orderTypeCd = 20
-      AND (orderStatusCd = 24 OR orderStatusCd = 25)
-) AS o
-LEFT JOIN member AS m ON o.member_memSeq = m.memSeq
-ORDER BY o.orderSeq DESC;
+<!-- 리스트 뽑는 쿼리에서 LIMIT 써야 함 -->
+SELECT DISTINCT
+	a.orderSeq,
+	a.orderTypeCd,
+	a.orderDelNy,
+	c.memName,
+	c.memId,
+	c.memAddress,
+	a.regDateTime,
+	a.deliveryStatus,
+	a.orderStatusCd
+FROM `order` AS a
+LEFT JOIN member AS c ON a.member_memSeq = c.memSeq
+WHERE a.orderTypeCd = 20
+  AND (a.orderStatusCd = 24 OR a.orderStatusCd = 25)
+ORDER BY a.orderSeq DESC
+LIMIT #{startRnumForMysql}, #{rowNumToShow}
+
 		
 	</select>
 	
