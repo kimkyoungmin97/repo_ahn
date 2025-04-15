@@ -49,6 +49,11 @@ public class PdaService {
 	public PdaDto selectOne(PdaDto pdaDto) {
 		return pdaDao.selectOne(pdaDto);
 	}
+	
+	//Pda 배송 내역 데이트 1개씩 뽑기
+	public PdaDto selesctOne1(PdaDto pdaDto) {
+		return pdaDao.selectOne1(pdaDto);
+	}
 
 
 	// 주문 배송 목록 리스트 뿌리기

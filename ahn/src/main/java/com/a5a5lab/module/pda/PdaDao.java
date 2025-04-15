@@ -31,6 +31,9 @@ public interface PdaDao {
 	//pda 입고 발주내역 데이터값 1개씩 뽑아 보기
 	public PdaDto selectOne(PdaDto pdaDto);
 	
+	//Pda 배송 내역 데이터값 1개씩 뽑아 보기
+	public PdaDto selectOne1(PdaDto pdaDto);
+	
 	//Pda 배송 관리 리스트 뿌리기
 	public List <PdaDto> selectList();
 	
