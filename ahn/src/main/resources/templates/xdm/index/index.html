@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{xdm/include/head :: head}"></div>
+<form id="form"  method="post">
+  	  <input type="hidden" name="orderSeq" id="hiddenOrderSeq">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>관리자페이지</h2>
+            </div>
+
+            <!-- Widgets -->
+            <div class="row clearfix">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-pink hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">group</i>
+                        </div>
+                         <div class="content">
+                <div class="text">회원수</div>
+                
+                <!-- count-to 애니메이션을 적용한 부분 -->
+                <div class="number count-to" th:attr="data-to=${memberCount}" data-from="0" data-speed="1000" data-fresh-interval="20"></div>
+            </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-cyan hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">판매중인상품</div>
+                           <div class="number count-to" th:attr="data-to=${orderCount}" data-from="0" data-speed="1000" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-light-green hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">assignment</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">오늘 주문건</div>
+                            <div class="number count-to" th:attr="data-to=${todayCount}" data-from="0" data-speed="1000" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">attach_money</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">오늘 매출</div>
+                            <div class="number"><span class="count-to" th:attr="data-to=${todaySales}" data-from="0" data-speed="1000" data-fresh-interval="20">0</span>원</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Widgets -->
+            <!-- CPU Usage -->
+<!--             <div class="row clearfix"> -->
+<!--                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="header"> -->
+<!--                             <div class="row clearfix"> -->
+<!--                                 <div class="col-xs-12 col-sm-6"> -->
+<!--                                     <h2>CPU USAGE (%)</h2> -->
+<!--                                 </div> -->
+<!--                                 <div class="col-xs-12 col-sm-6 align-right"> -->
+<!--                                     <div class="switch panel-switch-btn"> -->
+<!--                                         <span class="m-r-10 font-12">REAL TIME</span> -->
+<!--                                         <label>OFF<input type="checkbox" id="realtime" checked><span class="lever switch-col-cyan"></span>ON</label> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             <ul class="header-dropdown m-r--5"> -->
+<!--                                 <li class="dropdown"> -->
+<!--                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> -->
+<!--                                         <i class="material-icons">more_vert</i> -->
+<!--                                     </a> -->
+<!--                                     <ul class="dropdown-menu pull-right"> -->
+<!--                                         <li><a href="javascript:void(0);">Action</a></li> -->
+<!--                                         <li><a href="javascript:void(0);">Another action</a></li> -->
+<!--                                         <li><a href="javascript:void(0);">Something else here</a></li> -->
+<!--                                     </ul> -->
+<!--                                 </li> -->
+<!--                             </ul> -->
+<!--                         </div> -->
+<!--                         <div class="body"> -->
+<!--                             <div id="real_time_chart" class="dashboard-flot-chart"></div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+            <!-- #END# CPU Usage -->
+            <div class="row clearfix">
+                <!-- Visitors -->
+<!--                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="body bg-pink"> -->
+<!--                             <div class="sparkline" data-type="line" data-spot-Radius="4" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#fff" -->
+<!--                                  data-min-Spot-Color="rgb(255,255,255)" data-max-Spot-Color="rgb(255,255,255)" data-spot-Color="rgb(255,255,255)" -->
+<!--                                  data-offset="90" data-width="100%" data-height="92px" data-line-Width="2" data-line-Color="rgba(255,255,255,0.7)" -->
+<!--                                  data-fill-Color="rgba(0, 188, 212, 0)"> -->
+<!--                                 12,10,9,6,5,6,10,5,7,5,12,13,7,12,11 -->
+<!--                             </div> -->
+<!--                             <ul class="dashboard-stat-list"> -->
+<!--                                 <li> -->
+<!--                                     TODAY -->
+<!--                                     <span class="pull-right"><b>1 200</b> <small>USERS</small></span> -->
+<!--                                 </li> -->
+<!--                                 <li> -->
+<!--                                     YESTERDAY -->
+<!--                                     <span class="pull-right"><b>3 872</b> <small>USERS</small></span> -->
+<!--                                 </li> -->
+<!--                                 <li> -->
+<!--                                     LAST WEEK -->
+<!--                                     <span class="pull-right"><b>26 582</b> <small>USERS</small></span> -->
+<!--                                 </li> -->
+<!--                             </ul> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+                <!-- #END# Visitors -->
+                <!-- Latest Social Trends -->
+           <div class="col-xs-12">
+    <div class="card body bg-cyan" style="margin-top: 20px;">
+        <div class="body bg-cyan" style="margin-left: 30px;">
+            <div class="m-b--35 font-bold" style="font-size: 28px;">주문 현황</div>
+            <div class="row" style="margin-top: 20px;">
+                
+                
+                <div class="col-md-4 col-sm-12" style="padding: 10px; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    <div style="width: 220px; height: 220px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; border: 1px solid #b2ebf2;">
+                        <div style="width: 200px; height: 200px; background-color: #00bcd4; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <i class="material-icons" style="color: white; font-size: 100px;">assignment_turned_in</i>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 22px;">주문</div>
+                    <div class="number count-to font-bold" style="margin-top: 10px; font-size: 40px;" th:attr="data-to=${todayCount}" data-from="0" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+
+                
+                <div class="col-md-4 col-sm-12" style="padding: 10px; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    <div style="width: 220px; height: 220px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; border: 1px solid #b2ebf2;">
+                        <div style="width: 200px; height: 200px; background-color: #00bcd4; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <i class="material-icons" style="color: white; font-size: 100px;">local_shipping</i>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 22px;">배송전</div>
+                     <div class="number count-to font-bold" style="margin-top: 10px; font-size: 40px;" th:attr="data-to=${todayDelevery}" data-from="0" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+
+                
+                <div class="col-md-4 col-sm-12" style="padding: 10px; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    <div style="width: 220px; height: 220px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; border: 1px solid #b2ebf2;">
+                        <div style="width: 200px; height: 200px; background-color: #00bcd4; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <i class="material-icons" style="color: white; font-size: 100px;">shopping_basket</i>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 22px;">배송완료</div>
+                     <div class="number count-to font-bold" style="margin-top: 10px; font-size: 40px;" th:attr="data-to=${todayComplete}" data-from="0" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+             
+
+                <!-- #END# Latest Social Trends -->
+                <!-- Answered Tickets -->
+<!--                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="body bg-teal"> -->
+<!--                             <div class="font-bold m-b--35">ANSWERED TICKETS</div> -->
+<!--                             <ul class="dashboard-stat-list"> -->
+<!--                                 <li> -->
+<!--                                     TODAY -->
+<!--                                     <span class="pull-right"><b>12</b> <small>TICKETS</small></span> -->
+<!--                                 </li> -->
+<!--                                 <li> -->
+<!--                                     YESTERDAY -->
+<!--                                     <span class="pull-right"><b>15</b> <small>TICKETS</small></span> -->
+<!--                                 </li> -->
+<!--                                 <li> -->
+<!--                                     LAST WEEK -->
+<!--                                     <span class="pull-right"><b>90</b> <small>TICKETS</small></span> -->
+<!--                                 </li> -->
+<!--                                 <li> -->
+<!--                                     LAST MONTH -->
+<!--                                     <span class="pull-right"><b>342</b> <small>TICKETS</small></span> -->
+<!--                                 </li> -->
+<!--                                 <li> -->
+<!--                                     LAST YEAR -->
+<!--                                     <span class="pull-right"><b>4 225</b> <small>TICKETS</small></span> -->
+<!--                                 </li> -->
+<!--                                 <li> -->
+<!--                                     ALL -->
+<!--                                     <span class="pull-right"><b>8 752</b> <small>TICKETS</small></span> -->
+<!--                                 </li> -->
+<!--                             </ul> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+                <!-- #END# Answered Tickets -->
+            </div>
+
+            <div class="row clearfix">
+                <!-- Task Info -->
+                <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="header">
+                            <h2>주문 관리</h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover  dataTable">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th>NO</th>
+                                            <th>주문번호</th>
+                                            
+                                            
+                                            <th>구매날자(등록일)</th>
+                                            <th>배송상태</th>
+                                            <th>처리상태</th>
+                                           
+                                           
+                                        </tr>
+                                    </thead>
+            
+                                    <tbody>
+                                    <tr th:if="${#lists.isEmpty(orderTable)}"  class="hover-artions-trigger btn-reveal-trigger position-static">    	
+                                    		 <td colspan="10">
+                                    			<p class="fs-0" style="padding-top: 12px">데이터가 없습니다</p>
+                                    		</td> 
+                                    	</tr>
+                                        <tr th:if="${!#lists.isEmpty(orderTable)}" th:each="list : ${orderTable}">
+                                            
+                                             <td th:text="${(vo.thisPage - 1) * vo.rowNumToShow + listStat.index + 1}"></td>
+                                             <td th:text="${list.orderSeq}"></td>
+                                            
+                                            
+                                            <td th:text="${list.regDateTime}"></td>
+                                            <td  th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}"></td>
+                                            <td th:text="${@codeService.selectOneCachedCode(list.orderStatusCd)}"></td>
+                                        </tr>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #END# Task Info -->
+                <!-- Browser Usage -->
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="header">
+                            <h2>배송 관리</h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover  dataTable">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th>NO</th>
+                                          	<th>발주번호</th>
+                                            
+                                            
+                                           
+                                            <th>발주자</th>
+                                             <th>처리상태</th>
+                                            
+                                        </tr>
+                                    </thead>
+            
+                                    <tbody>
+                                    <tr th:if="${#lists.isEmpty(factoryTable)}" class="hover-artions-trigger btn-reveal-trigger position-static">    	
+                                    		<td colspan="10">
+                                    			<p class="fs-0" style="padding-top: 12px">데이터가 없습니다</p>
+                                    		</td>
+                                    	</tr>
+                                        <tr th:if="${!#lists.isEmpty(factoryTable)}" th:each="list : ${factoryTable}">
+                                            
+                                           <td th:text="${(vo.thisPage - 1) * vo.rowNumToShow + listStat.index + 1}"></td>
+                                           <td th:text="${list.orderSeq}"></td>
+                                           
+                                          
+                                           <td th:text="${list.regDateTime}"></td>
+                                           
+                                           <td th:text="${@codeService.selectOneCachedCode(list.orderStatusCd)}"></td>
+                                           
+                                           
+                                            
+                                            
+                                           
+                                        </tr>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #END# Browser Usage -->
+            </div>
+        </div>
+    </section>
+</form>
+    <!-- Jquery Core Js -->
+    <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="/xdm/template/master/plugins/jquery-countto/jquery.countTo.js"></script>
+
+    <!-- Morris Plugin Js -->
+    <script src="/xdm/template/master/plugins/raphael/raphael.min.js"></script>
+    <script src="/xdm/template/master/plugins/morrisjs/morris.js"></script>
+
+    <!-- ChartJs -->
+    <script src="/xdm/template/master/plugins/chartjs/Chart.bundle.js"></script>
+
+    <!-- Flot Charts Plugin Js -->
+    <script src="/xdm/template/master/plugins/flot-charts/jquery.flot.js"></script>
+    <script src="/xdm/template/master/plugins/flot-charts/jquery.flot.resize.js"></script>
+    <script src="/xdm/template/master/plugins/flot-charts/jquery.flot.pie.js"></script>
+    <script src="/xdm/template/master/plugins/flot-charts/jquery.flot.categories.js"></script>
+    <script src="/xdm/template/master/plugins/flot-charts/jquery.flot.time.js"></script>
+
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="/xdm/template/master/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/xdm/template/master/js/admin.js"></script>
+    <script src="/xdm/template/master/js/pages/index.js"></script>
+
+    <!-- Demo Js -->
+    <script src="/xdm/template/master/js/demo.js"></script>
+</body>
+
+</html>

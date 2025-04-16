@@ -294,7 +294,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" id="btnModalUelete" class="btn btn-danger">확인</button>
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" id="btnModalCancel" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 
 		      </div>
 		    </div>
@@ -505,6 +505,10 @@
 
 	            return;
 	        }
+	        
+	        document.getElementById("btnModalCancel").onclick = function(){
+				$('#modalConfirm').modal('hide');
+				}
 
 	        document.getElementById("modalConfirmTitle").textContent = "확 인";
 	        document.getElementById("modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";

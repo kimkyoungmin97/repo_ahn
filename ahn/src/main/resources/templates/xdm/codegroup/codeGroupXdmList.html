@@ -247,7 +247,7 @@
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" id="btnModalUelete" class="btn btn-danger">확인</button>
-						        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+						        <button type="button" id="btnModalCancel" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 
 						      </div>
 						    </div>
@@ -430,6 +430,7 @@
 			    const entireCheckbox = document.getElementById("entire");
 			    const btnUelete = document.getElementById("btnUelete");
 			    const btnModalUelete = document.getElementById("btnModalUelete");
+			    const btnModalCancel = document.getElementById("btnModalCancel");
 			    const form = document.getElementById("form");
 
 			    // 전체 체크 → 개별 체크 전부 선택/해제
@@ -464,6 +465,9 @@
 
 			            return;
 			        }
+			        document.getElementById("btnModalCancel").onclick = function(){
+						$('#modalConfirm').modal('hide');
+						}
 
 			        document.getElementById("modalConfirmTitle").textContent = "확 인";
 			        document.getElementById("modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";

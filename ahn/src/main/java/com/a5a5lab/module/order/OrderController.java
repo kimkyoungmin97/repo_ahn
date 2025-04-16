@@ -163,10 +163,53 @@ public class OrderController {
 		return"redirect:/FactoryOrderXdmList";
 	}
 	
-	
-	
+	@RequestMapping(value = "/xdm/index/index")
+	public String index(Model model, OrderVo vo, OrderDto orderDto) {
 		
+		
+		//회원수
+		model.addAttribute("memberCount", orderService.memberCount(orderDto));
+		//판매중인 상품
+		model.addAttribute("orderCount", orderService.productCount(orderDto));
+		//오늘 주문건
+		model.addAttribute("todayCount", orderService.todayOrder(orderDto));
+		//오늘매출
+		model.addAttribute("todaySales", orderService.todaySales(orderDto));
+		//배송전
+		model.addAttribute("todayDelevery", orderService.todayDelevery(orderDto));
+		//배송완료
+		model.addAttribute("todayComplete", orderService.todayComplete(orderDto));
+		
+		
+	    // 주문 관리 리스트 보여주기
+	    model.addAttribute("orderTable", orderService.selectList(vo));
+	    
+	    // 배송 관리 리스트 보여주기
+	    model.addAttribute("factoryTable", orderService.FactoryOrderList(vo));
+	    
+	    // 인덱스 리스트
+	    model.addAttribute("indexlist", orderService.indexList(vo));
+
+	    model.addAttribute("vo", vo);
+	    
+	    return "xdm/index/index";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
 }
+	    
+	  
+	    
+		
+		
+		    
+		

@@ -57,5 +57,20 @@ public interface OrderDao {
 	//발주테이블 생성
 	public int orderInst1(OrderDto orderDto);
 	
+//인덱스	
+	//인덱스 리스트
+	public List <OrderDto> indexList(OrderVo vo);
+	//회원수
+	public int memberCount(OrderDto orderDto);
+	//판매중인 상품
+	public int productCount(OrderDto orderDto);
+	//오늘 주문건
+	public int todayOrder(OrderDto orderDto);
+	//오늘 매출
+	public int todaySales(OrderDto orderDto);
+	//배송전
+	public int todayDelevery(OrderDto orderDto);
+	//배송완료
+	public int todayComplete(OrderDto orderDto);
 	
 }

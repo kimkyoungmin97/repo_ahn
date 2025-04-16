@@ -366,10 +366,91 @@
 	    SELECT last_insert_id()
 	</selectKey>
 	</insert>	
+	
+	<!-- 인덱스 리스트 -->
+	<select id="indexList" resultMap="resultMapObj">
+		select
+		a.orderSeq,
+		a.orderTypeCd,
+		a.orderDelNy,
+		c.memName,
+		c.memId,
+		c.memAddress,
+		a.regDateTime,
+		a.deliveryStatus,
+		a.paymentStatus,
+		a.orderStatusCd
+		from
+		`order` AS a
+		left join member AS c ON a.member_memSeq= c.memSeq
+		WHERE 1=1
+		<!-- 업데이트 삭제 여부 검색 -->
+	    <if test="shDelNy != null and !shDelNy.equals('')">AND a.orderDelNy = #{shDelNy}</if>  
+		
 
+		
+		<!-- 날짜 검색 기능 -->
+		<choose>
+			<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+		</choose>
+		
+		<!-- 검색 구분 검색 -->
+		<choose>
+        	<when test="shOption == 1">AND c.memId LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 2">AND c.memName LIKE CONCAT('%',#{shValue},'%')</when>
+            
+        </choose>
+        
+        <!-- 검색구분 배송상태 배송전 배송완료 기능 -->
+        <choose>
+			<when test="deliveryS == 18">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
+			<when test="deliveryS == 19">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
+		</choose>
+		
+<!-- 		AND a.orderTypeCd = 20 -->
+		
+		 
+		
+		order By orderSeq DESC
 
-
-
-
+		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+	</select>
+	<!-- 회원수 카운트 -->
+	<select id="memberCount" resultType="Integer">
+    SELECT COUNT(*) FROM member
+	</select>
+	<!-- 판매중 상품 카운트 -->
+	<select id="productCount" resultType="Integer">
+    SELECT COUNT(*) FROM shoes
+	</select>
+	<!-- 오늘 주문건 카운트 -->
+	<select id="todayOrder" resultType="Integer">
+    SELECT COUNT(*) 
+	FROM `order` 
+	WHERE DATE(regDateTime) = CURDATE()
+	</select>
+	<!-- 오늘 매출 카운트 -->
+	<select id="todaySales" resultType="Integer">
+	SELECT IFNULL(SUM(s.shPrice * od.shOrderCount), 0) AS todaySales
+	FROM `order` o
+	JOIN order_detail od ON o.orderSeq = od.order_orderSeq
+	JOIN shoes s ON od.shoes_shSeq = s.shSeq
+	WHERE DATE(o.regDateTime) = CURDATE()
+	</select>
+	<!-- 배송전 카운트 -->
+	<select id="todayDelevery" resultType="Integer">
+	SELECT COUNT(*) 
+	FROM `order`
+	WHERE deliveryStatus = 18
+	AND DATE(regDateTime) = CURDATE();
+	</select>
+	<!-- 배송완료 카운트 -->
+	<select id="todayComplete" resultType="Integer">
+	SELECT COUNT(*) 
+	FROM `order`
+	WHERE deliveryStatus = 19
+	AND DATE(regDateTime) = CURDATE();
+	</select>
 
 </mapper>

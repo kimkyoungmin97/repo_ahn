@@ -102,6 +102,38 @@ public class OrderService {
 //	public int orderDetailInst(OrderDto orderDto) {
 //		return orderDao.orderDetailInst(orderDto);
 //	}
+
+	 
+// 인덱스
+	 //인덱스 리스트
+	 public List<OrderDto> indexList(OrderVo vo){
+			return orderDao.indexList(vo);
+		}
+	 // 회원수
+	 public int memberCount(OrderDto orderDto) {
+			return orderDao.memberCount(orderDto);
+		}
+	 //판매중인 상품
+	 public int productCount(OrderDto orderDto) {
+			return orderDao.productCount(orderDto);
+		}
+	 //오늘 주문건
+	 public int todayOrder(OrderDto orderDto) {
+			return orderDao.todayOrder(orderDto);
+		}
+	 //오늘 매출
+	 public int todaySales(OrderDto orderDto) {
+			return orderDao.todaySales(orderDto);
+		}
+	 //배송전
+	 public int todayDelevery(OrderDto orderDto) {
+			return orderDao.todayDelevery(orderDto);
+		}
+	 //배송완료
+	 public int todayComplete(OrderDto orderDto) {
+			return orderDao.todayComplete(orderDto);
+		}
+	
 	
 	
 
