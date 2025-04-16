@@ -265,7 +265,9 @@
                                             <td  th:text="${@codeService.selectOneCachedCode(list.deliveryStatus)}"></td>
                                             <td th:text="${@codeService.selectOneCachedCode(list.orderStatusCd)}"></td>
                                         </tr>
-                                        
+                                         <tr th:each="i : ${#numbers.sequence(1, 5 - orderTable.size())}" th:if="${orderTable.size() < 5}">
+									        <td colspan="5" style="height: 20px;"></td>
+									    </tr>
                                         
                                     </tbody>
                                 </table>
@@ -330,7 +332,9 @@
                                             
                                            
                                         </tr>
-                                        
+                                        <tr th:each="i : ${#numbers.sequence(1, 5 - factoryTable.size())}" th:if="${factoryTable.size() < 5}">
+									        <td colspan="5" style="height: 20px;"></td>
+									    </tr>
                                         
                                     </tbody>
                                 </table>
