@@ -11,7 +11,7 @@
 		<div class="container-fluid">
 
 			<div class="block-header">
-				<h2>주문</h2>
+				<h2>주문 하기</h2>
 			</div>
 
 			<!-- Input -->
@@ -19,7 +19,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
-							<h2>주문</h2>
+							<h2>주문 하기</h2>
 							<ul class="header-dropdown m-r--5">
 								<li class="dropdown"><a href="javascript:void(0);"
 									class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -44,8 +44,8 @@
 											<select class="form-control show-tick" id="memSeq" name="memSeq"     >
 												<option value="">선택하세요</option>
 												<option th:each="list : ${list}" th:text="${list.memName}" th:value="${list?.memSeq}" ></option>
-											</select> <span id="codeGroupError"
-												style="color: red; font-size: 10px;"></span>
+											</select>	
+											<div id="memNameError" style="color: red; font-size: 10px;"></div>
 										</div>
 									</div>
 								</div>
@@ -56,6 +56,7 @@
 												<small>주문자ID</small>
 											</h2>
 											<div  name="memId" id="memId">&nbsp;</div>
+											
 										</div>
 									</div>
 								</div>
@@ -66,6 +67,7 @@
 												<small>배송주소</small>
 											</h2>
 											<div  name="memAddress" id="memAddress">&nbsp;</div>
+											
 										</div>
 									</div>
 								</div>
@@ -78,15 +80,15 @@
 											<select class="form-control show-tick" id="shName" name="shName"  >
 												<option value="">선택하세요</option>
 												<option th:each="list : ${shoes}" th:text="${list.shName}" th:value="${list.shName}"></option>
-											</select> <span id="codeGroupError"
-												style="color: red; font-size: 10px;"></span>
+											</select> <div id="shNameError"
+												style="color: red; font-size: 10px;"></div>
 										</div>
 										<div class="col-sm-3">
 										<small style="font-size: 11px; color: #999; display: block; margin-top: 5px;">사이즈<span style="color: red;">*</span></small>
 											<select class="form-control show-tick" id="shSizeCd" name="shSizeCd" disabled>
 												<option value="">선택하세요</option>
-											</select> <span id="codeGroupError"
-												style="color: red; font-size: 10px;"></span>
+											</select> <div id="shSizeCdError"
+												style="color: red; font-size: 10px;"></div>
 										</div>
 									</div>
 								</div>
@@ -97,6 +99,8 @@
 												<small>수량</small>
 											</h2>
 											<input type="text" id="shOrderCount" name="shOrderCount" class="form-control">
+											<div id="shOrderCountError"
+												style="color: red; font-size: 10px;"></div>
 										</div>
 									</div>
 								</div> 
@@ -242,118 +246,166 @@
 <script src="/xdm/template/master/js/demo.js"></script>
 
 <script type="text/javascript">
+	// ===== 벨리데이션 함수들 =====
 
-//	주문자 선택시 주문자 정보 뜨는Proc
+	function validateMemSeq() {
+		let memSeq = document.getElementById("memSeq");
+		let memNameError = document.getElementById("memNameError");
+
+		if (memSeq.value.trim() === "") {
+			memNameError.innerText = "주문자를 선택하세요";
+			memSeq.classList.add("is-invalid");
+			memSeq.classList.remove("is-valid");
+			return false;
+		} else {
+			memNameError.innerText = "";
+			memSeq.classList.remove("is-invalid");
+			memSeq.classList.add("is-valid");
+			return true;
+		}
+	}
+
+	function validateShName() {
+		let shName = document.getElementById("shName");
+		let shNameError = document.getElementById("shNameError");
+
+		if (shName.value.trim() === "") {
+			shNameError.innerText = "신발을 선택하세요";
+			shName.classList.add("is-invalid");
+			shName.classList.remove("is-valid");
+			return false;
+		} else {
+			shNameError.innerText = "";
+			shName.classList.remove("is-invalid");
+			shName.classList.add("is-valid");
+			return true;
+		}
+	}
+
+	function validateShSizeCd() {
+		let shSizeCd = document.getElementById("shSizeCd");
+		let shSizeCdError = document.getElementById("shSizeCdError");
+
+		if (shSizeCd.value.trim() === "") {
+			shSizeCdError.innerText = "사이즈를 선택하세요";
+			shSizeCd.classList.add("is-invalid");
+			shSizeCd.classList.remove("is-valid");
+			return false;
+		} else {
+			shSizeCdError.innerText = "";
+			shSizeCd.classList.remove("is-invalid");
+			shSizeCd.classList.add("is-valid");
+			return true;
+		}
+	}
+
+	function validateShOrderCount() {
+		let shOrderCount = document.getElementById("shOrderCount");
+		let shOrderCountError = document.getElementById("shOrderCountError");
+		let value = shOrderCount.value.trim();
+
+		if (value === "") {
+			shOrderCountError.innerText = "수량을 입력하세요";
+			shOrderCount.classList.add("is-invalid");
+			shOrderCount.classList.remove("is-valid");
+			return false;
+		} else if (!/^\d+$/.test(value) || parseInt(value) <= 0) {
+			shOrderCountError.innerText = "수량은 1개 이상 숫자로 입력하세요";
+			shOrderCount.classList.add("is-invalid");
+			shOrderCount.classList.remove("is-valid");
+			return false;
+		} else {
+			shOrderCountError.innerText = "";
+			shOrderCount.classList.remove("is-invalid");
+			shOrderCount.classList.add("is-valid");
+			return true;
+		}
+	}
+
+	// ===== AJAX 처리 =====
+
+	// 주문자 선택시 주문자 정보 뜨는Proc
 	$('#memSeq').on('change', function () {
 	    $.ajax({
-	    	async: true 
-			,cache: false
-			,type: "post"
-			/* ,dataType:"json" */
-			,url: "/selectOneMemberProc"
-			/* ,data : $("#formLogin").serialize() */
-			,data : { "memSeq" : $("#memSeq").val()}
-			,success: function(response) {
-				   $('#memId').val(response.memId);
-				    $('#memAddress').val(response.memAddress);
-				    $('#memId').text(response.memId);
-				    $('#memAddress').text(response.memAddress);
-	         
-	        }
-	        
+	    	async: true,
+			cache: false,
+			type: "post",
+			url: "/selectOneMemberProc",
+			data: { "memSeq": $("#memSeq").val() },
+			success: function(response) {
+				$('#memId').val(response.memId);
+				$('#memAddress').val(response.memAddress);
+				$('#memId').text(response.memId);
+				$('#memAddress').text(response.memAddress);
+			}
 	    });
 	});
-//신발 선택시 size보여주는 Proc
-$('#shName').on('change', function () {
-	let selectedshName =  $(this).val();
- 
-    if (selectedshName != "") {
-	    $.ajax({
-	    	async: true 
-			,cache: false
-			,type: "post"
-			/* ,dataType:"json" */
-			,url: "/selectOneShoesSizeProc"
-			/* ,data : $("#formLogin").serialize() */
-			,data : { "shName" : $("#shName").val()}
-			,success: function(response) {
-				  
-				//sizeCd셀렉트박스 초기화
-				 $('#shSizeCd').empty();
-				  $('#shSizeCd').append('<option value="">선택하세요</option>');
-				//셀렉트박스 활성화
-				$('#shSizeCd').prop('disabled', false);
-				
-				//컨트롤러에서 받아온 sizeList를 배열로 뿌려줌
-				response.sizeList.forEach(function(item) {
-					//받아온 shSizeCd를 클라이언트에서 보일땐 변환해서 보여줌
-					  let displayText = item.shSizeCd; 
-					  if (item.shSizeCd === 8) {
-	                        displayText = '230';
-	                    } else if (item.shSizeCd === 9) {
-	                        displayText = '240';
-	                    
-	                    } else if (item.shSizeCd === 10) {
-	                        displayText = '250';
-	                    
-	                    } else if (item.shSizeCd ===11) {
-	                        displayText = '260';
-	                    
-	                    } else if (item.shSizeCd ===12) {
-	                        displayText = '270';
-	                 
-	                    } else if (item.shSizeCd === 13) {
-	                        displayText = '280';
-	                    }else{
-	                    	
-	                    }
-	              
-			        $('#shSizeCd').append('<option value="' + item.shSizeCd + '">' + displayText + '</option>');
-			    });
-				
-                $('#shSizeCd').selectpicker('refresh');
-	        }
-	        
-	    });
-    } else {
-        //sizeCd셀렉트박스 초기화
-		 $('#shSizeCd').empty();
-		 $('#shSizeCd').append('<option value="">선택하세요</option>');
-        // 선택하세요로 돌아온 경우 → 두 번째 셀렉트박스 다시 비활성화
-        $('#shSizeCd').prop('disabled', true);
-        $('#shSizeCd').selectpicker('refresh');
-    }
-});
 
-//신발이선택되고 사이즈도 선택됐을씨 shSeq를 가져오는Proc
-$('#shSizeCd').on('change', function() {
-//     let selectedshName = $('#shName').val();
-//     let selectedshSizeCd = $(this).val();
-	 if ($('#shName').val() !== "" && $('#shSizeCd').val() !== "") {
-        $.ajax({
-            async: true,
-            cache: false,
-            type: "post",
-            url: "/selectOneShoesProc", 
-            data: {"shName" : $("#shName").val(),"shSizeCd" : $("#shSizeCd").val()},
-            success: function(response) {
-              	
-            	 $("#shSeq").val(response.shSeq);
-            }
-        });
-    }
-});
+	// 신발 선택 시 사이즈 리스트 로딩
+	$('#shName').on('change', function () {
+		validateShName();
+		let selectedshName = $(this).val();
 
-document.getElementById("btnSubmit").onclick= function(){
+		if (selectedshName !== "") {
+			$.ajax({
+				type: "POST",
+				url: "/selectOneShoesSizeProc",
+				data: { shName: selectedshName },
+				success: function (response) {
+					$('#shSizeCd').empty().append('<option value="">선택하세요</option>').prop('disabled', false);
+					response.sizeList.forEach(function (item) {
+						let sizeText = {
+							8: "230", 9: "240", 10: "250", 11: "260", 12: "270", 13: "280"
+						}[item.shSizeCd] || item.shSizeCd;
 
-	let form = document.getElementById("form");
-	form.action="/OrderXdmInst";
-	form.submit();
-}
+						$('#shSizeCd').append(`<option value="${item.shSizeCd}">${sizeText}</option>`);
+					});
+					$('#shSizeCd').selectpicker('refresh');
+				}
+			});
+		} else {
+			$('#shSizeCd').empty().append('<option value="">선택하세요</option>').prop('disabled', true).selectpicker('refresh');
+		}
+	});
 
+	// 사이즈 선택 시 shSeq 설정
+	$('#shSizeCd').on('change', function () {
+		validateShSizeCd();
+		if ($('#shName').val() && $('#shSizeCd').val()) {
+			$.ajax({
+				type: "POST",
+				url: "/selectOneShoesProc",
+				data: {
+					shName: $('#shName').val(),
+					shSizeCd: $('#shSizeCd').val()
+				},
+				success: function (response) {
+					$("#shSeq").val(response.shSeq);
+				}
+			});
+		}
+	});
 
+	// ===== 폼 제출 =====
+	document.getElementById("btnSubmit").onclick = function (e) {
+		e.preventDefault(); // 기본 제출 방지
 
+		let isValid =
+			validateMemSeq() &&
+			validateShName() &&
+			validateShSizeCd() &&
+			validateShOrderCount();
+
+		if (isValid) {
+			let form = document.getElementById("form");
+			form.action = "/OrderXdmInst";
+			form.submit();
+		}
+	};
 </script>
+
+
+
 
 
 

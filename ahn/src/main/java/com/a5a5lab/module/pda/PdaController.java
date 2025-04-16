@@ -1,5 +1,4 @@
 package com.a5a5lab.module.pda;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +36,6 @@ public class PdaController {
 	public String DeliveryPda(Model model,PdaVo vo) {
 		
 		
-		
 		model.addAttribute("list", pdaService.FactoryOrderListDl(vo));
 		model.addAttribute("vo", vo);
 		
@@ -62,13 +60,16 @@ public class PdaController {
 	    return "redirect:/LnboundPad";
 	}
 	
+	// pda 배송하기 업데이트
 	@RequestMapping(value="/DeliveryPadUdate")
 	public String DeliveryPadUdate(PdaDto pdaDto) {
-		pdaService.updateDl(pdaDto);
+		pdaService.deliveryCompleted(pdaDto);
 		return "redirect:/DeliveryPda";
 	}
 
 	
+
+	// 발주 
 	@ResponseBody
 	@RequestMapping("/api/getInboundOrder")
 	public Map<String, Object> getInboundOrder(PdaDto pdaDto) throws Exception {
@@ -86,7 +87,32 @@ public class PdaController {
 
 	    return resultMap;
 	}
+	// 발주 
+	@ResponseBody
+	@RequestMapping("/api/getInboundOrder1")
+	public Map<String, Object> getInboundOrder1(PdaDto pdaDto) throws Exception {
+	    Map<String, Object> resultMap = new HashMap<>();
+	    
+	   PdaDto order = pdaService.selesctOne1(pdaDto);
+	   
+	   resultMap.put("orderSeq", order.getOrderSeq());
+	   resultMap.put("shName", order.getShName());
+	   resultMap.put("shSizeCd", CodeService.selectOneCachedCode(order.getShSizeCd()));
+	   resultMap.put("shOrderCount", order.getShOrderCount());
+	   resultMap.put("deliveryStatus", CodeService.selectOneCachedCode(order.getDeliveryStatus()));
+	    
+	    
+
+	    return resultMap;
+	}
 	
+	//Pda 배송하기 상세
+	@RequestMapping(value="/DeliveryDetailsPda")
+	public String DeliveryDetailsPda() {
+		
+		
+		return "/pda/DeliveryDetailsPda";
+	}
 	
 	
 	

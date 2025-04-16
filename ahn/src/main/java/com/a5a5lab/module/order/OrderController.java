@@ -33,6 +33,7 @@ public class OrderController {
 		    vo.setShDelNy(0);
 		}
 		
+		
 		//페이지 네이션
 		vo.setParamsPaging(orderService.selectOneCount(vo));
 		model.addAttribute("list", orderService.selectList(vo));
@@ -73,7 +74,6 @@ public class OrderController {
 	        .mapToInt(OrderDto::getSumPrice)
 	        .sum();
 	    model.addAttribute("totalSumPrice", totalSumPrice); 
-	    System.out.println(vo.getTotalRows());
 		
 		return "xdm/orderlist/OrderXdmView";
 	}
@@ -128,6 +128,7 @@ public class OrderController {
 	@RequestMapping(value = "/FactoryOrderXdmform")
 	public String FactoryOrderXdmform(Model model, OrderVo vo, OrderDto orderDto) {
 		
+	
 		model.addAttribute("list", orderService.selectMemberList(orderDto));
 		model.addAttribute("shoes", orderService.selectShoesList(orderDto));
 		model.addAttribute("vo", vo);
@@ -137,7 +138,19 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/ReceivingXdmList")
-	public String ReceivingXdmList(Model model) {
+	public String ReceivingXdmList(Model model,OrderVo vo) {
+		// 날짜 보정
+				vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
+				vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
+				
+				if (vo.getShDelNy() == null) {
+				    vo.setShDelNy(0);
+				}
+				
+				//페이지 네이션
+				vo.setParamsPaging(orderService.deliveryselectOneCount(vo));
+				model.addAttribute("list", orderService.deliveryList(vo));
+				model.addAttribute("vo", vo);
 		
 		return "xdm/receiving/ReceivingXdmList";
 	}

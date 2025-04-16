@@ -13,6 +13,69 @@
 	</update> -->
 	
 	
+<!--배송관리리스트보여주기-->
+	<select id="deliveryList">
+<!-- 	SELECT DISTINCT -->
+<!-- 		a.orderSeq, -->
+<!-- 		a.orderTypeCd, -->
+<!-- 		a.orderDelNy, -->
+<!-- 		c.memName, -->
+<!-- 		c.memId, -->
+<!-- 		c.memAddress, -->
+<!-- 		a.regDateTime, -->
+<!-- 		a.deliveryStatus, -->
+<!-- 		a.orderStatusCd -->
+<!-- 	FROM -->
+<!-- 		`order` AS a -->
+<!-- 	left join member AS c ON a.member_memSeq= c.memSeq -->
+<!-- 	WHERE 1=1 -->
+<!-- 	AND a.orderTypeCd = 20 -->
+<!-- 	AND  a.orderStatusCd=24 -->
+<!-- 	order by a.orderSeq DESC -->
+<!-- 리스트 뽑는 쿼리에서 LIMIT 써야 함 -->
+SELECT DISTINCT
+	a.orderSeq,
+	a.orderTypeCd,
+	a.orderDelNy,
+	c.memName,
+	c.memId,
+	c.memAddress,
+	a.regDateTime,
+	a.deliveryStatus,
+	a.orderStatusCd
+FROM `order` AS a
+LEFT JOIN member AS c ON a.member_memSeq = c.memSeq
+WHERE 1=1
+		<!-- 업데이트 삭제 여부 검색 -->
+	    <if test="shDelNy != null and !shDelNy.equals('')">AND a.orderDelNy = #{shDelNy}</if>  
+		
+
+		
+		<!-- 날짜 검색 기능 -->
+		<choose>
+			<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+		</choose>
+		
+		<!-- 검색 구분 검색 -->
+		<choose>
+        	<when test="shOption == 1">AND c.memId LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 2">AND c.memName LIKE CONCAT('%',#{shValue},'%')</when>
+            
+        </choose>
+        
+        <!-- 검색구분 배송상태 배송전 배송완료 기능 -->
+        <choose>
+			<when test="deliveryS == 18">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
+			<when test="deliveryS == 19">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
+		</choose>
+		AND a.orderTypeCd = 20
+		  AND (a.orderStatusCd = 24 OR a.orderStatusCd = 25)
+		ORDER BY a.orderSeq DESC
+		LIMIT #{startRnumForMysql}, #{rowNumToShow}
+
+		
+	</select>
 	
 	
 	
@@ -61,7 +124,15 @@
 			<when test="deliveryS == 19">AND a.deliveryStatus BETWEEN #{deliveryS} AND #{deliveryS}</when>
 		</choose>
 		
+		
+		 <!-- 검색구분 처리상태 출고요청 출고 완료 검색 -->
+        <choose>
+			<when test="deliveryS1 == 24">AND a.deliveryStatus BETWEEN #{deliveryS1} AND #{deliveryS1}</when>
+			<when test="deliveryS1 == 25">AND a.deliveryStatus BETWEEN #{deliveryS1} AND #{deliveryS1}</when>
+		</choose>
+		
 		AND a.orderTypeCd = 20
+		AND a.orderStatusCd = 23
 		
 		 
 		
@@ -88,7 +159,16 @@
 	    AND orderTypeCd 
 	    
 	</update>
+<!-- 배송관리카운트-->
+	<select id="deliveryselectOneCount" resultType="Integer">
 
+
+SELECT COUNT(*)
+FROM `order`
+WHERE orderTypeCd = 20
+  AND (orderStatusCd = 24 OR orderStatusCd = 25);
+
+	</select>
 	<!-- 주문카운트 -->
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)
@@ -96,6 +176,7 @@
 		`order`
 		WHERE 1=1
 		AND orderTypeCd = 20
+		AND orderStatusCd =23
 	</select>
 	<!-- 주문상세상품카운트 -->
 	<select id="selectOneOrderDetailCount" resultType="Integer">

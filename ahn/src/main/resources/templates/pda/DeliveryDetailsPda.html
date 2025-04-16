@@ -20,13 +20,13 @@
 <div class="pagetitle" style="display: flex; align-items: center; gap: 10px;">
 
   <!-- ⬅️ 입고 관리로 이동하는 버튼 -->
-  <a th:href="@{/LnboundPad}" 
+  <a th:href="@{/DeliveryPda}" 
      style="font-size: 20px; text-decoration: none; color: #4CAF50; font-weight: bold;">
     &lt;
   </a>
 
   <!-- 타이틀 텍스트 -->
-  <h1 style="font-size: 20px; margin: 0;">입고하기</h1>
+  <h1 style="font-size: 20px; margin: 0;">배송하기</h1>
 
 </div>
     <!-- 
@@ -49,7 +49,7 @@
                  <div class="form-line">
                      검색용 input
 					<input type="text" id="orderSeqInput" placeholder="발주번호 입력" class="form-control" onkeyup="enterkey(event)" />
-					<input type="text" id="orderSeq" name="orderSeq"  placeholder="발주번호 입력" class="form-control">
+					<input type="text" id="orderSeq" name="orderSeq"  placeholder="배송번호 입력" class="form-control">
 					실제 전송용 hidden input (검색 성공 시 채움)
 					
 
@@ -57,13 +57,13 @@
                   </div>
              </div>
         </div> -->
-        
-        
-<div class="col-sm-4">
+ 
+  
+ <div class="col-sm-4">
   <div class="form-group">
-    <label for="orderSeq">발주번호</label>
+    <label for="orderSeq">배송번호</label>
     <div class="input-group">
-      <input type="text" id="orderSeq" name="orderSeq" placeholder="발주번호 입력" class="form-control">
+      <input type="text" id="orderSeq" name="orderSeq" placeholder="배송번호 입력" class="form-control">
       <div class="input-group-append">
         <button type="button" id="search" class="btn btn-primary">
           <i class="bi bi-search"></i>
@@ -72,8 +72,7 @@
     </div>
   </div>
 </div>
-
-  
+ 
   
   
 
@@ -89,11 +88,11 @@
     <table style="width:100%; border-collapse:collapse; font-size:13px; background-color:#ffffff;">
       <thead>
         <tr style="background-color:#f9f9f9; border-bottom:1px solid #ddd;">
-          <th style="padding:8px; text-align:left;">발주번호</th>
+          <th style="padding:8px; text-align:left;">배송번호</th>
           <th style="padding:8px; text-align:left;">상품명</th>
           <th style="padding:8px; text-align:left;">사이즈</th>
           <th style="padding:8px; text-align:right;">수량</th>
-          <th style="padding:8px; text-align:right;">처리상태</th>
+          <th style="padding:8px; text-align:right;">배송상태</th>
         </tr>
       </thead>
 
@@ -119,12 +118,14 @@
     style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
     입고하기
   </button> -->
-  <button type="button" id="btnOrdering"  
-  
+  <button type="button" id="btnDelivery"
   style="margin-top:10px; width:100%; padding:10px; font-size:14px; background-color:#4CAF50; color:white; border:none; border-radius:5px;">
-  입고하기
+  배송하기
 </button>
 </div>
+
+
+
 
 
 
@@ -143,11 +144,12 @@
   
   
 <script type="text/javascript">
-  function searchOrderBySeq() {
+  // 검색 버튼 클릭 시 실행
+  document.getElementById("search").onclick = function () {
     const orderSeq = $("#orderSeq").val();
 
     if (!orderSeq) {
-      alert("주문번호를 입력해주세요.");
+      alert("배송번호를 입력해주세요.");
       return;
     }
 
@@ -160,7 +162,7 @@
       async: true,
       cache: false,
       type: "post",
-      url: "/api/getInboundOrder",
+      url: "/api/getInboundOrder1",
       data: { "orderSeq": orderSeq },
       success: function(response) {
         $("#resultOrder").empty();
@@ -171,41 +173,32 @@
             <td>${response.shName}</td>
             <td>${response.shSizeCd}</td>
             <td>${response.shOrderCount}</td>
-            <td>${response.orderStatusCd}</td>
+            <td>${response.deliveryStatus}</td>
           </tr>
         `);
 
+        // hidden input에 orderSeq 세팅
         $("#hiddenOrderSeq").val(response.orderSeq);
       },
       error: function() {
-        alert("발주 번호를 확인해주세요");
+        alert("배송번호를 확인해주세요");
       }
     });
-  }
-
-
-
-  // 검색 버튼 클릭 이벤트
-  document.getElementById("search").onclick = function () {
-    searchOrderBySeq(); // 같은 함수 호출
   };
-//   formaction="/LnboundPadUdate"
-// 	  formmethod="post"
- document.getElementById("btnOrdering").onclick=function(){
+  document.getElementById("btnDelivery").onclick=function(){
 	  let form = document.getElementById("form");
 	  let orderSeq= document.getElementById("orderSeq").value;
 	  if(orderSeq == ""){
-		  alert("발주번호를 선택해주세요.")
+		  alert("배송번호를 선택해주세요.")
 		  return false
 	  }else{
-		  form.action="/LnboundPadUdate";
+		  form.action="/DeliveryPadUdate";
 		  form.submit();
 		
 	  }
 	  
   }
 </script>
-
 
 
 

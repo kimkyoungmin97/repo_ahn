@@ -166,7 +166,7 @@
                                                 <input class="form-check-input row-checkbox" type="checkbox" th:id="'chk_' + ${list.cdgSeq}" th:value="${list.cdgSeq}">
                                                 <label class="form-check-label" th:for="'chk_' + ${list.cdgSeq}"></label>
                                             </td>
-                                            <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+                                            <td th:text="${(vo.thisPage - 1) * vo.rowNumToShow + listStat.index + 1}"></td>
                                             
                                             
                                             <td th:text="${list.cdgSeq}"></td>
@@ -184,13 +184,13 @@
                                     </tbody>
                                 </table>
                                
-                                <div style="text-align: center;">
+                                 <div style="text-align: center;">
 								  <ul class="pagination" >
 								  	  
 									
 									<li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item">
 										<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
-											<i>이전</i>
+											<i><<</i>
 										</a>
 									</li>
 									<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item">
@@ -198,7 +198,7 @@
 									</li>
 									<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" >
 										<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
-											<i>다음</i>
+											<i>>></i>
 										</a>
 									</li>
 								  

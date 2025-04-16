@@ -10,6 +10,11 @@ public interface OrderDao {
 	//주문 목록 리스트 뿌리기
 	public List <OrderDto> selectList(OrderVo vo);
 	
+	//배송 관리 리스트 뿌리기
+	public List <OrderDto> deliveryList(OrderVo vo);
+	
+	
+	
 	//창고 목록 리스트 뿌리기
 	public List <OrderDto> storageList(OrderVo vo);
 	
@@ -24,6 +29,7 @@ public interface OrderDao {
 	public int selectOneProductCount(OrderVo vo);
 	public int selectOneOrderingCount(OrderVo vo);
 	public int selectOneOrderDetailCount(OrderVo vo);
+	public int deliveryselectOneCount(OrderVo vo);
 	
 	//주문 상세 페이지
 	//한개의 주문

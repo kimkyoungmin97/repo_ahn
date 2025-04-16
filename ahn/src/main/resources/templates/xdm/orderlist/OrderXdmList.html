@@ -11,7 +11,7 @@
         <div class="container-fluid">
             
             <div class="block-header">
-                <h2>주문내역 목록</h2>
+                <h2>주문관리</h2>
             </div>
 
             <!-- Input -->
@@ -66,33 +66,34 @@
                                     </div>
                                      
                                        
-										    <div class="col-sm-12">
+										    
+										    <!-- <div class="col-sm-12">
 										        <div style="display: flex; align-items: center; gap: 30px;">
 										            <label style="font-weight: bold; margin-bottom: 0; min-width: 80px;">배송상태</label>
 										
 										            <div class="form-check">
-										                <input class="form-check-input" type="radio" name="deliveryS" id="radioDefault1" value="" th:checked="${vo.deliveryS == null}" checked>
-										                <label class="form-check-label" for="radioDefault1" >
+										                <input class="form-check-input" type="radio" name="deliveryS1" id="radioDefault11" value="" th:checked="${vo.deliveryS1 == null}" checked>
+										                <label class="form-check-label" for="radioDefault11" >
 										                    전체
 										                </label>
 										            </div>
 										
 										            <div class="form-check">
-										                <input class="form-check-input" type="radio" name="deliveryS" id="radioDefault2" value="18" th:checked="${vo.deliveryS == 18}">
-										                <label class="form-check-label" for="radioDefault2" >
-										                    배송전
+										                <input class="form-check-input" type="radio" name="deliveryS1" id="radioDefault22" value="24" th:checked="${vo.deliveryS1 == 24}">
+										                <label class="form-check-label" for="radioDefault22" >
+										                    출고요청
 										                </label>
 										            </div>
 										
 										            <div class="form-check">
-										                <input class="form-check-input" type="radio" name=deliveryS id="radioDefault3" value="19" th:checked="${vo.deliveryS == 19}">
-										                <label class="form-check-label" for="radioDefault3" >
-										                    배송완료
+										                <input class="form-check-input" type="radio" name=deliveryS1 id="radioDefault33" value="25" th:checked="${vo.deliveryS1 == 25}">
+										                <label class="form-check-label" for="radioDefault33" >
+										                    출고완료
 										                </label>
 										            </div>
 										        </div>
 										    </div>
-										    <br> <br> <br> <br>
+										    <br> <br> <br> <br> -->
 										
                                     <div class="row clearfix">
                                     
@@ -184,7 +185,7 @@
 												<label class="form-check-label" th:for="'chk_' + ${list.orderSeq}"></label>
 
 											</th> 
-                                             <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+                                             <td th:text="${(vo.thisPage - 1) * vo.rowNumToShow + listStat.index + 1}"></td>
                                              <td><a th:href="@{/OrderXdmView(orderSeq=${list.orderSeq})}" th:text="${list.orderSeq}"></a></td>
                                             <td  th:text="${list.memId}"></td>
                                             <td th:text="${list.memName}"></td>

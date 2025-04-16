@@ -37,6 +37,7 @@ public class OrderVo {
 	private String shValue;
 	private Integer deliveryS; //배송상태 /* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private Integer orderS; //발주상태 /* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
+	private Integer deliveryS1;
 //	-----
 	
 //	검색 날짜
@@ -50,15 +51,11 @@ public class OrderVo {
 	public int getThisPage() {
 		return thisPage;
 	}
-	/**
-	 * @return the orderS
-	 */
+
 	public Integer getOrderS() {
 		return orderS;
 	}
-	/**
-	 * @param orderS the orderS to set
-	 */
+
 	public void setOrderS(Integer orderS) {
 		this.orderS = orderS;
 	}
@@ -242,8 +239,6 @@ public class OrderVo {
 //		System.out.println("getTotalPages():" + getTotalPages());
 //		System.out.println("getStartPage():" + getStartPage());
 //		System.out.println("getEndPage():" + getEndPage());		
-//		System.out.println("getStartRnumForOracle():" + getStartRnumForOracle());
-//		System.out.println("getEndRnumForOracle():" + getEndRnumForOracle());
 //		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
 		
 	}
@@ -264,5 +259,11 @@ public class OrderVo {
 	}
 	public void setDeliveryS(Integer deliveryS) {
 		this.deliveryS = deliveryS;
+	}
+	public Integer getDeliveryS1() {
+		return deliveryS1;
+	}
+	public void setDeliveryS1(Integer deliveryS1) {
+		this.deliveryS1 = deliveryS1;
 	}
 }
